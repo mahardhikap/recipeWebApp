@@ -25,9 +25,9 @@ function NavbarNoLogin() {
                 <Link to={'#register'} className="text-decoration-none">
                   Register
                 </Link>
-                <a className="text-decoration-none" href="#">
+                <Link to={'/search-menu'} className="text-decoration-none">
                   Search Menu
-                </a>
+                </Link>
               </div>
               <div>
                   <div className='mt-4'>

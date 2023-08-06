@@ -21,9 +21,9 @@ function NavbarCustom() {
               <div className="navbar-nav gap-4 mt-4">
                 <Link to={'/home'} className="text-decoration-none">Home</Link>
                 <Link to={'/input-menu'} className="text-decoration-none">Add Menu</Link>
-                <a className="text-decoration-none" href="#">
+                <Link to={'/search-menu'} className="text-decoration-none">
                   Search Menu
-                </a>
+                </Link>
               </div>
               <div className="border-start border-warning border-4 ps-2">
                 <div className="d-flex align-items-center gap-3">
