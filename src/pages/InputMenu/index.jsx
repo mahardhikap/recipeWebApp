@@ -12,36 +12,6 @@ function InputMenu() {
     category_id: '2',
     image_url: '',
   });
-
-  // const cropToSquare = (file, size) => {
-  //   return new Promise((resolve) => {
-  //     const img = new Image();
-  
-  //     img.onload = () => {
-  //       const width = img.width;
-  //       const height = img.height;
-  //       const minDimension = Math.min(width, height);
-  
-  //       const canvas = document.createElement('canvas');
-  //       canvas.width = size;
-  //       canvas.height = size;
-  
-  //       const ctx = canvas.getContext('2d');
-  
-  //       // Calculate cropping position to center the image
-  //       const offsetX = (width - minDimension) / 2;
-  //       const offsetY = (height - minDimension) / 2;
-  
-  //       ctx.drawImage(img, offsetX, offsetY, minDimension, minDimension, 0, 0, size, size);
-  
-  //       canvas.toBlob((blob) => {
-  //         resolve(new File([blob], file.name, { type: file.type }));
-  //       }, file.type);
-  //     };
-  
-  //     img.src = URL.createObjectURL(file);
-  //   });
-  // };
   
   
   const postData = async (e) => {
@@ -50,10 +20,6 @@ function InputMenu() {
     bodyFormData.append('title', inputData.title);
     bodyFormData.append('ingredients', inputData.ingredients);
     bodyFormData.append('category_id', inputData.category_id);
-    // if (image) {
-    //   const croppedImage = await cropToSquare(image, 400); // Set desired size here
-    //   bodyFormData.append('image', croppedImage);
-    // }
     bodyFormData.append('image', image);
     console.log(bodyFormData);
 

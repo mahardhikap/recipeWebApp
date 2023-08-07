@@ -6,6 +6,7 @@ import InputMenu from './pages/InputMenu';
 import UpdateMenu from './pages/UpdateMenu'
 import Home from './pages/Home';
 import SearchMenu from './pages/SearchMenu';
+import DetailMenu from './pages/SearchMenu/_id';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/input-menu" element={<InputMenu />} />
           <Route path="/home" element={<Home />} />
           <Route path="/search-menu" element={<SearchMenu />} />
+          <Route path="/detail-menu/:id" element={<DetailMenu />} />
         </Routes>
       </BrowserRouter>
     </>

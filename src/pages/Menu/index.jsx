@@ -103,7 +103,7 @@ function Menu() {
                   <div className="col-lg-6 col-md-6">
                     <h2>{item.title}</h2>
                     <p>{item.ingredients}</p>
-                    <div className="d-flex gap-3 flex-wrap col-sm-12 col-lg-6 mb-5">
+                    <div className="d-flex gap-3 flex-wrap col-sm-12 col-lg-6 mb-5" key={index}>
                       <Link to={`/update-menu/${item.id}`} className="w-100">
                         <button className="p-3 border-0 bg-success rounded text-white w-100">
                           Update

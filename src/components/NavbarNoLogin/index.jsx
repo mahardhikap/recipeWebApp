@@ -19,19 +19,19 @@ function NavbarNoLogin() {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
               <div className="navbar-nav gap-4 mt-4">
-                <Link to={'/home'} className="text-decoration-none">
+                <Link to={'/home'} className="text-decoration-none text-black">
                   Home
                 </Link>
-                <Link to={'#register'} className="text-decoration-none">
+                <Link to={'#register'} className="text-decoration-none text-black">
                   Register
                 </Link>
-                <Link to={'/search-menu'} className="text-decoration-none">
+                <Link to={'/search-menu'} className="text-decoration-none text-black">
                   Search Menu
                 </Link>
               </div>
               <div>
                   <div className='mt-4'>
-                    <Link to={'/menu'}>Login</Link>
+                    <Link to={'/menu'} className='text-decoration-none text-black'>Login</Link>
                   </div>
               </div>
             </div>

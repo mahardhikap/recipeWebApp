@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
-import { useNavigate, Link } from 'react-router-dom';
+// import { useParams } from 'react-router';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJkaGlrYSIsImVtYWlsIjoiZGhpa2FAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkdWk4MzJDS1REOEhXaFhtZzNHSEgwLmhSeHBhVUR6NHkwaHpFemZieXQ0U2UvaGppU0YyenkiLCJwaG90byI6ImRlZmF1bHQucG5nIiwicm9sZXMiOiJhZG1pbiIsImlhdCI6MTY5MTIyMjk3M30.D7lQDroJ2j3Mi053CFP0yOe7SRf5HAzUpDYM_-kNJVI`;
 
 function UpdateMenu() {
@@ -17,7 +17,7 @@ function UpdateMenu() {
 
   const getData = () => {
     axios
-      .get(`http://localhost:3000/recipebyid/${id}`, {
+      .get(`http://localhost:3000/recipe/id/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

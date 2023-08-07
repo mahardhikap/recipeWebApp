@@ -1,57 +1,67 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Alert from './../../components/Alert';
+import { Link, useParams } from 'react-router-dom';
 import NavbarNoLogin from '../../components/NavbarNoLogin';
 import Footer from '../../components/Footer';
 
-let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJkaGlrYSIsImVtYWlsIjoiZGhpa2FAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkdWk4MzJDS1REOEhXaFhtZzNHSEgwLmhSeHBhVUR6NHkwaHpFemZieXQ0U2UvaGppU0YyenkiLCJwaG90byI6ImRlZmF1bHQucG5nIiwicm9sZXMiOiJhZG1pbiIsImlhdCI6MTY5MTIyMjk3M30.D7lQDroJ2j3Mi053CFP0yOe7SRf5HAzUpDYM_-kNJVI`;
-
 function SearchMenu() {
-  const navigate = useNavigate();
   const [data, setData] = useState();
   const [sortby, setSortby] = useState('created_at');
   const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(3);
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertData, setAlertData] = useState({
-    type: '',
-    message: '',
-  });
+  const { title } = useParams();
+  const [search, setSearch] = useState('');
 
   const getData = () => {
     axios
       .get(
-        `http://localhost:3000/recipe/sorted?sortby=${sortby}&sort=${sort}&page=${currentPage}&limit=${limit}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `http://localhost:3000/recipe/sorted?sortby=${sortby}&sort=${sort}&page=${currentPage}&limit=${limit}`
       )
       .then((res) => {
         console.log(res);
         setData(res.data.data);
         setPage(res.data.status);
         setCurrentPage(res.data.status.pageNow);
-        navigate('/search-menu');
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
+  const getSearchData = () => {
+    if (search) {
+      axios
+        .get(`http://localhost:3000/recipe/searched?search=${search}`)
+        .then((res) => {
+          console.log(res);
+          setData(res.data.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      getData();
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+    console.log(e.target.value)
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    getSearchData();
+  };
+
+
   useEffect(() => {
     getData();
-    setAlertData({
-      ...alertData,
-      type: 'primary',
-      message: 'berhasil get data',
-    });
-    setShowAlert(true);
-    window.scrollTo(0, 0)
+    getSearchData();
+    window.scrollTo(0, 0);
   }, [currentPage]);
 
   return (
@@ -62,18 +72,26 @@ function SearchMenu() {
         <div className="obstacle2 position-absolute"></div>
         <h1 className="text-purple">Discover Recipe & Delicious Food</h1>
         <div className="d-flex gap-2 flex-wrap row">
-          <div className="col-sm-12 col-md-6 col-lg-6">
-            <input
-              type="text"
-              placeholder="Telur Gulung"
-              className="p-3 rounded bg-body-secondary border-0 w-100 form-control"
-            />
-          </div>
-          <div className="col-sm-12 col-md-3 col-lg-3">
-            <button className="rounded p-3 border-0 text-white w-100 button-custom">
-              Search
-            </button>
-          </div>
+          <form className="row gap-3" onSubmit={handleSearchSubmit}>
+            <div className="col-sm-12 col-md-6 col-lg-6">
+              <input
+                type="text"
+                name="search"
+                placeholder="Telur Gulung"
+                value={search}
+                onChange={handleSearchChange}
+                className="p-3 rounded bg-body-secondary border-0 w-100 form-control"
+              />
+            </div>
+            <div className="col-sm-12 col-md-3 col-lg-3">
+              <button
+                type="submit"
+                className="rounded p-3 border-0 text-white w-100 button-custom bg-warning"
+              >
+                Search
+              </button>
+            </div>
+          </form>
         </div>
         <div className="mt-3 d-flex gap-3 flex-wrap">
           <button className="rounded p-1 border-0 text-white bg-warning">
@@ -89,24 +107,36 @@ function SearchMenu() {
             Breakfast
           </button>
         </div>
-        {data?.map((item) => {
+        {data?.map((item, index) => {
           return (
             <>
               <div className="row mt-5 align-items-center">
                 <div className="col-sm-12 col-md-6 col-lg-6">
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="img-thumbnail ratio ratio-1x1"
-                    style={{
-                      width: '500px',
-                      height: '300px',
-                      objectFit: 'cover',
-                    }}
-                  />
+                  <Link
+                    to={`/detail-menu/${item.id}`}
+                    className="text-decoration-none text-black"
+                  >
+                    <img
+                      src={item.image}
+                      alt=""
+                      className="img-thumbnail ratio ratio-1x1"
+                      style={{
+                        width: '500px',
+                        height: '300px',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </Link>
                 </div>
                 <div className="col-sm-12 col-md-6 col-lg-6 pe-5">
-                  <h2>{item.title}</h2>
+                  <h2 key={index}>
+                    <Link
+                      to={`/detail-menu/${item.id}`}
+                      className="text-decoration-none text-black"
+                    >
+                      {item.title}
+                    </Link>
+                  </h2>
                   <p>{item.ingredients}</p>
                   <div className="w-75">
                     <div className="bg-warning rounded p-3 text-center text-white">
@@ -134,7 +164,7 @@ function SearchMenu() {
             onClick={() => setCurrentPage(currentPage - 1)} // Kembali ke halaman sebelumnya
             disabled={currentPage <= 1} // Menonaktifkan tombol jika sudah di halaman pertama
           >
-            Previous
+            Prev
           </button>
           Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}
           <button
@@ -146,7 +176,7 @@ function SearchMenu() {
           </button>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
