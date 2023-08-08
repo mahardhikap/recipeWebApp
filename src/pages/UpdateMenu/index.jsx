@@ -59,7 +59,7 @@ function UpdateMenu() {
       })
       .then((res) => {
         console.log(res);
-        navigate('/')
+        navigate('/menu')
       })
       .catch((error) => {
         console.error(error);

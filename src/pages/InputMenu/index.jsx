@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJkaGlrYSIsImVtYWlsIjoiZGhpa2FAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkdWk4MzJDS1REOEhXaFhtZzNHSEgwLmhSeHBhVUR6NHkwaHpFemZieXQ0U2UvaGppU0YyenkiLCJwaG90byI6ImRlZmF1bHQucG5nIiwicm9sZXMiOiJhZG1pbiIsImlhdCI6MTY5MTIyMjk3M30.D7lQDroJ2j3Mi053CFP0yOe7SRf5HAzUpDYM_-kNJVI`;
 
@@ -32,7 +32,7 @@ function InputMenu() {
       })
       .then((res) => {
         console.log(res);
-        navigate('/');
+        navigate('/menu');
       })
       .catch((error) => {
         console.error(error);
@@ -57,7 +57,7 @@ function InputMenu() {
     <div className="container">
       <div className="row col-lg-6 gap-3 mx-auto">
         <h1>Input Menu</h1>
-        <Link to={'/'}>Back</Link>
+        <Link to={'/menu'}>Back</Link>
         <form onSubmit={postData}>
           <input
             type="text"

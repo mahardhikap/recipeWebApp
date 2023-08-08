@@ -6,6 +6,7 @@ import NavbarNoLogin from '../../components/NavbarNoLogin';
 function DetailMenu() {
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const [recipe, setRecipeAmount] = useState(null);
 
   const getDataId = () => {
     axios
@@ -15,8 +16,20 @@ function DetailMenu() {
         setData(res.data.data[0]);
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error fetching data by ID:', error);
       });
+  };
+
+  const user = data?.users_id;
+
+  const getDataByUser = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/recipe/user/${user}`);
+      console.log('Data by user:', response);
+      setRecipeAmount(response.data.data);
+    } catch (error) {
+      console.error('Error fetching data by user:', error);
+    }
   };
 
   useEffect(() => {
@@ -24,6 +37,13 @@ function DetailMenu() {
     console.log(id);
     window.scrollTo(0, 0)
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      getDataByUser();
+    }
+  }, [data]);
+
   return (
     <>
     <NavbarNoLogin/>
@@ -36,7 +56,7 @@ function DetailMenu() {
               </div>
               <div>
                 <div>{data?.username}</div>
-                <div className="fw-bold">Amount Recipes</div>
+                <div className="fw-bold">{recipe?.length} Recipes</div>
               </div>
             </div>
             <div>

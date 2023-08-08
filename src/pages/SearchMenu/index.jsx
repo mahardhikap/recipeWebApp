@@ -10,7 +10,7 @@ function SearchMenu() {
   const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(5);
   const { title } = useParams();
   const [search, setSearch] = useState('');
 
@@ -37,6 +37,11 @@ function SearchMenu() {
         .then((res) => {
           console.log(res);
           setData(res.data.data);
+          setPage({
+            totalData: res.data.data.length, // Update totalData jumlah hasil search
+            pageNow: 1, // Reset pageNow ke 1 untuk hasil search
+            totalPage: 1, // Reset totalPage ke 1 untuk hasil search
+          });
         })
         .catch((error) => {
           console.error(error);
@@ -48,19 +53,18 @@ function SearchMenu() {
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
-    console.log(e.target.value)
+    console.log(e.target.value);
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
+    setCurrentPage(currentPage);
     getSearchData();
   };
 
-
   useEffect(() => {
-    getData();
     getSearchData();
+    getData();
     window.scrollTo(0, 0);
   }, [currentPage]);
 
@@ -161,16 +165,24 @@ function SearchMenu() {
         <div>
           <button
             className="rounded p-2 button-custom text-white border-0 bg-warning me-3"
-            onClick={() => setCurrentPage(currentPage - 1)} // Kembali ke halaman sebelumnya
-            disabled={currentPage <= 1} // Menonaktifkan tombol jika sudah di halaman pertama
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage <= 1}
           >
             Prev
           </button>
-          Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}
+          {search ? (
+            <span>
+              Show {data?.length} - 1 From 1{' '}
+            </span>
+          ) : (
+            <span>
+              Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}
+            </span>
+          )}
           <button
             className="rounded p-2 button-custom text-white border-0 bg-warning ms-3"
             onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage >= page?.totalPage}
+            disabled={currentPage >= (search ? 1 : page?.totalPage)}
           >
             Next
           </button>

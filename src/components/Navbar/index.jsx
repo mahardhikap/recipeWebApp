@@ -36,7 +36,7 @@ function NavbarCustom() {
                     </a>
                   </div>
                   <div>
-                    <div className="m-0 p-0">Ayudia</div>
+                    <div className="m-0 p-0">Dhika</div>
                     <div className="m-0 p-0 fw-bold">
                       <a
                         href="#"
