@@ -12,8 +12,8 @@ function InputMenu() {
     category_id: '2',
     image_url: '',
   });
-  
-  
+  const [categories, setCategories] = useState([]);
+
   const postData = async (e) => {
     e.preventDefault();
     let bodyFormData = new FormData();
@@ -40,8 +40,8 @@ function InputMenu() {
   };
 
   const onChange = (e) => {
-    setInputData({ ...inputData, [e.target.name]: e.target.value });
-    console.log(inputData);
+    const { name, value } = e.target;
+    setInputData({ ...inputData, [name]: value });
   };
 
   const onChangeImage = (e) => {
@@ -52,6 +52,22 @@ function InputMenu() {
         image_url: URL.createObjectURL(e.target.files[0]),
       });
   };
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/category', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setCategories(res.data.data); 
+        console.log('respon category', res)// Menyimpan daftar kategori dari respons server
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <div className="container">
@@ -67,14 +83,25 @@ function InputMenu() {
             className="w-100 mb-5 p-3 form-control border-2"
             placeholder="title"
           />
-          <input
-            type="text"
+          <textarea
             name="ingredients"
             value={inputData.ingredients}
             onChange={onChange}
             className="w-100 mb-5 p-3 form-control border-2"
-            placeholder="ingredients"
+            placeholder="Ingredients"
           />
+          <select
+            name="category_id"
+            value={inputData.category_id}
+            onChange={onChange}
+            className="w-100 mb-5 p-3 form-control border-2"
+          >
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
           <input
             type="file"
             name="image"

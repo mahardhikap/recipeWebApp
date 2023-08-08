@@ -140,6 +140,7 @@ function SearchMenu() {
                     >
                       {item.title}
                     </Link>
+                    <span className="badge bg-secondary">{item.category}</span>
                   </h2>
                   <p>{item.ingredients}</p>
                   <div className="w-75">

@@ -170,7 +170,7 @@ function Menu() {
                     />
                   </div>
                   <div className="col-sm-12 col-md-6 col-lg-6">
-                    <h2>{item.title}</h2>
+                    <h2>{item.title} <span className="badge bg-secondary">{item.category}</span></h2>
                     <p>{item.ingredients}</p>
                     <div className="w-75">
                       <div className="bg-warning rounded p-3 text-center text-white">
