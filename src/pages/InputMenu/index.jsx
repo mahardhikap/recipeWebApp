@@ -13,6 +13,7 @@ function InputMenu() {
     image_url: '',
   });
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const postData = async (e) => {
     e.preventDefault();
@@ -32,10 +33,12 @@ function InputMenu() {
       })
       .then((res) => {
         console.log(res);
+        setLoading(false);
         navigate('/menu');
       })
       .catch((error) => {
-        console.error(error);
+        console.error('axios error', error);
+        setLoading(false);
       });
   };
 
@@ -134,8 +137,9 @@ function InputMenu() {
           <button
             type="submit"
             className="p-3 bg-warning w-100 rounded border-0 text-white mt-5"
+            disabled={loading}
           >
-            Submit Menu
+            {loading ? 'Submitting...' : 'Submit Menu'}
           </button>
         </form>
       </div>
