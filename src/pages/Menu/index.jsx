@@ -99,7 +99,7 @@ function Menu() {
         });
         setShowAlert(true);
         window.scrollTo(0, 0)
-        setData([]);
+        setData((prevData) => prevData.filter((item) => item.id !== id));
       });
   };
 
