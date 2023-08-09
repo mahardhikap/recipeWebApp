@@ -13,7 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/menu" replace={true} />} />
+          <Route path="/" element={<Navigate to="/home" replace={true} />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/update-menu/:id" element={<UpdateMenu />} />
           {/* <Route path="/menu-detail/:id" element={<MenuDetail />} /> */}
