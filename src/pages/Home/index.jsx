@@ -16,7 +16,7 @@ function Home() {
             </h1>
             <div className="position-relative">
               <img
-                src="/public/images/index/Group-687.webp"
+                src="/Group-687.webp"
                 alt=""
                 className="position-absolute top-50 start-0 translate-middle ms-4"
               />
@@ -30,7 +30,7 @@ function Home() {
           <div className="col-sm-12 col-md-6 col-lg-6 my-3 order-1 order-md-2">
             <a href="./menu/detail-menu.html">
               <img
-                src="/public/images/index/Rectangle-313.webp"
+                src="/Rectangle-313.webp"
                 alt=""
                 className="w-100"
               />
@@ -52,7 +52,7 @@ function Home() {
               <div className="bullets" />
             </div>
             <img
-              src="/public/images/index/Rectangle-3131.webp"
+              src="/Rectangle-3131.webp"
               alt=""
               className="w-100"
             />
@@ -77,7 +77,7 @@ function Home() {
           </div>
           <div className="col-sm-12 col-md-6 col-lg-6 mt-5 mb-3 position-relative square-block">
             <img
-              src="/public/images/index/Rectangle-3132.webp"
+              src="/Rectangle-3132.webp"
               alt=""
               className="w-100"
             />
@@ -103,7 +103,7 @@ function Home() {
           <div className="w-100 d-flex flex-wrap gap-5 my-5 justify-content-center popular-recipe-font">
             <div className="col-sm-12 col-md-4 col-lg-3 position-relative">
               <img
-                src="/public/images/index/Rectangle-314.webp"
+                src="/Rectangle-314.webp"
                 alt=""
                 className="w-100"
               />
@@ -113,7 +113,7 @@ function Home() {
             </div>
             <div className="col-sm-12 col-md-4 col-lg-3 position-relative">
               <img
-                src="/public/images/index/Rectangle-315.webp"
+                src="/Rectangle-315.webp"
                 alt=""
                 className="w-100"
               />
@@ -123,7 +123,7 @@ function Home() {
             </div>
             <div className="col-sm-12 col-md-4 col-lg-3 position-relative">
               <img
-                src="/public/images/index/Rectangle-316.webp"
+                src="/Rectangle-316.webp"
                 alt=""
                 className="w-100"
               />
@@ -133,7 +133,7 @@ function Home() {
             </div>
             <div className="col-sm-12 col-md-4 col-lg-3 position-relative">
               <img
-                src="/public/images/index/Rectangle-317.webp"
+                src="/Rectangle-317.webp"
                 alt=""
                 className="w-100"
               />
@@ -143,7 +143,7 @@ function Home() {
             </div>
             <div className="col-sm-12 col-md-4 col-lg-3 position-relative">
               <img
-                src="/public/images/index/Rectangle-318.webp"
+                src="/Rectangle-318.webp"
                 alt=""
                 className="w-100"
               />
@@ -153,7 +153,7 @@ function Home() {
             </div>
             <div className="col-sm-12 col-md-4 col-lg-3 position-relative">
               <img
-                src="/public/images/index/Rectangle-319.webp"
+                src="/Rectangle-319.webp"
                 alt=""
                 className="w-100"
               />
