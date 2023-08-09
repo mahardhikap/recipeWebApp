@@ -35,34 +35,33 @@ function Menu() {
   //     });
   // };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://scary-cyan-salamander.cyclic.app/recipe/sorted?sortby=created_at&sort=DESC&page=${currentPage}&limit=${limit}`
-        );
-  
-        const user = response.data.data[0].users_id;
-        const userResponse = await axios.get(`https://scary-cyan-salamander.cyclic.app/recipe/user/${user}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://scary-cyan-salamander.cyclic.app/recipe/sorted?sortby=created_at&sort=DESC&page=${currentPage}&limit=${limit}`
+      );
 
-        console.log('data response', response)
-        console.log('user response', userResponse)
+      const user = response.data.data[0].users_id;
+      const userResponse = await axios.get(`https://scary-cyan-salamander.cyclic.app/recipe/user/${user}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log('data response', response)
+      console.log('user response', userResponse)
+
+      setData(response.data.data);
+      setPage(response.data.status);
+      setCurrentPage(response.data.status.pageNow);
+      setRecipeAmount(userResponse.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
-        setData(response.data.data);
-        setPage(response.data.status);
-        setCurrentPage(response.data.status.pageNow);
-        setRecipeAmount(userResponse.data.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
+  useEffect(() => {
     fetchData();
-  
     setAlertData({
       ...alertData,
       type: 'primary',
