@@ -5,7 +5,7 @@ import Alert from './../../components/Alert';
 import Footer from '../../components/Footer';
 import NavbarCustom from '../../components/Navbar';
 
-let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJkaGlrYSIsImVtYWlsIjoiZGhpa2FAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkdWk4MzJDS1REOEhXaFhtZzNHSEgwLmhSeHBhVUR6NHkwaHpFemZieXQ0U2UvaGppU0YyenkiLCJwaG90byI6ImRlZmF1bHQucG5nIiwicm9sZXMiOiJhZG1pbiIsImltZ19pZCI6bnVsbCwiaWF0IjoxNjkxNTA4MzQwfQ.nCPCZPmwCrYHECVP4zKzKyxsM6s517FsI7ayTKoWmP4`;
+let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkLnl6QllkRDZQUlpKVHRwdHVRZHVOdTlYS3Z4eVNGZ0dxak9VbTlTVng3ejdRY3RuLnM3aU8iLCJwaG90byI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2R4YW8wNmFwci9pbWFnZS91cGxvYWQvdjE2OTE1MDM5MDQvcmVjaXBlL29wd2R2ZGxub3RpbzBndHU3dzFxLmpwZyIsInJvbGVzIjoiYWRtaW4iLCJpbWdfaWQiOiJyZWNpcGUvb3B3ZHZkbG5vdGlvMGd0dTd3MXEiLCJpYXQiOjE2OTE1NTQ5MDd9.Z-FNpHBr61PK7ixlcwULOV1vv1FyU6Fm4YPBgFiEhw8`;
 
 function Menu() {
   // const navigate = useNavigate();
@@ -39,11 +39,11 @@ function Menu() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/recipe/sorted?sortby=created_at&sort=DESC&page=${currentPage}&limit=${limit}`
+          `https://long-rose-scorpion-yoke.cyclic.app/recipe/sorted?sortby=created_at&sort=DESC&page=${currentPage}&limit=${limit}`
         );
   
         const user = response.data.data[0].users_id;
-        const userResponse = await axios.get(`http://localhost:3000/recipe/user/${user}`, {
+        const userResponse = await axios.get(`https://long-rose-scorpion-yoke.cyclic.app/recipe/user/${user}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -74,7 +74,7 @@ function Menu() {
 
   const deleteData = (id) => {
     axios
-      .delete(`http://localhost:3000/recipe/${id}`, {
+      .delete(`https://long-rose-scorpion-yoke.cyclic.app/recipe/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

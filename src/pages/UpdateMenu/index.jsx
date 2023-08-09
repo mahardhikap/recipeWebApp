@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 
 
-let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJkaGlrYSIsImVtYWlsIjoiZGhpa2FAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkdWk4MzJDS1REOEhXaFhtZzNHSEgwLmhSeHBhVUR6NHkwaHpFemZieXQ0U2UvaGppU0YyenkiLCJwaG90byI6ImRlZmF1bHQucG5nIiwicm9sZXMiOiJhZG1pbiIsImltZ19pZCI6bnVsbCwiaWF0IjoxNjkxNTA4MzQwfQ.nCPCZPmwCrYHECVP4zKzKyxsM6s517FsI7ayTKoWmP4`;
+let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkLnl6QllkRDZQUlpKVHRwdHVRZHVOdTlYS3Z4eVNGZ0dxak9VbTlTVng3ejdRY3RuLnM3aU8iLCJwaG90byI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2R4YW8wNmFwci9pbWFnZS91cGxvYWQvdjE2OTE1MDM5MDQvcmVjaXBlL29wd2R2ZGxub3RpbzBndHU3dzFxLmpwZyIsInJvbGVzIjoiYWRtaW4iLCJpbWdfaWQiOiJyZWNpcGUvb3B3ZHZkbG5vdGlvMGd0dTd3MXEiLCJpYXQiOjE2OTE1NTQ5MDd9.Z-FNpHBr61PK7ixlcwULOV1vv1FyU6Fm4YPBgFiEhw8`;
 
 function UpdateMenu() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function UpdateMenu() {
 
   const getData = () => {
     axios
-      .get(`http://localhost:3000/recipe/id/${id}`, {
+      .get(`https://long-rose-scorpion-yoke.cyclic.app/recipe/id/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,7 +54,7 @@ function UpdateMenu() {
     console.log(bodyFormData);
 
     axios
-      .put(`http://localhost:3000/recipe/${id}`, bodyFormData, {
+      .put(`https://long-rose-scorpion-yoke.cyclic.app/recipe/${id}`, bodyFormData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -85,7 +85,7 @@ function UpdateMenu() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/category', {
+      .get('https://long-rose-scorpion-yoke.cyclic.app/category', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
