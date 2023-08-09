@@ -39,11 +39,11 @@ function Menu() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://long-rose-scorpion-yoke.cyclic.app/recipe/sorted?sortby=created_at&sort=DESC&page=${currentPage}&limit=${limit}`
+          `https://scary-cyan-salamander.cyclic.app/recipe/sorted?sortby=created_at&sort=DESC&page=${currentPage}&limit=${limit}`
         );
   
         const user = response.data.data[0].users_id;
-        const userResponse = await axios.get(`https://long-rose-scorpion-yoke.cyclic.app/recipe/user/${user}`, {
+        const userResponse = await axios.get(`https://scary-cyan-salamander.cyclic.app/recipe/user/${user}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -74,7 +74,7 @@ function Menu() {
 
   const deleteData = (id) => {
     axios
-      .delete(`https://long-rose-scorpion-yoke.cyclic.app/recipe/${id}`, {
+      .delete(`https://scary-cyan-salamander.cyclic.app/recipe/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

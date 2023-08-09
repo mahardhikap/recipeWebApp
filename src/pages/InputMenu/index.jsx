@@ -25,7 +25,7 @@ function InputMenu() {
     console.log(bodyFormData);
 
     axios
-      .post('https://long-rose-scorpion-yoke.cyclic.app/recipe', bodyFormData, {
+      .post('https://scary-cyan-salamander.cyclic.app/recipe', bodyFormData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -58,7 +58,7 @@ function InputMenu() {
 
   useEffect(() => {
     axios
-      .get('https://long-rose-scorpion-yoke.cyclic.app/category', {
+      .get('https://scary-cyan-salamander.cyclic.app/category', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
