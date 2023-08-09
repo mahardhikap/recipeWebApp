@@ -35,7 +35,7 @@ function SearchMenu() {
       axios
         .get(`http://localhost:3000/recipe/searched?search=${search}`)
         .then((res) => {
-          console.log(res);
+          console.log('ini res search', res);
           setData(res.data.data);
           setPage({
             totalData: res.data.data.length, // Update totalData jumlah hasil search
@@ -45,6 +45,7 @@ function SearchMenu() {
         })
         .catch((error) => {
           console.error(error);
+          alert('data tidak ditemukan');
         });
     } else {
       getData();
@@ -172,9 +173,7 @@ function SearchMenu() {
             Prev
           </button>
           {search ? (
-            <span>
-              Show {data?.length} - 1 From 1{' '}
-            </span>
+            <span>Show {data?.length} - 1 From 1 </span>
           ) : (
             <span>
               Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}

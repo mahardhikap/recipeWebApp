@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJkaGlrYSIsImVtYWlsIjoiZGhpa2FAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkdWk4MzJDS1REOEhXaFhtZzNHSEgwLmhSeHBhVUR6NHkwaHpFemZieXQ0U2UvaGppU0YyenkiLCJwaG90byI6ImRlZmF1bHQucG5nIiwicm9sZXMiOiJhZG1pbiIsImlhdCI6MTY5MTIyMjk3M30.D7lQDroJ2j3Mi053CFP0yOe7SRf5HAzUpDYM_-kNJVI`;
+let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJkaGlrYSIsImVtYWlsIjoiZGhpa2FAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkdWk4MzJDS1REOEhXaFhtZzNHSEgwLmhSeHBhVUR6NHkwaHpFemZieXQ0U2UvaGppU0YyenkiLCJwaG90byI6ImRlZmF1bHQucG5nIiwicm9sZXMiOiJhZG1pbiIsImltZ19pZCI6bnVsbCwiaWF0IjoxNjkxNTA4MzQwfQ.nCPCZPmwCrYHECVP4zKzKyxsM6s517FsI7ayTKoWmP4`;
 
 function InputMenu() {
   const navigate = useNavigate();
@@ -61,8 +61,8 @@ function InputMenu() {
         },
       })
       .then((res) => {
-        setCategories(res.data.data); 
-        console.log('respon category', res)// Menyimpan daftar kategori dari respons server
+        setCategories(res.data.data);
+        console.log('respon category', res); // Menyimpan daftar kategori dari respons server
       })
       .catch((error) => {
         console.error(error);
@@ -75,6 +75,27 @@ function InputMenu() {
         <h1>Input Menu</h1>
         <Link to={'/menu'}>Back</Link>
         <form onSubmit={postData}>
+          <label
+            htmlFor="file"
+            style={{
+              backgroundImage: `url(${image && inputData.image_url})`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              height: '300px',
+              // border: "2px solid grey",
+            }}
+            className="w-100 d-flex justify-content-center align-items-center rounded border border-2 mb-5"
+          >
+            Add Image
+          </label>
+          <input
+            className="d-none"
+            type="file"
+            onChange={onChangeImage}
+            name="image"
+            id="file"
+          />
           <input
             type="text"
             name="title"
@@ -87,6 +108,7 @@ function InputMenu() {
             name="ingredients"
             value={inputData.ingredients}
             onChange={onChange}
+            rows={5}
             className="w-100 mb-5 p-3 form-control border-2"
             placeholder="Ingredients"
           />
@@ -102,13 +124,13 @@ function InputMenu() {
               </option>
             ))}
           </select>
-          <input
+          {/* <input
             type="file"
             name="image"
             onChange={onChangeImage}
             className="form-control w-100 mb-3 p-3 border-2"
           />
-          {image && <img src={inputData.image_url} width={250} />}
+          {image && <img src={inputData.image_url} width={250} />} */}
           <button
             type="submit"
             className="p-3 bg-warning w-100 rounded border-0 text-white mt-5"

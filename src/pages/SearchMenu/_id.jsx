@@ -78,7 +78,17 @@ function DetailMenu() {
             />
           </div>
           <h3>Ingredients</h3>
-          <div>{data?.ingredients}</div>
+          <div>
+          {data?.ingredients.split(',').map((sour)=>{
+                      return (
+                        <>
+                          <ul>
+                        <li>{sour}</li>
+                      </ul>
+                        </>
+                      )
+                    })}
+          </div>
 
           <div className="d-flex gap-3 my-5">
             <div className="like rounded d-flex align-items-center justify-content-center">
