@@ -81,7 +81,7 @@ function Menu() {
       })
       .then((res) => {
         console.log(res);
-        fetchData()
+        
         setAlertData({
           ...alertData,
           type: 'warning',
@@ -89,6 +89,7 @@ function Menu() {
         });
         setShowAlert(true);
         window.scrollTo(0, 0)
+        fetchData()
       })
       .catch((error) => {
         console.error(error);
