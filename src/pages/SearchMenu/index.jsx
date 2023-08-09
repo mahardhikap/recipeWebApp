@@ -17,7 +17,7 @@ function SearchMenu() {
   const getData = () => {
     axios
       .get(
-        `https://long-rose-scorpion-yoke.cyclic.app/recipe/sorted?sortby=${sortby}&sort=${sort}&page=${currentPage}&limit=${limit}`
+        `https://scary-cyan-salamander.cyclic.app/recipe/sorted?sortby=${sortby}&sort=${sort}&page=${currentPage}&limit=${limit}`
       )
       .then((res) => {
         console.log(res);
@@ -33,7 +33,7 @@ function SearchMenu() {
   const getSearchData = () => {
     if (search) {
       axios
-        .get(`https://long-rose-scorpion-yoke.cyclic.app/recipe/searched?search=${search}`)
+        .get(`https://scary-cyan-salamander.cyclic.app/recipe/searched?search=${search}`)
         .then((res) => {
           console.log('ini res search', res);
           setData(res.data.data);

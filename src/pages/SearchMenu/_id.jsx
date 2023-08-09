@@ -10,7 +10,7 @@ function DetailMenu() {
 
   const getDataId = () => {
     axios
-      .get(`https://long-rose-scorpion-yoke.cyclic.app/recipe/id/${id}`)
+      .get(`https://scary-cyan-salamander.cyclic.app/recipe/id/${id}`)
       .then((res) => {
         console.log(res);
         setData(res.data.data[0]);
@@ -24,7 +24,7 @@ function DetailMenu() {
 
   const getDataByUser = async () => {
     try {
-      const response = await axios.get(`https://long-rose-scorpion-yoke.cyclic.app/recipe/user/${user}`);
+      const response = await axios.get(`https://scary-cyan-salamander.cyclic.app/recipe/user/${user}`);
       console.log('Data by user:', response);
       setRecipeAmount(response.data.data);
     } catch (error) {
