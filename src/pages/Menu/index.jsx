@@ -88,6 +88,7 @@ function Menu() {
         });
         setShowAlert(true);
         window.scrollTo(0, 0)
+        fetchData()
       })
       .catch((error) => {
         console.error(error);
