@@ -2,12 +2,22 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import NavbarNoLogin from '../../components/NavbarNoLogin';
+import NavbarCustom from '../../components/Navbar';
 
 function DetailMenu() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [recipe, setRecipeAmount] = useState(null);
   let url = import.meta.env.VITE_BASE_URL
+  let token = localStorage.getItem("token")
+
+  const navbarDisplay = () => {
+    if(!token) {
+      return <NavbarNoLogin/>
+    } else {
+      return <NavbarCustom/>
+    }
+  }
 
   const getDataId = () => {
     axios
@@ -47,7 +57,9 @@ function DetailMenu() {
 
   return (
     <>
-    <NavbarNoLogin/>
+    <div>
+      {navbarDisplay()}
+    </div>
       <section className="container w-100">
         <div className="col-sm-12 col-md-9 col-lg-9 mx-auto">
           <div className="d-flex align-items-center justify-content-between my-5 flex-wrap">

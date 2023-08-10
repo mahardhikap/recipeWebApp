@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import NavbarNoLogin from '../../components/NavbarNoLogin';
+import NavbarCustom from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 function SearchMenu() {
@@ -14,6 +15,7 @@ function SearchMenu() {
   const { title } = useParams();
   const [search, setSearch] = useState('');
   let url = import.meta.env.VITE_BASE_URL
+  let token = localStorage.getItem("token")
 
   const getData = () => {
     axios
@@ -53,6 +55,14 @@ function SearchMenu() {
     }
   };
 
+  const navbarDisplay = () => {
+    if(!token) {
+      return <NavbarNoLogin/>
+    } else {
+      return <NavbarCustom/>
+    }
+  }
+
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
     console.log(e.target.value);
@@ -72,7 +82,9 @@ function SearchMenu() {
 
   return (
     <>
-      <NavbarNoLogin />
+      <div>
+       {navbarDisplay()}
+      </div>
       <section className="container w-100 position-relative mt-5">
         <div className="obstacle1 position-absolute"></div>
         <div className="obstacle2 position-absolute"></div>

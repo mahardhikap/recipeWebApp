@@ -84,7 +84,7 @@ function Login() {
         <p>
           Don't have an account?{" "}
           <a
-            href="./register.html"
+            href="#"
             className="text-decoration-none text-warning"
           >
             Sign Up

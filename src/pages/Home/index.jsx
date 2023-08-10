@@ -2,12 +2,25 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavbarNoLogin from '../../components/NavbarNoLogin';
+import NavbarCustom from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 function Home() {
+  let token = localStorage.getItem("token")
+
+  const navbarDisplay = () => {
+    if(!token) {
+      return <NavbarNoLogin/>
+    } else {
+      return <NavbarCustom/>
+    }
+  }
+
   return (
     <>
-      <NavbarNoLogin />
+      <div>
+        {navbarDisplay()}
+      </div>
       <section className="container w-100 position-relative">
         <div className="row mt-5 yellow-big-square">
           <div className="col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 d-flex flex-column justify-content-center my-3">
