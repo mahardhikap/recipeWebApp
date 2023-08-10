@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function NavbarCustom() {
+const navigate = useNavigate()
+  const logout = () => {
+    localStorage.clear()
+    navigate('/')
+}
+
   return (
     <>
       <nav className="navbar navbar-expand-sm bg-none pt-5">
@@ -30,22 +37,21 @@ function NavbarCustom() {
                   <div>
                     <a href="#linktoeditprofile">
                       <img
-                        src="#linkphotoprofile"
-                        alt=""
+                        className="rounded-circle"
+                        style={{width: '40px'}}
+                        src={localStorage.getItem("photo")}
                       />
                     </a>
                   </div>
                   <div>
-                    <div className="m-0 p-0">dhika</div>
+                    <div className="m-0 p-0">{localStorage.getItem("username")}</div>
                     <div className="m-0 p-0 fw-bold">
-                      <a
-                        href="#"
-                        data-bs-toggle="modal"
-                        data-bs-target="#logoutModal"
-                        className="text-decoration-none text-black"
+                      <button
+                        onClick={logout}
+                        className="text-decoration-none text-black p-0 border-0 bg-transparent fw-bold"
                       >
                         Logout
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>

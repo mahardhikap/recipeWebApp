@@ -7,6 +7,8 @@ import UpdateMenu from './pages/UpdateMenu'
 import Home from './pages/Home';
 import SearchMenu from './pages/SearchMenu';
 import DetailMenu from './pages/SearchMenu/_id';
+import Login from './pages/Auth/Login/login';
+import AuthChecker from './components/AuthChecker';
 
 function App() {
   return (
@@ -14,13 +16,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/home" replace={true} />} />
-          <Route path="/menu" element={<Menu />} />
+          <Route path="/menu" element={<AuthChecker><Menu /></AuthChecker>} />
           <Route path="/update-menu/:id" element={<UpdateMenu />} />
           {/* <Route path="/menu-detail/:id" element={<MenuDetail />} /> */}
           <Route path="/input-menu" element={<InputMenu />} />
           <Route path="/home" element={<Home />} />
           <Route path="/search-menu" element={<SearchMenu />} />
           <Route path="/detail-menu/:id" element={<DetailMenu />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>

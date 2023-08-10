@@ -31,7 +31,7 @@ function NavbarNoLogin() {
               </div>
               <div>
                   <div className='mt-4'>
-                    <Link to={'/menu'} className='text-decoration-none text-black'>Login</Link>
+                    <Link to={'/login'} className='text-decoration-none text-black'>Login</Link>
                   </div>
               </div>
             </div>
