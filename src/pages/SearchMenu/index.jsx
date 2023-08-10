@@ -13,11 +13,12 @@ function SearchMenu() {
   const [limit, setLimit] = useState(5);
   const { title } = useParams();
   const [search, setSearch] = useState('');
+  let url = import.meta.env.VITE_BASE_URL
 
   const getData = () => {
     axios
       .get(
-        `https://scary-cyan-salamander.cyclic.app/recipe/sorted?sortby=${sortby}&sort=${sort}&page=${currentPage}&limit=${limit}`
+        `${url}/recipe/sorted?sortby=${sortby}&sort=${sort}&page=${currentPage}&limit=${limit}`
       )
       .then((res) => {
         console.log(res);
@@ -33,7 +34,7 @@ function SearchMenu() {
   const getSearchData = () => {
     if (search) {
       axios
-        .get(`https://scary-cyan-salamander.cyclic.app/recipe/searched?search=${search}`)
+        .get(`${url}/recipe/searched?search=${search}`)
         .then((res) => {
           console.log('ini res search', res);
           setData(res.data.data);

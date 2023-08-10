@@ -17,10 +17,11 @@ function UpdateMenu() {
     image_url: '',
   });
   const [categories, setCategories] = useState([]);
+  let url = import.meta.env.VITE_BASE_URL
 
   const getData = () => {
     axios
-      .get(`https://scary-cyan-salamander.cyclic.app/recipe/id/${id}`, {
+      .get(`${url}/recipe/id/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,7 +55,7 @@ function UpdateMenu() {
     console.log(bodyFormData);
 
     axios
-      .put(`https://scary-cyan-salamander.cyclic.app/recipe/${id}`, bodyFormData, {
+      .put(`${url}/recipe/${id}`, bodyFormData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -85,7 +86,7 @@ function UpdateMenu() {
 
   useEffect(() => {
     axios
-      .get('https://scary-cyan-salamander.cyclic.app/category', {
+      .get(`${url}/category`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

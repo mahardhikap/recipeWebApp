@@ -13,7 +13,8 @@ function InputMenu() {
     image_url: '',
   });
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  let url = import.meta.env.VITE_BASE_URL
 
   const postData = async (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ function InputMenu() {
     console.log(bodyFormData);
 
     axios
-      .post('https://scary-cyan-salamander.cyclic.app/recipe', bodyFormData, {
+      .post(`${url}/recipe`, bodyFormData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -33,12 +34,12 @@ function InputMenu() {
       })
       .then((res) => {
         console.log(res);
-        setLoading(false);
+        // setLoading(false);
         navigate('/menu');
       })
       .catch((error) => {
         console.error('axios error', error);
-        setLoading(false);
+        // setLoading(false);
       });
   };
 
@@ -58,7 +59,7 @@ function InputMenu() {
 
   useEffect(() => {
     axios
-      .get('https://scary-cyan-salamander.cyclic.app/category', {
+      .get(`${url}/category`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -136,10 +137,9 @@ function InputMenu() {
           {image && <img src={inputData.image_url} width={250} />} */}
           <button
             type="submit"
-            className="p-3 bg-warning w-100 rounded border-0 text-white mt-5"
-            disabled={loading}
+            className="p-3 bg-warning w-100 rounded border-0 text-white my-5"
           >
-            {loading ? 'Submitting...' : 'Submit Menu'}
+            Submit Menu
           </button>
         </form>
       </div>

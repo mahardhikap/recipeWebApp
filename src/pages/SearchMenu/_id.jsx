@@ -7,10 +7,11 @@ function DetailMenu() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [recipe, setRecipeAmount] = useState(null);
+  let url = import.meta.env.VITE_BASE_URL
 
   const getDataId = () => {
     axios
-      .get(`https://scary-cyan-salamander.cyclic.app/recipe/id/${id}`)
+      .get(`${url}/recipe/id/${id}`)
       .then((res) => {
         console.log(res);
         setData(res.data.data[0]);
@@ -24,7 +25,7 @@ function DetailMenu() {
 
   const getDataByUser = async () => {
     try {
-      const response = await axios.get(`https://scary-cyan-salamander.cyclic.app/recipe/user/${user}`);
+      const response = await axios.get(`${url}/recipe/user/${user}`);
       console.log('Data by user:', response);
       setRecipeAmount(response.data.data);
     } catch (error) {
