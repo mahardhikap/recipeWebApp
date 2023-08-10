@@ -168,7 +168,7 @@ function SearchMenu() {
           <button
             className="rounded p-2 button-custom text-white border-0 bg-warning me-3"
             onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage <= 1}
+            hidden={currentPage <= 1}
           >
             Prev
           </button>
@@ -182,7 +182,7 @@ function SearchMenu() {
           <button
             className="rounded p-2 button-custom text-white border-0 bg-warning ms-3"
             onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage >= (search ? 1 : page?.totalPage)}
+            hidden={currentPage >= (search ? 1 : page?.totalPage)}
           >
             Next
           </button>

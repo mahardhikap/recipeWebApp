@@ -200,7 +200,7 @@ function Menu() {
         <button
             className="rounded p-2 button-custom text-white border-0 bg-warning me-3"
             onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage <= 1}
+            hidden={currentPage <= 1}
           >
             Prev
           </button>
@@ -208,7 +208,7 @@ function Menu() {
         <button
             className="rounded p-2 button-custom text-white border-0 bg-warning ms-3"
             onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage >= page?.totalPage}
+            hidden={currentPage >= page?.totalPage}
           >
             Next
           </button>
