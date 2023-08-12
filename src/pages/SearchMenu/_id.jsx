@@ -1,18 +1,21 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux'
+import { getDataById } from '../../redux/actions/menu'
 import NavbarNoLogin from '../../components/NavbarNoLogin';
 import NavbarCustom from '../../components/Navbar';
+import Alert from '../../components/Alert';
 
 function DetailMenu() {
-  const { id } = useParams();
-  const [data, setData] = useState(null);
   const [recipe, setRecipeAmount] = useState(null);
+  const { id } = useParams();
+  const dispatch = useDispatch()
+  const {data, errorMessage, isError} = useSelector((state)=> state.detail_menu)
   let url = import.meta.env.VITE_BASE_URL
-  let token = localStorage.getItem("token")
 
   const navbarDisplay = () => {
-    if(!token) {
+    if(!localStorage.getItem('token')) {
       return <NavbarNoLogin/>
     } else {
       return <NavbarCustom/>
@@ -20,15 +23,7 @@ function DetailMenu() {
   }
 
   const getDataId = () => {
-    axios
-      .get(`${url}/recipe/id/${id}`)
-      .then((res) => {
-        console.log(res);
-        setData(res.data.data[0]);
-      })
-      .catch((error) => {
-        console.error('Error fetching data by ID:', error);
-      });
+    dispatch(getDataById(id))
   };
 
   const user = data?.users_id;
@@ -45,7 +40,7 @@ function DetailMenu() {
 
   useEffect(() => {
     getDataId();
-    console.log(id);
+    // console.log(id);
     window.scrollTo(0, 0)
   }, []);
 
@@ -61,6 +56,8 @@ function DetailMenu() {
       {navbarDisplay()}
     </div>
       <section className="container w-100">
+      {isError && errorMessage && <Alert type="warning" message={errorMessage.message} />}
+      {isError && !errorMessage && <Alert type="warning" message="ada yang salah" />}
         <div className="col-sm-12 col-md-9 col-lg-9 mx-auto">
           <div className="d-flex align-items-center justify-content-between my-5 flex-wrap">
             <div className="d-flex align-items-center gap-3 border-start border-warning border-4 ps-2">
