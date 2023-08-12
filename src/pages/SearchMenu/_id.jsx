@@ -145,6 +145,7 @@ function DetailMenu() {
               id=""
               className="w-100 p-3 rounded border-0 form-control"
               placeholder="Your Comment Here!"
+              rows={5}
             ></textarea>
           </div>
           <div className="col-sm-12 col-md-6 col-lg-3">

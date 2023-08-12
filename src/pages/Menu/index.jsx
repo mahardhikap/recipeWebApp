@@ -183,7 +183,7 @@ function Menu() {
                         </span>
                       </h2>
                       <p>{item.ingredients}</p>
-                      <div className="w-75">
+                      <div className="w-100">
                         <div className="bg-warning rounded p-3 text-center text-white">
                           10 Likes - 12 Comment - 3 Bookmark
                         </div>

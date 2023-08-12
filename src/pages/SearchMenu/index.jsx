@@ -85,11 +85,9 @@ function SearchMenu() {
       <div>
        {navbarDisplay()}
       </div>
-      <section className="container w-100 position-relative mt-5">
-        <div className="obstacle1 position-absolute"></div>
-        <div className="obstacle2 position-absolute"></div>
+      <section className="container mt-5">
         <h1 className="text-purple">Discover Recipe & Delicious Food</h1>
-        <div className="d-flex gap-2 flex-wrap row">
+        <div>
           <form className="row gap-3" onSubmit={handleSearchSubmit}>
             <div className="col-sm-12 col-md-6 col-lg-6">
               <input
@@ -146,7 +144,7 @@ function SearchMenu() {
                     />
                   </Link>
                 </div>
-                <div className="col-sm-12 col-md-6 col-lg-6 pe-5">
+                <div className="col-sm-12 col-md-6 col-lg-6">
                   <h2>
                     <Link
                       to={`/detail-menu/${item.id}`}
@@ -157,7 +155,7 @@ function SearchMenu() {
                     <span className="badge bg-secondary">{item.category}</span>
                   </h2>
                   <p>{item.ingredients}</p>
-                  <div className="w-75">
+                  <div className="w-100">
                     <div className="bg-warning rounded p-3 text-center text-white">
                       10 Likes - 12 Comment - 3 Bookmark
                     </div>
