@@ -39,10 +39,12 @@ function Menu() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${url}/recipe/sorteduser/recipe?users_id=${parseInt(localStorage.getItem("id"))}&limit=5&page=${currentPage}&sort=DESC&sortby=created_at`
+        `${url}/recipe/sorteduser/recipe?users_id=${parseInt(
+          localStorage.getItem('id')
+        )}&limit=5&page=${currentPage}&sort=DESC&sortby=created_at`
       );
 
-      const user = parseInt(localStorage.getItem('id'))
+      const user = parseInt(localStorage.getItem('id'));
       const userResponse = await axios.get(`${url}/recipe/user/${user}`);
 
       console.log('data response', response);
@@ -120,7 +122,12 @@ function Menu() {
                 />
               </div>
               <div>
-                <div>{localStorage.getItem('username')}</div>
+                <div>
+                  {localStorage.getItem('username')}
+                  <span className="badge rounded-pill bg-danger">
+                    {localStorage.getItem('roles')}
+                  </span>
+                </div>
                 <div className="fw-bold">{recipeAmount?.length} Recipes</div>
               </div>
             </div>

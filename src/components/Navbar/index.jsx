@@ -44,7 +44,11 @@ const navigate = useNavigate()
                     </a>
                   </div>
                   <div>
-                    <div className="m-0 p-0">{localStorage.getItem("username")}</div>
+                    <div className="m-0 p-0">{localStorage.getItem("username")}
+                    <span className="badge rounded-pill bg-danger">
+                    {localStorage.getItem('roles')}
+                    </span>
+                    </div>
                     <div className="m-0 p-0 fw-bold">
                       <button
                         onClick={logout}

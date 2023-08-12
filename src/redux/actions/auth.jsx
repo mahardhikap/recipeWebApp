@@ -9,6 +9,7 @@ export const login = (data, navigate) => async (dispatch) => {
         localStorage.setItem("photo",result.data.data.photo)
         localStorage.setItem("username",result.data.data.username)
         localStorage.setItem("id",result.data.data.id)
+        localStorage.setItem("roles",result.data.data.roles)
         dispatch({payload: result.data, type:"AUTH_LOGIN_SUCCESS"})
         navigate('/')
     } catch(err){
