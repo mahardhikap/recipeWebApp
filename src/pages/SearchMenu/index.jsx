@@ -162,7 +162,7 @@ function SearchMenu() {
                   </div>
                   <div className="d-flex align-items-center gap-2 mt-3 mb-5">
                     <div>
-                      <img src="#GambarProfileNanti" alt="" />
+                      <img src={item.photo} alt="" className="rounded-circle" style={{width: '40px'}}/>
                     </div>
                     <div>
                       <h4>{item.username}</h4>
