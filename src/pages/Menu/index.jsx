@@ -13,12 +13,12 @@ function Menu() {
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [showAlert, setShowAlert] = useState(false);
-  const [limit, setLimit] = useState(5);
+  // const [limit, setLimit] = useState(5);
   const [alertData, setAlertData] = useState({
     type: '',
     message: '',
   });
-  const [recipe, setRecipeAmount] = useState(null);
+  const [recipeAmount, setRecipeAmount] = useState(null);
   let url = import.meta.env.VITE_BASE_URL;
 
   // const getData = () => {
@@ -39,10 +39,10 @@ function Menu() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${url}/recipe/sorted?sortby=created_at&sort=DESC&page=${currentPage}&limit=${limit}`
+        `${url}/recipe/sorteduser/recipe?users_id=${parseInt(localStorage.getItem("id"))}&limit=5&page=${currentPage}&sort=DESC&sortby=created_at`
       );
 
-      const user = response.data.data[0].users_id;
+      const user = parseInt(localStorage.getItem('id'))
       const userResponse = await axios.get(`${url}/recipe/user/${user}`);
 
       console.log('data response', response);
@@ -120,8 +120,8 @@ function Menu() {
                 />
               </div>
               <div>
-                <div>{data && data.length > 0 ? data[0].username : ''}</div>
-                <div className="fw-bold">{recipe?.length} Recipes</div>
+                <div>{localStorage.getItem('username')}</div>
+                <div className="fw-bold">{recipeAmount?.length} Recipes</div>
               </div>
             </div>
             <div>
