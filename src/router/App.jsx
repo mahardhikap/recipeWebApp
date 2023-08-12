@@ -1,14 +1,14 @@
 import { Navigate, Route, Routes, BrowserRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
-import Menu from './pages/Menu';
-import InputMenu from './pages/InputMenu';
-import UpdateMenu from './pages/UpdateMenu'
-import Home from './pages/Home';
-import SearchMenu from './pages/SearchMenu';
-import DetailMenu from './pages/SearchMenu/_id';
-import Login from './pages/Auth/Login/login';
-import AuthChecker from './components/AuthChecker';
+import Menu from '../pages/Menu';
+import InputMenu from '../pages/InputMenu';
+import UpdateMenu from '../pages/UpdateMenu'
+import Home from '../pages/Home';
+import SearchMenu from '../pages/SearchMenu';
+import DetailMenu from '../pages/SearchMenu/_id';
+import Login from '../pages/Auth/Login/login';
+import AuthChecker from '../components/AuthChecker';
 
 function App() {
   return (
