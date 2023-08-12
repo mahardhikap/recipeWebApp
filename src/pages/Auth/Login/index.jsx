@@ -1,28 +1,23 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from './../../../redux/actions/auth';
+import Alert from './../../../components/Alert';
+
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const {errorMessage, isError} = useSelector((state)=> state.auth)
     const [inputData, setInputData] = useState({
         email:'',
         password:''
     })
-    let url = import.meta.env.VITE_BASE_URL
 
     const postData = (e) => {
         e.preventDefault()
-        console.log(inputData)
-        axios.post(`${url}/login`,inputData).then((res)=>{console.log(res)
-        localStorage.setItem("token",res.data.data.token)
-        localStorage.setItem("username",res.data.data.username)
-        localStorage.setItem("photo",res.data.data.photo)
-        localStorage.setItem("email",res.data.data.email)
-        navigate('/menu')
-        }
-        ).catch((err)=>{
-            console.log(err)
-        })
+        dispatch(login(inputData, navigate))
     }
 
     const onChange = (e) => {
@@ -79,6 +74,8 @@ function Login() {
           >
             Login
           </button>
+          {isError && errorMessage && <Alert type="warning" message={errorMessage.message} />}
+          {isError && !errorMessage && <Alert type="warning" message="ada yang salah" />}
       </form>
       <div className="mt-5 text-center">
         <p>

@@ -13,13 +13,13 @@ function Menu() {
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [showAlert, setShowAlert] = useState(false);
-  const [limit, setLimit] = useState(5)
+  const [limit, setLimit] = useState(5);
   const [alertData, setAlertData] = useState({
     type: '',
     message: '',
   });
-  const [recipe, setRecipeAmount] = useState(null)
-  let url = import.meta.env.VITE_BASE_URL
+  const [recipe, setRecipeAmount] = useState(null);
+  let url = import.meta.env.VITE_BASE_URL;
 
   // const getData = () => {
   //   axios
@@ -45,8 +45,8 @@ function Menu() {
       const user = response.data.data[0].users_id;
       const userResponse = await axios.get(`${url}/recipe/user/${user}`);
 
-      console.log('data response', response)
-      console.log('user response', userResponse)
+      console.log('data response', response);
+      console.log('user response', userResponse);
 
       setData(response.data.data);
       setPage(response.data.status);
@@ -56,7 +56,7 @@ function Menu() {
       console.error(error);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
     setAlertData({
@@ -72,20 +72,20 @@ function Menu() {
     axios
       .delete(`${url}/recipe/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       })
       .then((res) => {
         console.log(res);
-        
+
         setAlertData({
           ...alertData,
           type: 'warning',
           message: 'berhasil hapus data',
         });
         setShowAlert(true);
-        window.scrollTo(0, 0)
-        fetchData()
+        window.scrollTo(0, 0);
+        fetchData();
       })
       .catch((error) => {
         console.error(error);
@@ -95,7 +95,7 @@ function Menu() {
           message: error.response.data.error.message,
         });
         setShowAlert(true);
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
       });
   };
 
@@ -112,7 +112,12 @@ function Menu() {
           <div className="d-flex align-items-center justify-content-between my-5 flex-wrap">
             <div className="d-flex align-items-center gap-3 border-start border-warning border-4 ps-2">
               <div>
-                <img src={localStorage.getItem("photo")} className='rounded-circle' style={{width: '40px'}} alt="" />
+                <img
+                  src={localStorage.getItem('photo')}
+                  className="rounded-circle"
+                  style={{ width: '40px' }}
+                  alt=""
+                />
               </div>
               <div>
                 <div>{data && data.length > 0 ? data[0].username : ''}</div>
@@ -120,24 +125,22 @@ function Menu() {
               </div>
             </div>
             <div>
-              <div>{data && data.length > 0 ? data[0].created_at.split('T').shift() : ''}</div>
+              <div>
+                {data && data.length > 0
+                  ? data[0].created_at.split('T').shift()
+                  : ''}
+              </div>
             </div>
           </div>
           <div className="detail-profile-menu border-bottom border-warning border-5">
             <ul className="list-unstyled d-flex gap-4 fs-3 fw-bold flex-wrap">
               <li>
-                <a
-                  href="#"
-                  className="text-decoration-none selected"
-                >
+                <a href="#" className="text-decoration-none selected">
                   Recipes
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-decoration-none"
-                >
+                <a href="#" className="text-decoration-none">
                   Bookmarked
                 </a>
               </li>
@@ -153,63 +156,67 @@ function Menu() {
             {data?.map((item, index) => {
               return (
                 <>
-                  <div className='my-5 row align-items-center'>
-                  <div className="col-sm-12 col-md-6 col-lg-6">
-                    <img
-                      src={item.image}
-                      className="img-thumbnail ratio ratio-1x1"
-                      style={{
-                        width: '500px',
-                        height: '300px',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </div>
-                  <div className="col-sm-12 col-md-6 col-lg-6">
-                    <h2>{item.title} <span className="badge bg-secondary">{item.category}</span></h2>
-                    <p>{item.ingredients}</p>
-                    <div className="w-75">
-                      <div className="bg-warning rounded p-3 text-center text-white">
-                        10 Likes - 12 Comment - 3 Bookmark
+                  <div className="my-5 row align-items-center" key={index}>
+                    <div className="col-sm-12 col-md-6 col-lg-6">
+                      <img
+                        src={item.image}
+                        className="img-thumbnail ratio ratio-1x1"
+                        style={{
+                          width: '500px',
+                          height: '300px',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </div>
+                    <div className="col-sm-12 col-md-6 col-lg-6">
+                      <h2>
+                        {item.title}{' '}
+                        <span className="badge bg-secondary">
+                          {item.category}
+                        </span>
+                      </h2>
+                      <p>{item.ingredients}</p>
+                      <div className="w-75">
+                        <div className="bg-warning rounded p-3 text-center text-white">
+                          10 Likes - 12 Comment - 3 Bookmark
+                        </div>
+                      </div>
+                      <div className="d-flex align-items-center gap-2 mt-3 mb-5">
+                        <Link to={`/update-menu/${item.id}`} className="w-100">
+                          <button className="p-3 border-0 bg-success rounded text-white w-100">
+                            Update
+                          </button>
+                        </Link>
+                        <button
+                          className="p-3 border-0 bg-danger rounded text-white w-100"
+                          onClick={() => deleteData(item.id)}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
-                    <div className="d-flex align-items-center gap-2 mt-3 mb-5">
-                      <Link to={`/update-menu/${item.id}`} className="w-100">
-                        <button className="p-3 border-0 bg-success rounded text-white w-100">
-                          Update
-                        </button>
-                      </Link>
-                      <button
-                        className="p-3 border-0 bg-danger rounded text-white w-100"
-                        onClick={() => deleteData(item.id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
                   </div>
                 </>
               );
             })}
           </div>
         </section>
-        <div className='text-center my-5'>
-        <button
+        <div className="text-center my-5">
+          <button
             className="rounded p-2 button-custom text-white border-0 bg-warning me-3"
             onClick={() => setCurrentPage(currentPage - 1)}
             hidden={currentPage <= 1}
           >
             Prev
           </button>
-        Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}
-        <button
+          Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}
+          <button
             className="rounded p-2 button-custom text-white border-0 bg-warning ms-3"
             onClick={() => setCurrentPage(currentPage + 1)}
             hidden={currentPage >= page?.totalPage}
           >
             Next
           </button>
-
         </div>
       </div>
       <Footer />

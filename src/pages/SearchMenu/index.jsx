@@ -128,7 +128,7 @@ function SearchMenu() {
         {data?.map((item, index) => {
           return (
             <>
-              <div className="row mt-5 align-items-center">
+              <div className="row mt-5 align-items-center" key={index}>
                 <div className="col-sm-12 col-md-6 col-lg-6">
                   <Link
                     to={`/detail-menu/${item.id}`}
@@ -147,7 +147,7 @@ function SearchMenu() {
                   </Link>
                 </div>
                 <div className="col-sm-12 col-md-6 col-lg-6 pe-5">
-                  <h2 key={index}>
+                  <h2>
                     <Link
                       to={`/detail-menu/${item.id}`}
                       className="text-decoration-none text-black"

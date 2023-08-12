@@ -122,8 +122,8 @@ function InputMenu() {
             onChange={onChange}
             className="w-100 mb-5 p-3 form-control border-2"
           >
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
+            {categories.map((category, index) => (
+              <option key={index} value={category.id}>
                 {category.name}
               </option>
             ))}

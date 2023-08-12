@@ -7,7 +7,7 @@ import UpdateMenu from '../pages/UpdateMenu'
 import Home from '../pages/Home';
 import SearchMenu from '../pages/SearchMenu';
 import DetailMenu from '../pages/SearchMenu/_id';
-import Login from '../pages/Auth/Login/login';
+import Login from '../pages/Auth/Login';
 import AuthChecker from '../components/AuthChecker';
 
 function App() {

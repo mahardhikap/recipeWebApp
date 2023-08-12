@@ -88,7 +88,7 @@ function UpdateMenu() {
     axios
       .get(`${url}/category`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
