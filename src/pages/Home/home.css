@@ -1,0 +1,10 @@
+.before-sub-title::before{
+    content: '';
+    width: 15px;
+    height: 80px;
+    background-color: #EFC81A;
+    display: block;
+    position: absolute;
+    top: -50px;
+    transform: translateY(35%);
+}

@@ -13,7 +13,7 @@ function Footer() {
               <li>Get In Touch</li>
             </ul>
           </div>
-          <div className="col-lg-4 fw-bolder">&copy;Arkademy</div>
+          <div className="col-lg-4 fw-bolder">&copy;Pijar Camp</div>
         </div>
       </footer>
     </>

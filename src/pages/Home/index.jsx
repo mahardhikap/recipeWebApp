@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import NavbarNoLogin from '../../components/NavbarNoLogin';
 import NavbarCustom from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import "./home.css"
 
 function Home() {
   let token = localStorage.getItem("token")
@@ -25,7 +26,7 @@ function Home() {
         <div className="row mt-5 yellow-big-square">
           <div className="col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 d-flex flex-column justify-content-center my-3">
             <h1 className="fs-1 text-purple">
-              Discover Recipe &amp; Delicious Food
+              Discover Recipe & Delicious Food
             </h1>
             <div className="position-relative">
               <img
@@ -51,7 +52,7 @@ function Home() {
           </div>
         </div>
         <div className="row mt-5">
-          <div className="position-relative my-5">
+          <div className="position-relative my-3">
             <div className="before-sub-title" />
             <h2 className="ps-4">Popular For You !</h2>
           </div>
@@ -84,7 +85,7 @@ function Home() {
           </div>
         </div>
         <div className="row mt-5">
-          <div className="position-relative my-5">
+          <div className="position-relative my-3">
             <div className="before-sub-title" />
             <h2 className="ps-4">New Recipe</h2>
           </div>
@@ -108,8 +109,8 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="mt-5">
-          <div className="position-relative">
+        <div className="row mt-5">
+          <div className="position-relative my-5">
             <div className="before-sub-title" />
             <h2 className="ps-4">Popular Recipe</h2>
           </div>

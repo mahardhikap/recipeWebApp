@@ -26,9 +26,9 @@ const navigate = useNavigate()
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
               <div className="navbar-nav gap-4 mt-4">
-                <Link to={'/home'} className="text-decoration-none">Home</Link>
-                <Link to={'/input-menu'} className="text-decoration-none">Add Menu</Link>
-                <Link to={'/search-menu'} className="text-decoration-none">
+                <Link to={'/home'} className="text-decoration-none text-black">Home</Link>
+                <Link to={'/input-menu'} className="text-decoration-none text-black">Add Menu</Link>
+                <Link to={'/search-menu'} className="text-decoration-none text-black">
                   Search Menu
                 </Link>
               </div>
