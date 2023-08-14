@@ -111,10 +111,11 @@ function SearchMenu() {
       <div>
        {navbarDisplay()}
       </div>
+      
+      <section className="container mt-5">
       {showAlert && (
         <div className="alert alert-danger">Data tidak ditemukan</div>
       )}
-      <section className="container mt-5">
         <h1 className="text-purple">Discover Recipe & Delicious Food</h1>
         <div>
           <form className="row gap-3" onSubmit={handleSearchSubmit}>
