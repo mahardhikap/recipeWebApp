@@ -12,8 +12,8 @@ function SearchMenu() {
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(5);
-  const { title } = useParams();
   const [search, setSearch] = useState('');
+  const [searchby, setSearchby] = useState('title');
   let url = import.meta.env.VITE_BASE_URL
   let token = localStorage.getItem("token")
 
@@ -23,7 +23,7 @@ function SearchMenu() {
         `${url}/recipe/sorted?sortby=${sortby}&sort=${sort}&page=${currentPage}&limit=${limit}`
       )
       .then((res) => {
-        console.log(res);
+        console.log('ini res data all',res);
         setData(res.data.data);
         setPage(res.data.status);
         setCurrentPage(res.data.status.pageNow);
@@ -36,15 +36,12 @@ function SearchMenu() {
   const getSearchData = () => {
     if (search) {
       axios
-        .get(`${url}/recipe/searched?search=${search}`)
+        .get(`${url}/recipe/searched?search=${search}&sortby=${sortby}&sort=${sort}&limit=${limit}&page=${currentPage}&searchby=${searchby}`)
         .then((res) => {
           console.log('ini res search', res);
           setData(res.data.data);
-          setPage({
-            totalData: res.data.data.length, // Update totalData jumlah hasil search
-            pageNow: 1, // Reset pageNow ke 1 untuk hasil search
-            totalPage: 1, // Reset totalPage ke 1 untuk hasil search
-          });
+          setPage(res.data.status);
+          setCurrentPage(1)
         })
         .catch((error) => {
           console.error(error);
@@ -79,11 +76,26 @@ function SearchMenu() {
     setLimit(newLimit);
   };
 
+  const handleSearchByChange = (e) => {
+    const newSearch = e.target.value
+    setSearchby(newSearch)
+  }
+
+  const handleOrderChange = (e) => {
+    const newOrder = e.target.value
+    setSort(newOrder)
+  }
+
+  const handleOrderByChange = (e) => {
+    const newOrderBy = e.target.value
+    setSortby(newOrderBy)
+  }
+
   useEffect(() => {
     getSearchData();
     getData();
     window.scrollTo(0, 0);
-  }, [currentPage, limit]);
+  }, [currentPage, limit, searchby, sort, sortby]);
 
   return (
     <>
@@ -121,6 +133,23 @@ function SearchMenu() {
             <option value="3">3</option>
             <option value="5">5</option>
             <option value="10">10</option>
+          </select>
+          <div>Search By</div>
+          <select name="searchby" id="sby" className='border-0 bg-warning rounded' onChange={handleSearchByChange} value={searchby}>
+            <option value="username">username</option>
+            <option value="title">title</option>
+            <option value="ingredients">ingredients</option>
+          </select>
+          <div>Order</div>
+          <select name="order" id="ord" className='border-0 bg-warning rounded' onChange={handleOrderChange} value={sort}>
+            <option value="ASC">A-Z</option>
+            <option value="DESC">Z-A</option>
+          </select>
+          <div>Order By</div>
+          <select name="orderby" id="oby" className='border-0 bg-warning rounded' onChange={handleOrderByChange} value={sortby}>
+            <option value="created_at">Created</option>
+            <option value="title">Title</option>
+            <option value="username">Username</option>
           </select>
         </div>
         <div className="mt-3 d-flex gap-3 flex-wrap">
