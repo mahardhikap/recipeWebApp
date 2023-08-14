@@ -139,7 +139,7 @@ function SearchMenu() {
             <option value="username">Username</option>
             <option value="title">Title</option>
             <option value="ingredients">Ingredients</option>
-            <option value="category">Category</option>
+            <option value="category.name">Category</option>
           </select>
           <div>Order</div>
           <select name="order" id="ord" className='border-0 bg-warning rounded' onChange={handleOrderChange} value={sort}>
