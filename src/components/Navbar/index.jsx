@@ -88,7 +88,7 @@ function NavbarCustom() {
         </Modal.Header>
         <Modal.Body>Do you wanna logout?</Modal.Body>
         <Modal.Footer>
-          <Button variant="warning w-100" onClick={handleClose && logout}>
+          <Button variant="warning w-100 text-white" onClick={handleClose && logout}>
             Yes
           </Button>
           <Button variant="secondary w-100" onClick={handleClose}>

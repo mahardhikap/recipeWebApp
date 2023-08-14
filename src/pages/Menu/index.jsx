@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Alert from './../../components/Alert';
 import Footer from '../../components/Footer';
 import NavbarCustom from '../../components/Navbar';
+import { Modal, Button } from 'react-bootstrap';
 
 // let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkLnl6QllkRDZQUlpKVHRwdHVRZHVOdTlYS3Z4eVNGZ0dxak9VbTlTVng3ejdRY3RuLnM3aU8iLCJwaG90byI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2R4YW8wNmFwci9pbWFnZS91cGxvYWQvdjE2OTE1MDM5MDQvcmVjaXBlL29wd2R2ZGxub3RpbzBndHU3dzFxLmpwZyIsInJvbGVzIjoiYWRtaW4iLCJpbWdfaWQiOiJyZWNpcGUvb3B3ZHZkbG5vdGlvMGd0dTd3MXEiLCJpYXQiOjE2OTE1NTQ5MDd9.Z-FNpHBr61PK7ixlcwULOV1vv1FyU6Fm4YPBgFiEhw8`;
 
@@ -20,6 +21,11 @@ function Menu() {
   });
   const [recipeAmount, setRecipeAmount] = useState(null);
   let url = import.meta.env.VITE_BASE_URL;
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // const getData = () => {
   //   axios
@@ -196,10 +202,33 @@ function Menu() {
                         </Link>
                         <button
                           className="p-3 border-0 bg-danger rounded text-white w-100"
-                          onClick={() => deleteData(item.id)}
+                          onClick={handleShow}
                         >
                           Delete
                         </button>
+                        <Modal show={show} onHide={handleClose}>
+                          <Modal.Header closeButton >
+                            <Modal.Title>Delete</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body >Do you wanna delete <strong>'{item.title}'</strong>?</Modal.Body>
+                          <Modal.Footer >
+                            <Button
+                              variant="warning w-100 text-white"
+                              onClick={() => {
+                                deleteData(item.id);
+                                handleClose();
+                              }}
+                            >
+                              Yes
+                            </Button>
+                            <Button
+                              variant="secondary w-100"
+                              onClick={handleClose}
+                            >
+                              Close
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
                       </div>
                     </div>
                   </div>
