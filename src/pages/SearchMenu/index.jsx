@@ -94,10 +94,11 @@ function SearchMenu() {
   }
 
   useEffect(() => {
-    if(!searchData.length)
+    if(!searchData.length){
       getSearchData();
       getData();
       window.scrollTo(0, 0);
+    }
   }, [currentPage, limit, searchby, sort, sortby]);
 
   return (
