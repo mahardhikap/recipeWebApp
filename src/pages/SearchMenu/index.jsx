@@ -126,7 +126,7 @@ function SearchMenu() {
             </div>
           </form>
         </div>
-        <div className='change-limit d-flex gap-2 my-2'>
+        <div className='change-limit d-flex gap-2 my-2 flex-wrap'>
           <div>Show</div>
           <select name="limit" id="lmt" className='border-0 bg-warning rounded' onChange={handleLimitChange} value={limit}>
             <option value="1">1</option>
