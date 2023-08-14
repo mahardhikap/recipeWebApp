@@ -4,6 +4,7 @@ import { Link, useParams, useLocation } from 'react-router-dom';
 import NavbarNoLogin from '../../components/NavbarNoLogin';
 import NavbarCustom from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import Alert from '../../components/Alert';
 
 function SearchMenu() {
   const [data, setData] = useState();
@@ -18,6 +19,7 @@ function SearchMenu() {
   let token = localStorage.getItem("token")
   const location = useLocation();
   const searchData = location.state?.searchData || [];
+  const [showAlert, setShowAlert] = useState(false);
 
   const getData = () => {
     axios
@@ -44,10 +46,13 @@ function SearchMenu() {
           setData(res.data.data);
           setPage(res.data.status);
           setCurrentPage(1)
+          setShowAlert(false);
         })
         .catch((error) => {
           console.error(error);
-          alert('data tidak ditemukan');
+          setData([]); // Clear previous data
+          setPage(null); // Clear previous page info
+          setShowAlert(true)
         });
     } else {
       getData();
@@ -69,7 +74,7 @@ function SearchMenu() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setCurrentPage(currentPage);
+    setCurrentPage(1)
     getSearchData();
   };
 
@@ -106,6 +111,9 @@ function SearchMenu() {
       <div>
        {navbarDisplay()}
       </div>
+      {showAlert && (
+        <div className="alert alert-danger">Data tidak ditemukan</div>
+      )}
       <section className="container mt-5">
         <h1 className="text-purple">Discover Recipe & Delicious Food</h1>
         <div>
