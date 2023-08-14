@@ -74,11 +74,16 @@ function SearchMenu() {
     getSearchData();
   };
 
+  const handleLimitChange = (e) => {
+    const newLimit = parseInt(e.target.value, 10);
+    setLimit(newLimit);
+  };
+
   useEffect(() => {
     getSearchData();
     getData();
     window.scrollTo(0, 0);
-  }, [currentPage]);
+  }, [currentPage, limit]);
 
   return (
     <>
@@ -108,6 +113,15 @@ function SearchMenu() {
               </button>
             </div>
           </form>
+        </div>
+        <div className='change-limit d-flex gap-2 my-2'>
+          <div>Show</div>
+          <select name="limit" id="lmt" className='border-0 bg-warning rounded' onChange={handleLimitChange} value={limit}>
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+          </select>
         </div>
         <div className="mt-3 d-flex gap-3 flex-wrap">
           <button className="rounded p-1 border-0 text-white bg-warning">
