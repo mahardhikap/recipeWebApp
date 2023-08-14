@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import NavbarNoLogin from '../../components/NavbarNoLogin';
 import NavbarCustom from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -16,6 +16,8 @@ function SearchMenu() {
   const [searchby, setSearchby] = useState('title');
   let url = import.meta.env.VITE_BASE_URL
   let token = localStorage.getItem("token")
+  const location = useLocation();
+  const searchData = location.state?.searchData || [];
 
   const getData = () => {
     axios
@@ -92,9 +94,11 @@ function SearchMenu() {
   }
 
   useEffect(() => {
-    getSearchData();
-    getData();
-    window.scrollTo(0, 0);
+    if(!searchData.length){
+      getSearchData();
+      getData();
+      window.scrollTo(0, 0);
+    }
   }, [currentPage, limit, searchby, sort, sortby]);
 
   return (
@@ -167,7 +171,7 @@ function SearchMenu() {
             Breakfast
           </button>
         </div>
-        {data?.map((item, index) => {
+        {(data || searchData)?.map((item, index) => {
           return (
             <>
               <div className="row mt-5 align-items-center" key={index}>
@@ -227,8 +231,8 @@ function SearchMenu() {
           >
             Prev
           </button>
-          {search ? (
-            <span>Show {data?.length} - 1 From 1 </span>
+          {(search || searchData) ? (
+            <span>Show {(data || searchData)?.length} - 1 From 1 </span>
           ) : (
             <span>
               Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}
@@ -237,7 +241,7 @@ function SearchMenu() {
           <button
             className="rounded p-2 button-custom text-white border-0 bg-warning ms-3"
             onClick={() => setCurrentPage(currentPage + 1)}
-            hidden={currentPage >= (search ? 1 : page?.totalPage)}
+            hidden={currentPage >= ((search || searchData)? 1 : page?.totalPage)}
           >
             Next
           </button>
