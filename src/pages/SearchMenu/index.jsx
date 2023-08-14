@@ -94,11 +94,10 @@ function SearchMenu() {
   }
 
   useEffect(() => {
-    if(!searchData.length){
+    if(!searchData.length)
       getSearchData();
       getData();
       window.scrollTo(0, 0);
-    }
   }, [currentPage, limit, searchby, sort, sortby]);
 
   return (
@@ -231,8 +230,8 @@ function SearchMenu() {
           >
             Prev
           </button>
-          {(search || searchData) ? (
-            <span>Show {(data || searchData)?.length} - 1 From 1 </span>
+          {search ? (
+            <span>Show {data?.length} - 1 From 1 </span>
           ) : (
             <span>
               Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}
@@ -241,7 +240,7 @@ function SearchMenu() {
           <button
             className="rounded p-2 button-custom text-white border-0 bg-warning ms-3"
             onClick={() => setCurrentPage(currentPage + 1)}
-            hidden={currentPage >= ((search || searchData)? 1 : page?.totalPage)}
+            hidden={currentPage >= (search ? 1 : page?.totalPage)}
           >
             Next
           </button>
