@@ -9,6 +9,7 @@ import SearchMenu from '../pages/SearchMenu';
 import DetailMenu from '../pages/SearchMenu/_id';
 import Login from '../pages/Auth/Login';
 import AuthChecker from '../components/AuthChecker';
+import Register from '../pages/Auth/Register';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/search-menu" element={<SearchMenu />} />
           <Route path="/detail-menu/:id" element={<DetailMenu />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </>

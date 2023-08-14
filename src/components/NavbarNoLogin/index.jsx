@@ -22,7 +22,7 @@ function NavbarNoLogin() {
                 <Link to={'/home'} className="text-decoration-none text-black">
                   Home
                 </Link>
-                <Link to={'#register'} className="text-decoration-none text-black">
+                <Link to={'/register'} className="text-decoration-none text-black">
                   Register
                 </Link>
                 <Link to={'/search-menu'} className="text-decoration-none text-black">

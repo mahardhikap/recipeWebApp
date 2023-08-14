@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from './../../../redux/actions/auth';
 import Alert from './../../../components/Alert';
@@ -86,9 +86,9 @@ function Login() {
             <div className="mt-5 text-center">
               <p>
                 Don't have an account?{' '}
-                <a href="#" className="text-decoration-none text-warning">
+                <Link to={'/register'} className="text-decoration-none text-warning">
                   Sign Up
-                </a>
+                </Link>
               </p>
             </div>
           </div>
