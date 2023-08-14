@@ -34,7 +34,13 @@ function Login() {
               <p>Login into your existing account</p>
             </div>
             <hr />
-            <form onSubmit={postData} className=''>
+            {isError && errorMessage && (
+              <Alert type="warning" message={errorMessage.message} />
+            )}
+            {isError && !errorMessage && (
+              <Alert type="warning" message="ada yang salah" />
+            )}
+            <form onSubmit={postData} className="">
               <label htmlFor="email" className="mt-3">
                 Email
               </label>
@@ -76,12 +82,6 @@ function Login() {
               >
                 Login
               </button>
-              {isError && errorMessage && (
-                <Alert type="warning" message={errorMessage.message} />
-              )}
-              {isError && !errorMessage && (
-                <Alert type="warning" message="ada yang salah" />
-              )}
             </form>
             <div className="mt-5 text-center">
               <p>

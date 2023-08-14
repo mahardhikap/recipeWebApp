@@ -4,7 +4,6 @@ import { Link, useParams, useLocation } from 'react-router-dom';
 import NavbarNoLogin from '../../components/NavbarNoLogin';
 import NavbarCustom from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import Alert from '../../components/Alert';
 
 function SearchMenu() {
   const [data, setData] = useState();
@@ -19,7 +18,7 @@ function SearchMenu() {
   let token = localStorage.getItem("token")
   const location = useLocation();
   const searchData = location.state?.searchData || [];
-  const [showAlert, setShowAlert] = useState(false);
+  // const [showAlert, setShowAlert] = useState(false);
 
   const getData = () => {
     axios
@@ -37,7 +36,7 @@ function SearchMenu() {
       });
   };
 
-  const getSearchData = () => {
+  const getSearchData = () =>  {
     if (search) {
       axios
         .get(`${url}/recipe/searched?search=${search}&sortby=${sortby}&sort=${sort}&limit=${limit}&page=${currentPage}&searchby=${searchby}`)
@@ -46,13 +45,14 @@ function SearchMenu() {
           setData(res.data.data);
           setPage(res.data.status);
           setCurrentPage(1)
-          setShowAlert(false);
+          // setShowAlert(false);
         })
         .catch((error) => {
           console.error(error);
+          setCurrentPage(1)
           setData([]); // Clear previous data
           setPage(null); // Clear previous page info
-          setShowAlert(true)
+          // setShowAlert(true)
         });
     } else {
       getData();
@@ -113,9 +113,9 @@ function SearchMenu() {
       </div>
       
       <section className="container mt-5">
-      {showAlert && (
+      {/* {showAlert && (
         <div className="alert alert-danger">Data tidak ditemukan</div>
-      )}
+      )} */}
         <h1 className="text-purple">Discover Recipe & Delicious Food</h1>
         <div>
           <form className="row gap-3" onSubmit={handleSearchSubmit}>

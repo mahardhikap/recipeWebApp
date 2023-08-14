@@ -1,12 +1,19 @@
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 
 function NavbarCustom() {
-const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const logout = () => {
-    localStorage.clear()
-    navigate('/')
-}
+    localStorage.clear();
+    navigate('/');
+  };
 
   return (
     <>
@@ -26,9 +33,19 @@ const navigate = useNavigate()
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
               <div className="navbar-nav gap-4 mt-4">
-                <Link to={'/home'} className="text-decoration-none text-black">Home</Link>
-                <Link to={'/input-menu'} className="text-decoration-none text-black">Add Menu</Link>
-                <Link to={'/search-menu'} className="text-decoration-none text-black">
+                <Link to={'/home'} className="text-decoration-none text-black">
+                  Home
+                </Link>
+                <Link
+                  to={'/input-menu'}
+                  className="text-decoration-none text-black"
+                >
+                  Add Menu
+                </Link>
+                <Link
+                  to={'/search-menu'}
+                  className="text-decoration-none text-black"
+                >
                   Search Menu
                 </Link>
               </div>
@@ -38,21 +55,22 @@ const navigate = useNavigate()
                     <a href="#linktoeditprofile">
                       <img
                         className="rounded-circle"
-                        style={{width: '40px'}}
-                        src={localStorage.getItem("photo")}
+                        style={{ width: '40px' }}
+                        src={localStorage.getItem('photo')}
                       />
                     </a>
                   </div>
                   <div>
-                    <div className="m-0 p-0">{localStorage.getItem("username")}
-                    <span className="badge rounded-pill bg-danger">
-                    {localStorage.getItem('roles')}
-                    </span>
+                    <div className="m-0 p-0">
+                      {localStorage.getItem('username')}
+                      <span className="badge rounded-pill bg-danger">
+                        {localStorage.getItem('roles')}
+                      </span>
                     </div>
                     <div className="m-0 p-0 fw-bold">
                       <button
-                        onClick={logout}
                         className="text-decoration-none text-black p-0 border-0 bg-transparent fw-bold"
+                        onClick={handleShow}
                       >
                         Logout
                       </button>
@@ -64,8 +82,22 @@ const navigate = useNavigate()
           </div>
         </div>
       </nav>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Logout</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Do you wanna logout?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="warning w-100" onClick={handleClose && logout}>
+            Yes
+          </Button>
+          <Button variant="secondary w-100" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
 
-export default NavbarCustom
+export default NavbarCustom;
