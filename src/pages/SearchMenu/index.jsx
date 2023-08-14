@@ -136,9 +136,10 @@ function SearchMenu() {
           </select>
           <div>Search By</div>
           <select name="searchby" id="sby" className='border-0 bg-warning rounded' onChange={handleSearchByChange} value={searchby}>
-            <option value="username">username</option>
-            <option value="title">title</option>
-            <option value="ingredients">ingredients</option>
+            <option value="username">Username</option>
+            <option value="title">Title</option>
+            <option value="ingredients">Ingredients</option>
+            <option value="category">Category</option>
           </select>
           <div>Order</div>
           <select name="order" id="ord" className='border-0 bg-warning rounded' onChange={handleOrderChange} value={sort}>
