@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
-import NavbarNoLogin from '../../components/NavbarNoLogin';
-import NavbarCustom from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import NavbarNoLogin from '../../../components/NavbarNoLogin';
+import NavbarCustom from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
 
 function SearchMenu() {
   const [data, setData] = useState();

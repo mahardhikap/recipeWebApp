@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import NavbarNoLogin from '../../components/NavbarNoLogin';
-import NavbarCustom from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import NavbarNoLogin from '../../../components/NavbarNoLogin';
+import NavbarCustom from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
 import "./home.css"
 
 function Home() {

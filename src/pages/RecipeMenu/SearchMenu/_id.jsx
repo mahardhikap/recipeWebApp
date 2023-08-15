@@ -2,10 +2,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux'
-import { getDataById } from '../../redux/actions/menu'
-import NavbarNoLogin from '../../components/NavbarNoLogin';
-import NavbarCustom from '../../components/Navbar';
-import Alert from '../../components/Alert';
+import { getDataById } from '../../../redux/actions/menu'
+import NavbarNoLogin from '../../../components/NavbarNoLogin';
+import NavbarCustom from '../../../components/Navbar';
+import Alert from '../../../components/Alert';
 
 function DetailMenu() {
   const [recipe, setRecipeAmount] = useState(null);
