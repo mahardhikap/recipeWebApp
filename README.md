@@ -2,13 +2,16 @@
 
 This project about REST API schema Website Recipe, build with NodeJS, ExpressJS, PostgreSQL and React Vite
 
-## Demo
-
+# Demo
+Link: https://recipewebapp.vercel.app
+```
 email: guest@gmail.com
 
 password: guest
+```
 
 
+# Author
 - [@mahardhikap](https://www.github.com/mahardhikap)
 
 
