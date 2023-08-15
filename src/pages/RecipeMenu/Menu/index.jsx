@@ -32,7 +32,7 @@ function Menu() {
   let url = import.meta.env.VITE_BASE_URL;
   const [itemToDelete, setItemToDelete] = useState(null);
   const [modalVisibility, setModalVisibility] = useState({});
-  // const [toastShown, setToastShown] = useState(false);
+  const [toastShown, setToastShown] = useState(false);
 
   const handleClose = () => setModalVisibility({});
   const handleShow = (item) => {
@@ -77,10 +77,9 @@ function Menu() {
 
       const user = parseInt(localStorage.getItem('id'));
       const userResponse = await axios.get(`${url}/recipe/user/${user}`);
-      // if (!toastShown) {
-      //   toast.success('Getting data');
-      //   setToastShown(true);
-      // }
+      if (response) {
+        toast.success('Getting data', { toastId: "1" });
+      }
 
       console.log('data response', response);
       console.log('user response', userResponse);
