@@ -52,13 +52,13 @@ function NavbarCustom() {
               <div className="border-start border-warning border-4 ps-2">
                 <div className="d-flex align-items-center gap-3">
                   <div>
-                    <a href="#linktoeditprofile">
+                    <Link to={`/profile/${localStorage.getItem('id')}`}>
                       <img
                         className="rounded-circle"
                         style={{ width: '40px' }}
                         src={localStorage.getItem('photo')}
                       />
-                    </a>
+                    </Link>
                   </div>
                   <div>
                     <div className="m-0 p-0">

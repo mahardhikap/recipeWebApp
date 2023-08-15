@@ -10,6 +10,7 @@ import DetailMenu from '../pages/RecipeMenu/SearchMenu/_id';
 import Login from '../pages/Auth/Login'
 import AuthChecker from '../components/AuthChecker'
 import Register from '../pages/Auth/Register';
+import UserProfile from '../pages/Profile';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/detail-menu/:id" element={<DetailMenu />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile/:id" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </>
