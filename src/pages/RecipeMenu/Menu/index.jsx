@@ -5,13 +5,21 @@ import Alert from '../../../components/Alert';
 import Footer from '../../../components/Footer';
 import NavbarCustom from '../../../components/Navbar';
 import { Modal, Button } from 'react-bootstrap';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteMenu } from '../../../redux/actions/menu';
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import Toast from '../../../components/Toast';
 
 // let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkLnl6QllkRDZQUlpKVHRwdHVRZHVOdTlYS3Z4eVNGZ0dxak9VbTlTVng3ejdRY3RuLnM3aU8iLCJwaG90byI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2R4YW8wNmFwci9pbWFnZS91cGxvYWQvdjE2OTE1MDM5MDQvcmVjaXBlL29wd2R2ZGxub3RpbzBndHU3dzFxLmpwZyIsInJvbGVzIjoiYWRtaW4iLCJpbWdfaWQiOiJyZWNpcGUvb3B3ZHZkbG5vdGlvMGd0dTd3MXEiLCJpYXQiOjE2OTE1NTQ5MDd9.Z-FNpHBr61PK7ixlcwULOV1vv1FyU6Fm4YPBgFiEhw8`;
 
 function Menu() {
-  // const navigate = useNavigate();
-  const [data, setData] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { data, errorMessage, isError, isLoading } = useSelector(
+    (state) => state.delete_menu
+  );
+  const [Data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [showAlert, setShowAlert] = useState(false);
@@ -24,13 +32,25 @@ function Menu() {
   let url = import.meta.env.VITE_BASE_URL;
   const [itemToDelete, setItemToDelete] = useState(null);
   const [modalVisibility, setModalVisibility] = useState({});
-
-  const [show, setShow] = useState(false);
+  // const [toastShown, setToastShown] = useState(false);
 
   const handleClose = () => setModalVisibility({});
   const handleShow = (item) => {
     setItemToDelete(item);
     setModalVisibility({ [item.id]: true });
+  };
+
+  const handleDelete = async () => {
+    try {
+      await dispatch(deleteMenu(itemToDelete.id, navigate));
+      fetchData();
+      // if (toastShown) {
+      //   toast.success('Menu deleted successfully');
+      //   setToastShown(true);
+      // }
+    } catch (error) {
+      console.error(error);
+    }
   };
   // const getData = () => {
   //   axios
@@ -57,6 +77,10 @@ function Menu() {
 
       const user = parseInt(localStorage.getItem('id'));
       const userResponse = await axios.get(`${url}/recipe/user/${user}`);
+      // if (!toastShown) {
+      //   toast.success('Getting data');
+      //   setToastShown(true);
+      // }
 
       console.log('data response', response);
       console.log('user response', userResponse);
@@ -67,60 +91,80 @@ function Menu() {
       setRecipeAmount(userResponse.data.data);
     } catch (error) {
       console.error(error);
+      // if (!toastShown) {
+      //   toast.warn('Data not found');
+      //   setToastShown(true);
+      // }
     }
   };
 
   useEffect(() => {
     fetchData();
-    setAlertData({
-      ...alertData,
-      type: 'primary',
-      message: 'berhasil get data',
-    });
-    setShowAlert(true);
+    // setAlertData({
+    //   ...alertData,
+    //   type: 'primary',
+    //   message: 'berhasil get data',
+    // });
+    // setShowAlert(true);
     window.scrollTo(0, 0);
   }, [currentPage]);
 
-  const deleteData = (id) => {
-    axios
-      .delete(`${url}/recipe/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
+  // const deleteData = (id) => {
+  //   axios
+  //     .delete(`${url}/recipe/${id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
 
-        setAlertData({
-          ...alertData,
-          type: 'warning',
-          message: 'berhasil hapus data',
-        });
-        setShowAlert(true);
-        window.scrollTo(0, 0);
-        fetchData();
-      })
-      .catch((error) => {
-        console.error(error);
-        setAlertData({
-          ...alertData,
-          type: 'danger',
-          message: error.response.data.error.message,
-        });
-        setShowAlert(true);
-        window.scrollTo(0, 0);
-      });
-  };
+  //       setAlertData({
+  //         ...alertData,
+  //         type: 'warning',
+  //         message: 'berhasil hapus data',
+  //       });
+  //       setShowAlert(true);
+  //       window.scrollTo(0, 0);
+  //       fetchData();
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       setAlertData({
+  //         ...alertData,
+  //         type: 'danger',
+  //         message: error.response.data.error.message,
+  //       });
+  //       setShowAlert(true);
+  //       window.scrollTo(0, 0);
+  //     });
+  // };
 
   return (
     <>
       <NavbarCustom />
+      <Toast/>
       <div className="container">
-        <div className="mt-4 col-lg-3 text-center">
-          {showAlert && (
-            <Alert type={alertData.type} message={alertData.message} />
+      {/* <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      /> */}
+        {/* <div className="mt-4 col-lg-3 text-center">
+          {Data ? (
+            <Alert type={alertData.type} message={'Data is found!'} />
+          ) : (
+            <Alert type={alertData.type} message={'Data not found!'} />
           )}
-        </div>
+          {data && <Alert type="primary" message={'Delete success!'} />}
+        </div> */}
         <section className="container col-md-12 col-lg-9">
           <div className="d-flex align-items-center justify-content-between my-5 flex-wrap">
             <div className="d-flex align-items-center gap-3 border-start border-warning border-4 ps-2">
@@ -144,8 +188,8 @@ function Menu() {
             </div>
             <div>
               <div>
-                {data && data.length > 0
-                  ? data[0].created_at.split('T').shift()
+                {Data && Data.length > 0
+                  ? Data[0].created_at.split('T').shift()
                   : ''}
               </div>
             </div>
@@ -171,7 +215,7 @@ function Menu() {
           </div>
 
           <div>
-            {data?.map((item, index) => {
+            {Data?.map((item, index) => {
               return (
                 <>
                   <div className="my-5 row align-items-center" key={index}>
@@ -188,7 +232,10 @@ function Menu() {
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-6">
                       <h2>
-                        {item.title}{' '}<span className="badge bg-secondary">{item.category}</span>
+                        {item.title}{' '}
+                        <span className="badge bg-secondary">
+                          {item.category}
+                        </span>
                       </h2>
                       <p>{item.ingredients}</p>
                       <div className="w-100">
@@ -209,38 +256,41 @@ function Menu() {
                           Delete
                         </button>
                         <div>
-                        <Modal 
-                        show={modalVisibility[item.id]}
-                        onHide={handleClose}
-                        backdrop="static"
-                        keyboard={false}
-                        >
-                          <Modal.Header closeButton >
-                            <Modal.Title>Delete</Modal.Title>
-                          </Modal.Header>
-                          {itemToDelete && (
-                          <Modal.Body >Do you wanna delete <strong>{itemToDelete.title}</strong>?</Modal.Body>
-                          )}
-                          <Modal.Footer >
-                            <Button
-                              variant="warning w-100 text-white"
-                              onClick={() => {
-                                if(itemToDelete){
-                                  deleteData(itemToDelete.id);
-                                  handleClose();
-                                }
-                              }}
-                            >
-                              Yes
-                            </Button>
-                            <Button
-                              variant="secondary w-100"
-                              onClick={handleClose}
-                            >
-                              Close
-                            </Button>
-                          </Modal.Footer>
-                        </Modal>
+                          <Modal
+                            show={modalVisibility[item.id]}
+                            onHide={handleClose}
+                            backdrop="static"
+                            keyboard={false}
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Delete</Modal.Title>
+                            </Modal.Header>
+                            {itemToDelete && (
+                              <Modal.Body>
+                                Do you wanna delete{' '}
+                                <strong>{itemToDelete.title}</strong>?
+                              </Modal.Body>
+                            )}
+                            <Modal.Footer>
+                              <Button
+                                variant="warning w-100 text-white"
+                                onClick={() => {
+                                  if (itemToDelete) {
+                                    handleDelete();
+                                    handleClose();
+                                  }
+                                }}
+                              >
+                                Yes
+                              </Button>
+                              <Button
+                                variant="secondary w-100"
+                                onClick={handleClose}
+                              >
+                                Close
+                              </Button>
+                            </Modal.Footer>
+                          </Modal>
                         </div>
                       </div>
                     </div>

@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from './../../../redux/actions/auth';
 import Alert from './../../../components/Alert';
+import Toast from '../../../components/Toast';
 
 function Login() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function Login() {
   return (
     <>
       <section className="container">
+        <Toast/>
         <div className="w-100 my-5">
           <div className="col-sm-12 col-md-6 mx-auto">
             <div className="mb-5 text-center">

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 let url = import.meta.env.VITE_BASE_URL
 
 export const login = (data, navigate) => async (dispatch) => {
@@ -11,6 +13,7 @@ export const login = (data, navigate) => async (dispatch) => {
         localStorage.setItem("id",result.data.data.id)
         localStorage.setItem("roles",result.data.data.roles)
         dispatch({payload: result.data, type:"AUTH_LOGIN_SUCCESS"})
+        toast.success('Login success!');
         navigate('/')
     } catch(err){
         console.log("error", err)
