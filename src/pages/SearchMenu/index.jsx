@@ -146,6 +146,7 @@ function SearchMenu() {
             <option value="3">3</option>
             <option value="5">5</option>
             <option value="10">10</option>
+            <option value="1000">All</option>
           </select>
           <div>Search By</div>
           <select name="searchby" id="sby" className='border-0 bg-warning rounded' onChange={handleSearchByChange} value={searchby}>
@@ -209,7 +210,7 @@ function SearchMenu() {
                     >
                       {item.title}
                     </Link>
-                    <span className="badge bg-secondary">{item.category}</span>
+                    {' '}<span className="badge bg-secondary">{item.category}</span>
                   </h2>
                   <p>{item.ingredients}</p>
                   <div className="w-100">

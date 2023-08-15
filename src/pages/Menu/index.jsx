@@ -6,6 +6,7 @@ import Footer from '../../components/Footer';
 import NavbarCustom from '../../components/Navbar';
 import { Modal, Button } from 'react-bootstrap';
 
+
 // let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkLnl6QllkRDZQUlpKVHRwdHVRZHVOdTlYS3Z4eVNGZ0dxak9VbTlTVng3ejdRY3RuLnM3aU8iLCJwaG90byI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2R4YW8wNmFwci9pbWFnZS91cGxvYWQvdjE2OTE1MDM5MDQvcmVjaXBlL29wd2R2ZGxub3RpbzBndHU3dzFxLmpwZyIsInJvbGVzIjoiYWRtaW4iLCJpbWdfaWQiOiJyZWNpcGUvb3B3ZHZkbG5vdGlvMGd0dTd3MXEiLCJpYXQiOjE2OTE1NTQ5MDd9.Z-FNpHBr61PK7ixlcwULOV1vv1FyU6Fm4YPBgFiEhw8`;
 
 function Menu() {
@@ -21,12 +22,16 @@ function Menu() {
   });
   const [recipeAmount, setRecipeAmount] = useState(null);
   let url = import.meta.env.VITE_BASE_URL;
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [modalVisibility, setModalVisibility] = useState({});
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  const handleClose = () => setModalVisibility({});
+  const handleShow = (item) => {
+    setItemToDelete(item);
+    setModalVisibility({ [item.id]: true });
+  };
   // const getData = () => {
   //   axios
   //     .get('http://localhost:3000/recipe', {
@@ -183,10 +188,7 @@ function Menu() {
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-6">
                       <h2>
-                        {item.title}{' '}
-                        <span className="badge bg-secondary">
-                          {item.category}
-                        </span>
+                        {item.title}{' '}<span className="badge bg-secondary">{item.category}</span>
                       </h2>
                       <p>{item.ingredients}</p>
                       <div className="w-100">
@@ -202,21 +204,31 @@ function Menu() {
                         </Link>
                         <button
                           className="p-3 border-0 bg-danger rounded text-white w-100"
-                          onClick={handleShow}
+                          onClick={() => handleShow(item)}
                         >
                           Delete
                         </button>
-                        <Modal show={show} onHide={handleClose}>
+                        <div>
+                        <Modal 
+                        show={modalVisibility[item.id]}
+                        onHide={handleClose}
+                        backdrop="static"
+                        keyboard={false}
+                        >
                           <Modal.Header closeButton >
                             <Modal.Title>Delete</Modal.Title>
                           </Modal.Header>
-                          <Modal.Body >Do you wanna delete <strong>'{item.title}'</strong>?</Modal.Body>
+                          {itemToDelete && (
+                          <Modal.Body >Do you wanna delete <strong>{itemToDelete.title}</strong>?</Modal.Body>
+                          )}
                           <Modal.Footer >
                             <Button
                               variant="warning w-100 text-white"
                               onClick={() => {
-                                deleteData(item.id);
-                                handleClose();
+                                if(itemToDelete){
+                                  deleteData(itemToDelete.id);
+                                  handleClose();
+                                }
                               }}
                             >
                               Yes
@@ -229,6 +241,7 @@ function Menu() {
                             </Button>
                           </Modal.Footer>
                         </Modal>
+                        </div>
                       </div>
                     </div>
                   </div>
