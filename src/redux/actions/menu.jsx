@@ -14,8 +14,8 @@ export const getDataById = (id) => async (dispatch) => {
         dispatch({payload:result.data.data[0], type:"DETAIL_MENU_SUCCESS"})
         toast.success('Get detail menu successfully');
     } catch (err) {
-        console.log('error get id menu', err)
         dispatch({payload:err.response.data.error, type:"DETAIL_MENU_FAILED"})
+        console.log('error get id menu', err)
     }
 }
 
@@ -25,13 +25,13 @@ export const postMenu = (data, navigate) => async (dispatch) => {
         dispatch({type:"POST_MENU_PENDING"})
         const result = await axios.post(`${url}/recipe`,data, {headers})
         dispatch({payload:result.data.data[0], type:"POST_MENU_SUCCESS"})
-        toast.success('Post menu successfully')
         navigate('/menu')
         window.scrollTo(0, 0);
+        toast.success('Post menu successfully')
     } catch (err) {
         console.log('error post menu', err)
-        toast.error('Post menu failed')
         dispatch({payload:err.response.data, type:"POST_MENU_FAILED"})
+        toast.error('Post menu failed')
     }
 }
 
@@ -41,8 +41,8 @@ export const updateMenu = (data, id, navigate) => async (dispatch) => {
         const result = await axios.put(`${url}/recipe/${id}`,data, {headers})
         dispatch({payload:result.data.data[0], type:"UPDATE_MENU_SUCCESS"})
         console.log('ini update', result)
-        toast.success('Update menu successfully')
         navigate('/menu')
+        toast.success('Update menu successfully')
     } catch (err) {
         console.log('error update menu', err)
         dispatch({payload:err.response.data, type:"UPDATE_MENU_FAILED"})

@@ -22,7 +22,7 @@ function App() {
           <Route path="/menu" element={<AuthChecker><Menu /></AuthChecker>} />
           <Route path="/update-menu/:id" element={<UpdateMenu />} />
           {/* <Route path="/menu-detail/:id" element={<MenuDetail />} /> */}
-          <Route path="/input-menu" element={<InputMenu />} />
+          <Route path="/input-menu" element={<AuthChecker><InputMenu /></AuthChecker>} />
           <Route path="/home" element={<Home />} />
           <Route path="/search-menu" element={<SearchMenu />} />
           <Route path="/detail-menu/:id" element={<DetailMenu />} />

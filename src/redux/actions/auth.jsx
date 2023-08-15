@@ -13,7 +13,7 @@ export const login = (data, navigate) => async (dispatch) => {
         localStorage.setItem("id",result.data.data.id)
         localStorage.setItem("roles",result.data.data.roles)
         dispatch({payload: result.data, type:"AUTH_LOGIN_SUCCESS"})
-        toast.success('Login success!');
+        // toast.success('Login success!');
         navigate('/')
     } catch(err){
         console.log("error", err)
