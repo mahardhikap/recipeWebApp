@@ -2,7 +2,14 @@
 
 This project about REST API schema Website Recipe, build with NodeJS, ExpressJS, PostgreSQL and React Vite
 
-author:
+## Demo
+
+email: guest@gmail.com
+
+password: guest
+
+
+- [@mahardhikap](https://www.github.com/mahardhikap)
 
 
 
