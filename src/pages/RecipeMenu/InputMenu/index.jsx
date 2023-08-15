@@ -1,10 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux"
+import { postMenu } from '../../../redux/actions/menu'
 // let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkLnl6QllkRDZQUlpKVHRwdHVRZHVOdTlYS3Z4eVNGZ0dxak9VbTlTVng3ejdRY3RuLnM3aU8iLCJwaG90byI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2R4YW8wNmFwci9pbWFnZS91cGxvYWQvdjE2OTE1MDM5MDQvcmVjaXBlL29wd2R2ZGxub3RpbzBndHU3dzFxLmpwZyIsInJvbGVzIjoiYWRtaW4iLCJpbWdfaWQiOiJyZWNpcGUvb3B3ZHZkbG5vdGlvMGd0dTd3MXEiLCJpYXQiOjE2OTE1NTQ5MDd9.Z-FNpHBr61PK7ixlcwULOV1vv1FyU6Fm4YPBgFiEhw8`;
 
 function InputMenu() {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [image, setImage] = useState(null);
   const [inputData, setInputData] = useState({
     title: '',
@@ -25,22 +28,7 @@ function InputMenu() {
     bodyFormData.append('image', image);
     console.log(bodyFormData);
 
-    axios
-      .post(`${url}/recipe`, bodyFormData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          'Content-Type': 'multipart/form-data'
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        // setLoading(false);
-        navigate('/menu');
-      })
-      .catch((error) => {
-        console.error('axios error', error);
-        // setLoading(false);
-      });
+    dispatch(postMenu(bodyFormData,navigate))
   };
 
   const onChange = (e) => {

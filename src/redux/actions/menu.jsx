@@ -15,3 +15,16 @@ export const getDataById = (id) => async (dispatch) => {
         dispatch({payload:err.response.data.error, type:"DETAIL_MENU_FAILED"})
     }
 }
+
+
+export const postMenu = (data, navigate) => async (dispatch) => {
+    try {
+        dispatch({type:"POST_MENU_PENDING"})
+        const result = await axios.post(`${url}/recipe`,data, {headers})
+        navigate('/menu')
+        dispatch({payload:result.data.data, type:"POST_MENU_SUCCESS"})
+    } catch (err) {
+        console.log('error post menu', err)
+        dispatch({payload:err.response.data, type:"POST_MENU_FAILED"})
+    }
+}
