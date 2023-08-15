@@ -22,9 +22,23 @@ export const postMenu = (data, navigate) => async (dispatch) => {
         dispatch({type:"POST_MENU_PENDING"})
         const result = await axios.post(`${url}/recipe`,data, {headers})
         navigate('/menu')
-        dispatch({payload:result.data.data, type:"POST_MENU_SUCCESS"})
+        dispatch({payload:result.data.data[0], type:"POST_MENU_SUCCESS"})
     } catch (err) {
         console.log('error post menu', err)
         dispatch({payload:err.response.data, type:"POST_MENU_FAILED"})
     }
 }
+
+export const updateMenu = (data, id, navigate) => async (dispatch) => {
+    try {
+        dispatch({type:"UPDATE_MENU_PENDING"})
+        const result = await axios.put(`${url}/recipe/${id}`,data, {headers})
+        navigate('/menu')
+        console.log('ini update', result)
+        dispatch({payload:result.data.data[0], type:"UPDATE_MENU_SUCCESS"})
+    } catch (err) {
+        console.log('error update menu', err)
+        dispatch({payload:err.response.data, type:"UPDATE_MENU_FAILED"})
+    }
+}
+
