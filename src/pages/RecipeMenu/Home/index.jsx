@@ -31,7 +31,7 @@ function Home() {
     axios
         .get(`${url}/recipe/searched?search=${search}&sortby=${sortby}&sort=${sort}&limit=5&page=1&searchby=${searchby}`)
         .then((res) => {
-          console.log('ini res search', res);
+          // console.log('ini res search', res);
           setData(res.data.data);
           navigate('/search-menu', { state: { searchData: res.data.data } });
         })

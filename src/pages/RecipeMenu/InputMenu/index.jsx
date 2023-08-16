@@ -27,7 +27,7 @@ function InputMenu() {
     bodyFormData.append('ingredients', inputData.ingredients);
     bodyFormData.append('category_id', inputData.category_id);
     bodyFormData.append('image', image);
-    console.log(bodyFormData);
+    // console.log(bodyFormData);
 
     dispatch(postMenu(bodyFormData,navigate))
   };
@@ -55,7 +55,7 @@ function InputMenu() {
       })
       .then((res) => {
         setCategories(res.data.data);
-        console.log('respon category', res); // Menyimpan daftar kategori dari respons server
+        // console.log('respon category', res); 
       })
       .catch((error) => {
         console.error(error);

@@ -62,7 +62,7 @@ function UpdateMenu() {
 
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
-    console.log(inputData);
+    // console.log(inputData);
   };
 
   const onChangeImage = (e) => {
@@ -83,7 +83,7 @@ function UpdateMenu() {
       })
       .then((res) => {
         setCategories(res.data.data);
-        console.log('respon category', res); // Menyimpan daftar kategori dari respons server
+        // console.log('respon category', res); 
       })
       .catch((error) => {
         console.error(error);

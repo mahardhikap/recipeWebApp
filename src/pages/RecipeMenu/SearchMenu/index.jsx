@@ -41,7 +41,7 @@ function SearchMenu() {
       axios
         .get(`${url}/recipe/searched?search=${search}&sortby=${sortby}&sort=${sort}&limit=${limit}&page=${currentPage}&searchby=${searchby}`)
         .then((res) => {
-          console.log('ini res search', res);
+          // console.log('ini res search', res);
           setData(res.data.data);
           setPage(res.data.status);
           setCurrentPage(1)

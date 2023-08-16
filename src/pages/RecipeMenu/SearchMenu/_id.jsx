@@ -31,7 +31,7 @@ function DetailMenu() {
   const getDataByUser = async () => {
     try {
       const response = await axios.get(`${url}/recipe/user/${user}`);
-      console.log('Data by user:', response);
+      // console.log('Data by user:', response);
       setRecipeAmount(response.data.data);
     } catch (error) {
       console.error('Error fetching data by user:', error);

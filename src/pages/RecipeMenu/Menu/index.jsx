@@ -81,8 +81,8 @@ function Menu() {
         toast.success('Getting data', { toastId: "1" });
       }
 
-      console.log('data response', response);
-      console.log('user response', userResponse);
+      // console.log('data response', response);
+      // console.log('user response', userResponse);
 
       setData(response.data.data);
       setPage(response.data.status);
