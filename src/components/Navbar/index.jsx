@@ -11,7 +11,11 @@ function NavbarCustom() {
   const handleShow = () => setShow(true);
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("photo");
+    localStorage.removeItem("username");
+    localStorage.removeItem("id");
+    localStorage.removeItem("roles");
     navigate('/');
   };
 
