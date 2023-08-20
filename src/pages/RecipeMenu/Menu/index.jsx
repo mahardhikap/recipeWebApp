@@ -9,30 +9,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteMenu } from '../../../redux/actions/menu';
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import Toast from '../../../components/Toast';
-
-// let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkLnl6QllkRDZQUlpKVHRwdHVRZHVOdTlYS3Z4eVNGZ0dxak9VbTlTVng3ejdRY3RuLnM3aU8iLCJwaG90byI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2R4YW8wNmFwci9pbWFnZS91cGxvYWQvdjE2OTE1MDM5MDQvcmVjaXBlL29wd2R2ZGxub3RpbzBndHU3dzFxLmpwZyIsInJvbGVzIjoiYWRtaW4iLCJpbWdfaWQiOiJyZWNpcGUvb3B3ZHZkbG5vdGlvMGd0dTd3MXEiLCJpYXQiOjE2OTE1NTQ5MDd9.Z-FNpHBr61PK7ixlcwULOV1vv1FyU6Fm4YPBgFiEhw8`;
 
 function Menu() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, errorMessage, isError, isLoading } = useSelector(
-    (state) => state.delete_menu
-  );
   const [Data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showAlert, setShowAlert] = useState(false);
-  // const [limit, setLimit] = useState(5);
-  const [alertData, setAlertData] = useState({
-    type: '',
-    message: '',
-  });
   const [recipeAmount, setRecipeAmount] = useState(null);
   let url = import.meta.env.VITE_BASE_URL;
   const [itemToDelete, setItemToDelete] = useState(null);
   const [modalVisibility, setModalVisibility] = useState({});
-  const [toastShown, setToastShown] = useState(false);
 
   const handleClose = () => setModalVisibility({});
   const handleShow = (item) => {
@@ -44,28 +31,10 @@ function Menu() {
     try {
       await dispatch(deleteMenu(itemToDelete.id, navigate));
       fetchData();
-      // if (toastShown) {
-      //   toast.success('Menu deleted successfully');
-      //   setToastShown(true);
-      // }
     } catch (error) {
       console.error(error);
     }
   };
-  // const getData = () => {
-  //   axios
-  //     .get('http://localhost:3000/recipe', {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
 
   const fetchData = async () => {
     try {
@@ -81,89 +50,24 @@ function Menu() {
         toast.success('Getting data', { toastId: "1" });
       }
 
-      // console.log('data response', response);
-      // console.log('user response', userResponse);
-
       setData(response.data.data);
       setPage(response.data.status);
       setCurrentPage(response.data.status.pageNow);
       setRecipeAmount(userResponse.data.data);
     } catch (error) {
       console.error(error);
-      // if (!toastShown) {
-      //   toast.warn('Data not found');
-      //   setToastShown(true);
-      // }
     }
   };
 
   useEffect(() => {
     fetchData();
-    // setAlertData({
-    //   ...alertData,
-    //   type: 'primary',
-    //   message: 'berhasil get data',
-    // });
-    // setShowAlert(true);
     window.scrollTo(0, 0);
   }, [currentPage]);
-
-  // const deleteData = (id) => {
-  //   axios
-  //     .delete(`${url}/recipe/${id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-
-  //       setAlertData({
-  //         ...alertData,
-  //         type: 'warning',
-  //         message: 'berhasil hapus data',
-  //       });
-  //       setShowAlert(true);
-  //       window.scrollTo(0, 0);
-  //       fetchData();
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       setAlertData({
-  //         ...alertData,
-  //         type: 'danger',
-  //         message: error.response.data.error.message,
-  //       });
-  //       setShowAlert(true);
-  //       window.scrollTo(0, 0);
-  //     });
-  // };
 
   return (
     <>
       <NavbarCustom />
-      <Toast/>
       <div className="container">
-      {/* <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      /> */}
-        {/* <div className="mt-4 col-lg-3 text-center">
-          {Data ? (
-            <Alert type={alertData.type} message={'Data is found!'} />
-          ) : (
-            <Alert type={alertData.type} message={'Data not found!'} />
-          )}
-          {data && <Alert type="primary" message={'Delete success!'} />}
-        </div> */}
         <section className="container col-md-12 col-lg-9">
           <div className="d-flex align-items-center justify-content-between my-5 flex-wrap">
             <div className="d-flex align-items-center gap-3 border-start border-warning border-4 ps-2">
@@ -318,6 +222,7 @@ function Menu() {
         </div>
       </div>
       <Footer />
+      <ToastContainer/>
     </>
   );
 }

@@ -5,7 +5,6 @@ import NavbarNoLogin from '../../../components/NavbarNoLogin';
 import NavbarCustom from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import "./home.css"
-import Toast from '../../../components/Toast';
 import { toast } from 'react-toastify';
 
 function Home() {
@@ -56,7 +55,6 @@ function Home() {
       <div>
         {navbarDisplay()}
       </div>
-      <Toast/>
       <section className="container w-100 position-relative">
         <div className="row mt-5 yellow-big-square">
           <div className="col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 d-flex flex-column justify-content-center my-3">

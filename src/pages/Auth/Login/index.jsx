@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from './../../../redux/actions/auth';
-import Alert from './../../../components/Alert';
-import Toast from '../../../components/Toast';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { errorMessage, isError } = useSelector((state) => state.auth);
   const [inputData, setInputData] = useState({
     email: '',
     password: '',
@@ -27,7 +27,6 @@ function Login() {
   return (
     <>
       <section className="container">
-        <Toast/>
         <div className="w-100 my-5">
           <div className="col-sm-12 col-md-6 mx-auto">
             <div className="mb-5 text-center">
@@ -36,12 +35,6 @@ function Login() {
               <p>Login into your existing account</p>
             </div>
             <hr />
-            {isError && errorMessage && (
-              <Alert type="warning" message={errorMessage.message} />
-            )}
-            {isError && !errorMessage && (
-              <Alert type="warning" message="ada yang salah" />
-            )}
             <form onSubmit={postData} className="">
               <label htmlFor="email" className="mt-3">
                 Email
@@ -96,6 +89,7 @@ function Login() {
           </div>
         </div>
       </section>
+      <ToastContainer/>
     </>
   );
 }

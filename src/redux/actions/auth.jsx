@@ -12,12 +12,15 @@ export const login = (data, navigate) => async (dispatch) => {
         localStorage.setItem("username",result.data.data.username)
         localStorage.setItem("id",result.data.data.id)
         localStorage.setItem("roles",result.data.data.roles)
-        dispatch({payload: result.data, type:"AUTH_LOGIN_SUCCESS"})
         toast.success('Login success!');
-        navigate('/')
-        window.location.reload();
+        dispatch({payload: result.data, type:"AUTH_LOGIN_SUCCESS"})
+        setTimeout(()=>{
+            navigate('/')
+            window.location.reload();
+        }, 2000)
     } catch(err){
         console.log("error", err)
         dispatch({payload:err.response.data.error, type:"AUTH_LOGIN_FAILED"})
+        toast.error(err.response.data.error.message)
     }
 }

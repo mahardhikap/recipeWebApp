@@ -1,16 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Alert from '../../../components/Alert';
-import Footer from '../../../components/Footer';
-import NavbarCustom from '../../../components/Navbar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
   let url = import.meta.env.VITE_BASE_URL;
-  const [status, setStatus] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
-  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate()
   const [inputData, setInputData] = useState({
     username: '',
     email: '',
@@ -29,18 +25,14 @@ function Register() {
       .post(`${url}/users`, bodyFormData)
       .then((res) => {
         console.log(res);
-        setStatus(res.data.status);
-        setShowAlert(true)
-        setShowError(false)
-        // setLoading(false);
-        // navigate('/login');
+        toast.success(res.data.status)
+        setTimeout(()=>{
+          navigate('/login')
+        }, 2000)
       })
       .catch((error) => {
         console.error('axios error', error);
-        setShowAlert(false)
-        setErrorMessage(error.response.data.error.message)
-        setShowError(true)
-        // setLoading(false);
+        toast.error(error.response.data.error.message)
       });
   };
 
@@ -62,12 +54,6 @@ function Register() {
               <p>Create new account to access all features</p>
             </div>
             <hr />
-            {showAlert && (
-              <div className="alert alert-warning">{status}</div>
-            )}
-            {showError && (
-              <div className="alert alert-warning">{errorMessage}</div>
-            )}
             <form onSubmit={postData} className="w-100">
               <label htmlFor="name">Username</label>
               <input
@@ -135,6 +121,7 @@ function Register() {
           </div>
         </div>
       </section>
+      <ToastContainer/>
     </>
   );
 }
