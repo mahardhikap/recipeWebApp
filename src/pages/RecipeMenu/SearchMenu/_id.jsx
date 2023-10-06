@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getDataById } from '../../../redux/actions/menu'
 import NavbarNoLogin from '../../../components/NavbarNoLogin';
 import NavbarCustom from '../../../components/Navbar';
-import Alert from '../../../components/Alert';
 
 function DetailMenu() {
   const [recipe, setRecipeAmount] = useState(null);
@@ -56,8 +55,6 @@ function DetailMenu() {
       {navbarDisplay()}
     </div>
       <section className="container w-100">
-      {isError && errorMessage && <Alert type="warning" message={errorMessage.message} />}
-      {isError && !errorMessage && <Alert type="warning" message="ada yang salah" />}
         <div className="col-sm-12 col-md-9 col-lg-9 mx-auto">
           <div className="d-flex align-items-center justify-content-between my-5 flex-wrap">
             <div className="d-flex align-items-center gap-3 border-start border-warning border-4 ps-2">

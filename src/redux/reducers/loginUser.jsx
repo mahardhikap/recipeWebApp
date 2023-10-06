@@ -5,7 +5,7 @@ const initialState = {
     isError: false
 }
 
-const authReducer = (state=initialState, action) => {
+const loginUser = (state=initialState, action) => {
     if(action.type === 'AUTH_LOGIN_PENDING'){
         return{
             ...state,
@@ -27,9 +27,17 @@ const authReducer = (state=initialState, action) => {
             isLoading:false,
             isError:true
         }
+    } else if(action.type === 'LOGOUT_SUCCESS') {
+        return{
+            ...state,
+            data:null,
+            errorMessage:'',
+            isLoading:false,
+            isError:false
+        }
     } else {
         return state
     }
 }
 
-export default authReducer
+export default loginUser

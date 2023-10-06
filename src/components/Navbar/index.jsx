@@ -1,22 +1,33 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { logoutUser } from '../../redux/actions/loginUser';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
 function NavbarCustom() {
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const dispatch = useDispatch()
+  const {data} = useSelector(state => state.loginUser)
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("photo");
-    localStorage.removeItem("username");
-    localStorage.removeItem("id");
-    localStorage.removeItem("roles");
-    navigate('/');
+    Swal.fire({
+      title: 'Do you want to logout?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',}).then((result)=>{
+        if(result.isConfirmed){
+          dispatch(logoutUser())
+          Swal.fire(
+            'Logout success!',
+            '',
+            'success'
+          ).then(()=> navigate('/'))
+        } else {
+          Swal.close()
+        }
+      })
   };
 
   return (
@@ -52,29 +63,35 @@ function NavbarCustom() {
                 >
                   Search Menu
                 </Link>
+                <Link
+                  to={'#'}
+                  className="text-decoration-none text-black"
+                >
+                  My Menu
+                </Link>
               </div>
               <div className="border-start border-warning border-4 ps-2">
                 <div className="d-flex align-items-center gap-3">
                   <div>
-                    <Link to={`/profile/${localStorage.getItem('id')}`}>
+                    <Link to={`/profile/${data?.data?.id}`}>
                       <img
                         className="rounded-circle"
                         style={{ width: '40px' }}
-                        src={localStorage.getItem('photo')}
+                        src={data?.data?.photo}
                       />
                     </Link>
                   </div>
                   <div>
                     <div className="m-0 p-0">
-                      {localStorage.getItem('username')}
-                      <span className="badge rounded-pill bg-danger">
+                      {data?.data?.username}
+                      {/* <span className="badge rounded-pill bg-danger">
                         {localStorage.getItem('roles')}
-                      </span>
+                      </span> */}
                     </div>
                     <div className="m-0 p-0 fw-bold">
                       <button
                         className="text-decoration-none text-black p-0 border-0 bg-transparent fw-bold"
-                        onClick={handleShow}
+                        onClick={()=>logout()}
                       >
                         Logout
                       </button>
@@ -86,20 +103,6 @@ function NavbarCustom() {
           </div>
         </div>
       </nav>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Logout</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Do you wanna logout?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="warning w-100 text-white" onClick={handleClose && logout}>
-            Yes
-          </Button>
-          <Button variant="secondary w-100" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }

@@ -1,15 +1,15 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from './../../../redux/actions/auth';
-
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { loginUser } from '../../../redux/actions/loginUser';
+import Swal from 'sweetalert2';
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { data, isError, errorMessage } = useSelector(
+    (state) => state.loginUser
+  );
   const [inputData, setInputData] = useState({
     email: '',
     password: '',
@@ -17,12 +17,20 @@ function Login() {
 
   const postData = (e) => {
     e.preventDefault();
-    dispatch(login(inputData, navigate));
+    dispatch(loginUser(inputData))
   };
 
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (isError) {
+      Swal.fire(`${errorMessage?.message}`,'','error')
+    } else if (data) {
+      Swal.fire(`${data?.message}`, '', 'success').then(() => {navigate('/home')})
+    }
+  }, [isError, data, errorMessage]);
 
   return (
     <>
@@ -81,7 +89,10 @@ function Login() {
             <div className="mt-5 text-center">
               <p>
                 Don't have an account?{' '}
-                <Link to={'/register'} className="text-decoration-none text-warning">
+                <Link
+                  to={'/register'}
+                  className="text-decoration-none text-warning"
+                >
                   Sign Up
                 </Link>
               </p>
@@ -89,7 +100,6 @@ function Login() {
           </div>
         </div>
       </section>
-      <ToastContainer/>
     </>
   );
 }

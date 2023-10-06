@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Alert from '../../../components/Alert';
 import Footer from '../../../components/Footer';
 import NavbarCustom from '../../../components/Navbar';
 import { Modal, Button } from 'react-bootstrap';

@@ -20,7 +20,8 @@
     "react-router-dom": "^6.14.2",
     "react-toastify": "^9.1.3",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.4.2"
+    "redux-thunk": "^2.4.2",
+    "sweetalert2": "^11.7.31"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
