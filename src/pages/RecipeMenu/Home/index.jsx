@@ -5,50 +5,17 @@ import NavbarNoLogin from '../../../components/NavbarNoLogin';
 import NavbarCustom from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import "./home.css"
-import { toast } from 'react-toastify';
 
 function Home() {
-  const navigate = useNavigate();
-  let url = import.meta.env.VITE_BASE_URL
   let token = localStorage.getItem("token")
-  const [data, setData] = useState();
-  const [sortby, setSortby] = useState('created_at');
-  const [sort, setSort] = useState('ASC');
-  const [search, setSearch] = useState('');
-  const [searchby, setSearchby] = useState('title');
 
   const navbarDisplay = () => {
     if(!token) {
       return <NavbarNoLogin/>
     } else {
-      // toast.success('Login successfully!')
       return <NavbarCustom/>
     }
   }
-
-  const getSearch = () => {
-    axios
-        .get(`${url}/recipe/searched?search=${search}&sortby=${sortby}&sort=${sort}&limit=5&page=1&searchby=${searchby}`)
-        .then((res) => {
-          // console.log('ini res search', res);
-          setData(res.data.data);
-          navigate('/search-menu', { state: { searchData: res.data.data } });
-        })
-        .catch((error) => {
-          console.error(error);
-          toast.error('Data not found');
-      });
-  }
-
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-    console.log(e.target.value);
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    getSearch();
-  };
 
   return (
     <>
@@ -67,12 +34,10 @@ function Home() {
                 alt=""
                 className="position-absolute top-50 start-0 translate-middle ms-4"
               />
-              <form action="" onSubmit={handleSearchSubmit}>
+              <form>
               <input
                 type="text"
                 name="search"
-                value={search}
-                onChange={handleSearchChange}
                 placeholder="Search Restaurant, Food"
                 className="py-4 ps-5 pe-4 rounded border-0 bg-body-secondary w-100 form-control"
               />

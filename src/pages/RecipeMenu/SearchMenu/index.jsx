@@ -1,62 +1,24 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NavbarNoLogin from '../../../components/NavbarNoLogin';
 import NavbarCustom from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { getSearchSort } from '../../../redux/actions/menu';
+import { useDispatch, useSelector } from 'react-redux';
 
 function SearchMenu() {
-  const [data, setData] = useState();
+  const dispatch = useDispatch()
+  const {data} = useSelector(state => state.getSearchSort)
   const [sortby, setSortby] = useState('created_at');
   const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [search, setSearch] = useState('');
   const [searchby, setSearchby] = useState('title');
-  let url = import.meta.env.VITE_BASE_URL
   let token = localStorage.getItem("token")
-  const location = useLocation();
-  const searchData = location.state?.searchData || [];
-  // const [showAlert, setShowAlert] = useState(false);
 
   const getData = () => {
-    axios
-      .get(
-        `${url}/recipe/sorted?sortby=${sortby}&sort=${sort}&page=${currentPage}&limit=${limit}`
-      )
-      .then((res) => {
-        console.log('ini res data all',res);
-        setData(res.data.data);
-        setPage(res.data.status);
-        setCurrentPage(res.data.status.pageNow);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const getSearchData = () =>  {
-    if (search) {
-      axios
-        .get(`${url}/recipe/searched?search=${search}&sortby=${sortby}&sort=${sort}&limit=${limit}&page=${currentPage}&searchby=${searchby}`)
-        .then((res) => {
-          // console.log('ini res search', res);
-          setData(res.data.data);
-          setPage(res.data.status);
-          setCurrentPage(1)
-          // setShowAlert(false);
-        })
-        .catch((error) => {
-          console.error(error);
-          setCurrentPage(1)
-          setData([]); // Clear previous data
-          setPage(null); // Clear previous page info
-          // setShowAlert(true)
-        });
-    } else {
-      getData();
-    }
+    dispatch(getSearchSort(searchby, search, sortby, sort, page, limit))
   };
 
   const navbarDisplay = () => {
@@ -67,44 +29,9 @@ function SearchMenu() {
     }
   }
 
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-    console.log(e.target.value);
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    setCurrentPage(1)
-    getSearchData();
-  };
-
-  const handleLimitChange = (e) => {
-    const newLimit = parseInt(e.target.value, 10);
-    setLimit(newLimit);
-  };
-
-  const handleSearchByChange = (e) => {
-    const newSearch = e.target.value
-    setSearchby(newSearch)
-  }
-
-  const handleOrderChange = (e) => {
-    const newOrder = e.target.value
-    setSort(newOrder)
-  }
-
-  const handleOrderByChange = (e) => {
-    const newOrderBy = e.target.value
-    setSortby(newOrderBy)
-  }
-
-  useEffect(() => {
-    if(!searchData.length){
-      getSearchData();
-      getData();
-      window.scrollTo(0, 0);
-    }
-  }, [currentPage, limit, searchby, sort, sortby]);
+  useEffect(()=>{
+    getData()
+  },[])
 
   return (
     <>
@@ -118,14 +45,12 @@ function SearchMenu() {
       )} */}
         <h1 className="text-purple">Discover Recipe & Delicious Food</h1>
         <div>
-          <form className="row gap-3" onSubmit={handleSearchSubmit}>
+          <form className="row gap-3">
             <div className="col-sm-12 col-md-6 col-lg-6">
               <input
                 type="text"
                 name="search"
                 placeholder="Telur Gulung"
-                value={search}
-                onChange={handleSearchChange}
                 className="p-3 rounded bg-body-secondary border-0 w-100 form-control"
               />
             </div>
@@ -141,7 +66,7 @@ function SearchMenu() {
         </div>
         <div className='change-limit d-flex gap-2 my-2 flex-wrap'>
           <div>Show</div>
-          <select name="limit" id="lmt" className='border-0 bg-warning rounded' onChange={handleLimitChange} value={limit}>
+          <select name="limit" id="lmt" className='border-0 bg-warning rounded'>
             <option value="1">1</option>
             <option value="3">3</option>
             <option value="5">5</option>
@@ -149,19 +74,19 @@ function SearchMenu() {
             <option value="1000">All</option>
           </select>
           <div>Search By</div>
-          <select name="searchby" id="sby" className='border-0 bg-warning rounded' onChange={handleSearchByChange} value={searchby}>
+          <select name="searchby" id="sby" className='border-0 bg-warning rounded'>
             <option value="username">Username</option>
             <option value="title">Title</option>
             <option value="ingredients">Ingredients</option>
             <option value="category.name">Category</option>
           </select>
           <div>Order</div>
-          <select name="order" id="ord" className='border-0 bg-warning rounded' onChange={handleOrderChange} value={sort}>
+          <select name="order" id="ord" className='border-0 bg-warning rounded'>
             <option value="ASC">A-Z</option>
             <option value="DESC">Z-A</option>
           </select>
           <div>Order By</div>
-          <select name="orderby" id="oby" className='border-0 bg-warning rounded' onChange={handleOrderByChange} value={sortby}>
+          <select name="orderby" id="oby" className='border-0 bg-warning rounded'>
             <option value="created_at">Created</option>
             <option value="title">Title</option>
             <option value="username">Username</option>
@@ -181,22 +106,19 @@ function SearchMenu() {
             Breakfast
           </button>
         </div>
-        {(data || searchData)?.map((item, index) => {
-          return (
-            <>
-              <div className="row mt-5 align-items-center" key={index}>
+              <div className="row mt-5 align-items-center">
                 <div className="col-sm-12 col-md-6 col-lg-6">
                   <Link
-                    to={`/detail-menu/${item.id}`}
+                    to={`/detail-menu/#`}
                     className="text-decoration-none text-black"
                   >
                     <img
-                      src={item.image}
+                      src={"https://res.cloudinary.com/dxao06apr/image/upload/v1696471086/recipev2/v3yf7xsw0maq2cxfifqc.jpg"}
                       alt=""
                       className="img-thumbnail ratio ratio-1x1"
                       style={{
-                        width: '500px',
-                        height: '300px',
+                        width: '400px',
+                        height: '400px',
                         objectFit: 'cover',
                       }}
                     />
@@ -205,14 +127,13 @@ function SearchMenu() {
                 <div className="col-sm-12 col-md-6 col-lg-6">
                   <h2>
                     <Link
-                      to={`/detail-menu/${item.id}`}
+                      to={`/detail-menu/#`}
                       className="text-decoration-none text-black"
                     >
-                      {item.title}
+                      Resep Siomay
                     </Link>
-                    {' '}<span className="badge bg-secondary">{item.category}</span>
                   </h2>
-                  <p>{item.ingredients}</p>
+                  <p className="badge bg-secondary fs-5">Appetizer</p>
                   <div className="w-100">
                     <div className="bg-warning rounded p-3 text-center text-white">
                       10 Likes - 12 Comment - 3 Bookmark
@@ -220,38 +141,25 @@ function SearchMenu() {
                   </div>
                   <div className="d-flex align-items-center gap-2 mt-3 mb-5">
                     <div>
-                      <img src={item.photo} alt="" className="rounded-circle" style={{width: '40px'}}/>
+                      <img src={"https://i.ibb.co/M2JSRmW/noimage.png"} alt="" className="rounded-circle" style={{width: '40px'}}/>
                     </div>
                     <div>
-                      <h4>{item.username}</h4>
+                      <h4>Nama User</h4>
                     </div>
                   </div>
                 </div>
               </div>
-            </>
-          );
-        })}
       </section>
       <div className="my-5 text-center">
         <div>
           <button
             className="rounded p-2 button-custom text-white border-0 bg-warning me-3"
-            onClick={() => setCurrentPage(currentPage - 1)}
-            hidden={currentPage <= 1}
           >
             Prev
           </button>
-          {search ? (
-            <span>Show {data?.length} - 1 From 1 </span>
-          ) : (
-            <span>
-              Show {page?.totalData} - {page?.pageNow} From {page?.totalPage}
-            </span>
-          )}
+          1 From 1
           <button
             className="rounded p-2 button-custom text-white border-0 bg-warning ms-3"
-            onClick={() => setCurrentPage(currentPage + 1)}
-            hidden={currentPage >= (search ? 1 : page?.totalPage)}
           >
             Next
           </button>

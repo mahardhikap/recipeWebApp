@@ -13,9 +13,9 @@ export const getDataById = (id) => async (dispatch) => {
         const result = await axios.get(`${url}/recipe/id/${id}`, {headers})
         dispatch({payload:result.data.data[0], type:"DETAIL_MENU_SUCCESS"})
         toast.success('Get detail menu successfully');
-    } catch (err) {
-        dispatch({payload:err.response.data.error, type:"DETAIL_MENU_FAILED"})
-        console.log('error get id menu', err)
+    } catch (error) {
+        dispatch({payload:error.response.data.error, type:"DETAIL_MENU_FAILED"})
+        console.log('error get id menu', error)
     }
 }
 
@@ -28,9 +28,9 @@ export const postMenu = (data, navigate) => async (dispatch) => {
         navigate('/menu')
         window.scrollTo(0, 0);
         toast.success('Post menu successfully')
-    } catch (err) {
-        console.log('error post menu', err)
-        dispatch({payload:err.response.data, type:"POST_MENU_FAILED"})
+    } catch (error) {
+        console.log('error post menu', error)
+        dispatch({payload:error.response.data, type:"POST_MENU_FAILED"})
         toast.error('Post menu failed')
     }
 }
@@ -43,9 +43,9 @@ export const updateMenu = (data, id, navigate) => async (dispatch) => {
         console.log('ini update', result)
         navigate('/menu')
         toast.success('Update menu successfully')
-    } catch (err) {
-        console.log('error update menu', err)
-        dispatch({payload:err.response.data, type:"UPDATE_MENU_FAILED"})
+    } catch (error) {
+        console.log('error update menu', error)
+        dispatch({payload:error.response.data, type:"UPDATE_MENU_FAILED"})
         toast.error('Update menu failed')
     }
 }
@@ -59,10 +59,22 @@ export const deleteMenu = (id, navigate) => async (dispatch) => {
         navigate('/menu')
         window.scrollTo(0, 0);
         toast.success('Delete menu successfully')
-    } catch (err) {
-        console.log('error delete menu', err)
-        dispatch({payload:err.response.data, type:"DELETE_MENU_FAILED"})
+    } catch (error) {
+        console.log('error delete menu', error)
+        dispatch({payload:error.response.data, type:"DELETE_MENU_FAILED"})
         toast.error('Delete menu failed')
+    }
+}
+
+export const getSearchSort = (searchby, search, sortby, sort, page, limit) => async (dispatch) => {
+    try {
+        dispatch({type:"GET_SEARCHSORT_PENDING"})
+        const result = await axios.get(`${url}/sort-menu?searchby=${searchby}&search=${search}&sortby=${sortby}&sort=${sort}&page=${page}&limit=${limit}`)
+        dispatch({payload:result.data.data, type:"GET_SEARCHSORT_SUCCESS"})
+        // console.log('ini getsearchsort', result)
+    } catch (error) {
+        console.log('error when getsearhcsort', error)
+        dispatch({payload:error.response.data, type:"GET_SEARCHSORT_FAILED"})
     }
 }
 

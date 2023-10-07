@@ -4,6 +4,7 @@ import detail_menu from "./detail_menu"
 import post_menu from "./post_menu"
 import update_menu from "./update_menu"
 import delete_menu from "./delete_menu"
+import getSearchSort from "./getSearchSort";
 
 
 const rootReducers = combineReducers({
@@ -11,7 +12,8 @@ const rootReducers = combineReducers({
     detail_menu,
     post_menu,
     update_menu,
-    delete_menu
+    delete_menu,
+    getSearchSort
 })
 
 export default rootReducers
