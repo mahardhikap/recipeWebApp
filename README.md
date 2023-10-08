@@ -5,9 +5,9 @@ This project about REST API schema Website Recipe, build with NodeJS, ExpressJS,
 # Demo
 Link: https://recipewebapp.vercel.app
 ```
-email: guest@gmail.com
+email: ---
 
-password: guest
+password: ---
 ```
 
 
