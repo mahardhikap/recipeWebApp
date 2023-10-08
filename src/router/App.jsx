@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes, BrowserRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
-import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Menu from '../pages/RecipeMenu/Menu';
 import InputMenu from '../pages/RecipeMenu/InputMenu';
 import UpdateMenu from '../pages/RecipeMenu/UpdateMenu'

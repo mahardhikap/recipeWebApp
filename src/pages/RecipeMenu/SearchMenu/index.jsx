@@ -9,10 +9,10 @@ import { useDispatch, useSelector } from 'react-redux';
 function SearchMenu() {
   const dispatch = useDispatch()
   const {data} = useSelector(state => state.getSearchSort)
-  const [sortby, setSortby] = useState('created_at');
+  const [sortby, setSortby] = useState('title');
   const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(4);
   const [search, setSearch] = useState('');
   const [searchby, setSearchby] = useState('title');
   let token = localStorage.getItem("token")
@@ -29,9 +29,16 @@ function SearchMenu() {
     }
   }
 
+  const goToPage = pageNumber => {
+    if (pageNumber >= 1 && pageNumber <= data?.pages.totalPage) {
+      setPage(pageNumber);
+    }
+  };
+
+
   useEffect(()=>{
     getData()
-  },[])
+  },[page])
 
   return (
     <>
@@ -106,60 +113,75 @@ function SearchMenu() {
             Breakfast
           </button>
         </div>
+        {data?.rows?.map((item) =>{
+          return(
               <div className="row mt-5 align-items-center">
-                <div className="col-sm-12 col-md-6 col-lg-6">
+                <div className="col-sm-12 col-md-6 col-lg-4">
                   <Link
-                    to={`/detail-menu/#`}
+                    to={`/detail-menu/${item.id}`}
                     className="text-decoration-none text-black"
                   >
                     <img
-                      src={"https://res.cloudinary.com/dxao06apr/image/upload/v1696471086/recipev2/v3yf7xsw0maq2cxfifqc.jpg"}
-                      alt=""
+                      src={item.photo_menu}
+                      alt="photo-menu"
                       className="img-thumbnail ratio ratio-1x1"
                       style={{
-                        width: '400px',
-                        height: '400px',
+                        width: '300px',
+                        height: '300px',
                         objectFit: 'cover',
                       }}
                     />
                   </Link>
                 </div>
-                <div className="col-sm-12 col-md-6 col-lg-6">
+                <div className="col-sm-12 col-md-6 col-lg-4">
                   <h2>
                     <Link
-                      to={`/detail-menu/#`}
+                      to={`/detail-menu/${item.id}`}
                       className="text-decoration-none text-black"
                     >
-                      Resep Siomay
+                      {item.title}
                     </Link>
                   </h2>
-                  <p className="badge bg-secondary fs-5">Appetizer</p>
+                  <p className="badge bg-secondary fs-5">{item.category}</p>
                   <div className="w-100">
-                    <div className="bg-warning rounded p-3 text-center text-white">
-                      10 Likes - 12 Comment - 3 Bookmark
+                    <div className="bg-warning rounded p-1 text-center d-flex justify-content-evenly fw-bold">
+                      <div className='d-flex justify-content-center align-items-center text-white'>
+                        <i class="bi bi-hand-thumbs-up-fill fs-4 btn text-white"></i>
+                        {item.like_count} LIKE
+                      </div>
+                      <div>
+                        <i class="bi bi-chat-left-text-fill fs-4 btn text-white"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-bookmark-fill fs-4 btn text-white"></i>
+                      </div>
                     </div>
                   </div>
                   <div className="d-flex align-items-center gap-2 mt-3 mb-5">
                     <div>
-                      <img src={"https://i.ibb.co/M2JSRmW/noimage.png"} alt="" className="rounded-circle" style={{width: '40px'}}/>
+                      <img src={item.photo_user} alt="photo-user" className="rounded-circle" style={{width: '40px'}}/>
                     </div>
                     <div>
-                      <h4>Nama User</h4>
+                      <h4>{item.username}</h4>
                     </div>
                   </div>
                 </div>
               </div>
+          )
+        })}
       </section>
-      <div className="my-5 text-center">
+      <div className="my-5 text-center fw-bold">
         <div>
           <button
-            className="rounded p-2 button-custom text-white border-0 bg-warning me-3"
+            className="rounded p-2 button-custom text-white border-0 bg-warning me-3 fw-bold"
+            onClick={()=> goToPage(page - 1)}
           >
             Prev
           </button>
-          1 From 1
+          {data?.pages?.pageNow} From {data?.pages?.totalPage}
           <button
-            className="rounded p-2 button-custom text-white border-0 bg-warning ms-3"
+            className="rounded p-2 button-custom text-white border-0 bg-warning ms-3 fw-bold"
+            onClick={()=> goToPage(page + 1)}
           >
             Next
           </button>
