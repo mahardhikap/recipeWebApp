@@ -48,7 +48,7 @@ function NavbarCustom() {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
               <div className="navbar-nav gap-4 mt-4">
-                <Link to={'/home'} className="text-decoration-none text-black">
+                <Link to={'/menu'} className="text-decoration-none text-black">
                   Home
                 </Link>
                 <Link
@@ -63,12 +63,12 @@ function NavbarCustom() {
                 >
                   Search Menu
                 </Link>
-                <Link
+                {/* <Link
                   to={'#'}
                   className="text-decoration-none text-black"
                 >
                   My Menu
-                </Link>
+                </Link> */}
               </div>
               <div className="border-start border-warning border-4 ps-2">
                 <div className="d-flex align-items-center gap-3">

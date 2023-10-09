@@ -28,7 +28,7 @@ function Login() {
     if (isError) {
       Swal.fire(`${errorMessage?.message}`,'','error')
     } else if (data) {
-      Swal.fire(`${data?.message}`, '', 'success').then(() => {navigate('/home')})
+      Swal.fire(`${data?.message}`, '', 'success').then(() => {navigate('/menu')})
     }
   }, [isError, data, errorMessage]);
 

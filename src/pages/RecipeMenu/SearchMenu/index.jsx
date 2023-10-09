@@ -17,15 +17,13 @@ function SearchMenu() {
   const [search, setSearch] = useState('');
   const [searchby, setSearchby] = useState('title');
   let token = localStorage.getItem("token")
-  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const selectedButtonStyle = {
-    backgroundColor: '#00E092',
-  };
-  
-  const unselectedButtonStyle = {
-    backgroundColor: '#EFC81A',
-  };
+  const [buttonStates, setButtonStates] = useState({
+    'New': false,
+    'Appetizer': false,
+    'Main Course': false,
+    'Dessert': false,
+  });
 
   const getData = () => {
     dispatch(getSearchSort(searchby, search, sortby, sort, page, limit))
@@ -59,6 +57,64 @@ function SearchMenu() {
     setLimit(e.target.value);
   };
 
+  const handleNewMenu = () => {
+    setSortby('created_at');
+    setSort('DESC');
+    setSearch('')
+    setSearchby('title')
+    setPage(1);
+    setButtonStates({
+      'New': true,
+      'Appetizer': false,
+      'Main Course': false,
+      'Dessert': false,
+    });
+    getData();
+    // Swal.fire('Change to data new upload menu?').then(()=>getData())
+  };
+  const handleAppetizer = () => {
+    setSearch('Appetizer')
+    setSearchby('category.name')
+    setSortby('created_at');
+    setSort('DESC');
+    setPage(1);
+    setButtonStates({
+      'New': false,
+      'Appetizer': true,
+      'Main Course': false,
+      'Dessert': false,
+    });
+    getData();
+  };
+  const handleMainCourse = () => {
+    setSearch('Main Course')
+    setSearchby('category.name')
+    setSortby('created_at');
+    setSort('DESC');
+    setPage(1);
+    setButtonStates({
+      'New': false,
+      'Appetizer': false,
+      'Main Course': true,
+      'Dessert': false,
+    });
+    getData();
+  };
+  const handleDessert = () => {
+    setSearch('Dessert')
+    setSearchby('category.name')
+    setSortby('created_at');
+    setSort('DESC');
+    setPage(1);
+    setButtonStates({
+      'New': false,
+      'Appetizer': false,
+      'Main Course': false,
+      'Dessert': true,
+    });
+    getData();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setPage(1);
@@ -73,7 +129,7 @@ function SearchMenu() {
 
   useEffect(()=>{
     getData()
-  },[page])
+  },[page, limit])
 
   return (
     <>
@@ -82,9 +138,6 @@ function SearchMenu() {
       </div>
       
       <section className="container mt-5">
-      {/* {showAlert && (
-        <div className="alert alert-danger">Data tidak ditemukan</div>
-      )} */}
         <h1 className="text-purple">Discover Recipe & Delicious Food</h1>
         <div>
           <form className="row gap-3" onSubmit={handleSubmit}>
@@ -92,7 +145,7 @@ function SearchMenu() {
               <input
                 type="text"
                 name="search"
-                placeholder="Telur Gulung"
+                placeholder="Search any..."
                 className="p-3 rounded bg-body-secondary border-0 w-100 form-control"
                 onChange={onChangeSearch}
                 value={search}
@@ -145,52 +198,44 @@ function SearchMenu() {
         <button
             className="rounded px-3 py-2 border-0 text-white"
             style={
-              selectedCategory === 'New'
-                ? selectedButtonStyle
-                : unselectedButtonStyle
+              buttonStates.New
+                ? { backgroundColor: '#00E092' }
+                : { backgroundColor: '#EFC81A' }
             }
-            onClick={() => {
-              setSelectedCategory('New');
-            }}
+            onClick={handleNewMenu}
           >
             New
           </button>
           <button
             className="rounded px-3 py-2 border-0 text-white"
             style={
-              selectedCategory === 'Appetizer'
-                ? selectedButtonStyle
-                : unselectedButtonStyle
+              buttonStates.Appetizer
+                ? { backgroundColor: '#00E092' }
+                : { backgroundColor: '#EFC81A' }
             }
-            onClick={() => {
-              setSelectedCategory('Appetizer');
-            }}
+            onClick={handleAppetizer}
           >
             Appetizer
           </button>
           <button
             className="rounded px-3 py-2 border-0 text-white"
             style={
-              selectedCategory === 'Main Course'
-                ? selectedButtonStyle
-                : unselectedButtonStyle
+              buttonStates['Main Course']
+                ? { backgroundColor: '#00E092' }
+                : { backgroundColor: '#EFC81A' }
             }
-            onClick={() => {
-              setSelectedCategory('Main Course');
-            }}
+            onClick={handleMainCourse}
           >
             Main Course
           </button>
           <button
             className="rounded px-3 py-2 border-0 text-white"
             style={
-              selectedCategory === 'Dessert'
-                ? selectedButtonStyle
-                : unselectedButtonStyle
+              buttonStates.Dessert
+                ? { backgroundColor: '#00E092' }
+                : { backgroundColor: '#EFC81A' }
             }
-            onClick={() => {
-              setSelectedCategory('Dessert');
-            }}
+            onClick={handleDessert}
           >
             Dessert
           </button>
