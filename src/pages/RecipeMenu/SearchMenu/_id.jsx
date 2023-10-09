@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,11 +6,9 @@ import NavbarNoLogin from '../../../components/NavbarNoLogin';
 import NavbarCustom from '../../../components/Navbar';
 
 function DetailMenu() {
-  const [recipe, setRecipeAmount] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch()
   const {data: detailMenu, errorMessage, isError} = useSelector((state)=> state.detail_menu)
-  let url = import.meta.env.VITE_BASE_URL
 
   const navbarDisplay = () => {
     if(!localStorage.getItem('token')) {
@@ -44,7 +41,7 @@ function DetailMenu() {
               </div>
               <div>
                 <div className='fw-bolder'>{detailMenu?.username}</div>
-                <div className="fw-medium">Recipes</div>
+                <div className='fw-medium'>Recipes</div>
               </div>
             </div>
             <div>
@@ -60,7 +57,7 @@ function DetailMenu() {
               className="w-100"
               style={{
                 // width: '500px',
-                height: '500px',
+                height: '400px',
                 objectFit: 'cover',
                 boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.5)',
                 borderRadius:'10px'

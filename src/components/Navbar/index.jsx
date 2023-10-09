@@ -78,6 +78,7 @@ function NavbarCustom() {
                         className="rounded-circle"
                         style={{ width: '40px' }}
                         src={data?.data?.photo}
+                        alt='photo-profile'
                       />
                     </Link>
                   </div>
