@@ -23,7 +23,9 @@ function NavbarCustom() {
             'Logout success!',
             '',
             'success'
-          ).then(()=> navigate('/'))
+          ).then(()=> {
+            navigate('/');
+          })
         } else {
           Swal.close()
         }
@@ -77,14 +79,14 @@ function NavbarCustom() {
                       <img
                         className="rounded-circle"
                         style={{ width: '40px' }}
-                        src={data?.data?.photo}
+                        src={localStorage.getItem('photo')}
                         alt='photo-profile'
                       />
                     </Link>
                   </div>
                   <div>
                     <div className="m-0 p-0">
-                      {data?.data?.username}
+                      {localStorage.getItem('username')}
                       {/* <span className="badge rounded-pill bg-danger">
                         {localStorage.getItem('roles')}
                       </span> */}

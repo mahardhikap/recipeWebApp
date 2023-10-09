@@ -5,13 +5,13 @@ const initialState = {
     isError:false
 }
 
-const detail_menuReducer = (state=initialState,action) => {
-    if(action.type === 'DETAIL_MENU_PENDING'){
+const postComment = (state=initialState,action) => {
+    if(action.type === 'POST_COMMENT_PENDING'){
         return{
             ...state,
             isLoading: true,
         }
-    } else if(action.type === 'DETAIL_MENU_SUCCESS'){
+    } else if(action.type === 'POST_COMMENT_SUCCESS'){
         return{
             ...state,
             data: action.payload,
@@ -19,7 +19,7 @@ const detail_menuReducer = (state=initialState,action) => {
             errorMessage:'',
             isError:false
         }
-    } else if(action.type === 'DETAIL_MENU_FAILED'){
+    } else if(action.type === 'POST_COMMENT_FAILED'){
         return{
             ...state,
             data:null,
@@ -27,9 +27,17 @@ const detail_menuReducer = (state=initialState,action) => {
             isLoading:false,
             isError:true
         }
+    } else if(action.type === 'COMMENT_STATUS_RESET'){
+        return{
+            ...state,
+            data:null,
+            errorMessage:'',
+            isLoading:false,
+            isError:false
+        }
     } else {
         return state
     }
 }
 
-export default detail_menuReducer
+export default postComment

@@ -6,17 +6,25 @@ let headers = {
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const getDataById = (id) => async (dispatch) => {
+export const getDetailMenu = (id) => async (dispatch) => {
     try {
 
         dispatch({type:"DETAIL_MENU_PENDING"})
         const result = await axios.get(`${url}/menu/${id}`)
         dispatch({payload:result.data.data, type:"DETAIL_MENU_SUCCESS"})
     } catch (error) {
-        dispatch({payload:error.response.data.error, type:"DETAIL_MENU_FAILED"})
+        dispatch({payload:error.response.data, type:"DETAIL_MENU_FAILED"})
         console.log('error get id menu', error)
     }
 }
+
+export const detailMenuReset = () => async (dispatch) => {
+    try {
+      dispatch({ type: 'DETAIL_MENU_RESET' });
+    } catch (err) {
+      console.log('error when reset detail menu', err);
+    }
+  };
 
 
 export const postMenu = (data, navigate) => async (dispatch) => {
