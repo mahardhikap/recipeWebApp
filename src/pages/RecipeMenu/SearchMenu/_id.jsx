@@ -6,7 +6,7 @@ import {
   postComment,
   getComment,
   deleteComment,
-  commentStatusReset,
+  commentStatusReset
 } from '../../../redux/actions/comment';
 import NavbarNoLogin from '../../../components/NavbarNoLogin';
 import NavbarCustom from '../../../components/Navbar';
@@ -24,7 +24,7 @@ function DetailMenu() {
   } = useSelector((state) => state.getDetailMenu);
 
   const { data: listComment } = useSelector((state) => state.getComment);
-  const { isError: postCommentStatus } = useSelector(
+  const { isError: postCommentError, data: postCommentData } = useSelector(
     (state) => state.postComment
   );
   const [inputComment, setInputComment] = useState({
@@ -50,28 +50,6 @@ function DetailMenu() {
   const handlePostComment = () => {
     dispatch(postComment(id, inputComment)).then(() => {
       dispatch(getComment(id));
-      if (!postCommentStatus) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Comment added successfully!',
-          showConfirmButton: false,
-          timer: 1000,
-        }).then(() => {
-          setTimeout(() => {
-            dispatch(commentStatusReset());
-          }, 3000);
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Login first!',
-          showConfirmButton: false,
-          timer: 1000,
-        }).then(() => {
-          dispatch(commentStatusReset());
-          navigate('/login');
-        });
-      }
     });
   };
 
@@ -110,6 +88,29 @@ function DetailMenu() {
     getListComment();
     window.scrollTo(0, 0);
   }, [isError]);
+
+  useEffect(()=>{
+    if (postCommentError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Login first!',
+        showConfirmButton: false,
+        timer: 1000,
+      }).then(() => {
+        navigate('/login');
+        dispatch(commentStatusReset())
+      });
+    } else if (postCommentData) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Comment added!',
+        showConfirmButton: false,
+        timer: 1000,
+      }).then(() => {
+        dispatch(commentStatusReset())
+      });
+    }
+  },[postCommentData, postCommentError])
 
   return (
     <>
