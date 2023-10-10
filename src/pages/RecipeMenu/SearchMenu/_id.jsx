@@ -151,12 +151,11 @@ function DetailMenu() {
             <img
               src={detailMenu?.photo_menu}
               alt="photo-menu"
-              className="w-100"
+              className="w-100 img-thumbnail"
               style={{
-                // width: '500px',
-                height: '400px',
+                maxHeight: '500px',
                 objectFit: 'cover',
-                boxShadow: '5px 5px 20px rgba(0, 0, 0, 0.5)',
+                boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)',
                 borderRadius: '10px',
               }}
             />

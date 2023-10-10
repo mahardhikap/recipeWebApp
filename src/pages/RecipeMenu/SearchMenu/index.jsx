@@ -246,16 +246,17 @@ function SearchMenu() {
                 <div className="col-sm-12 col-md-6 col-lg-4">
                   <Link
                     to={`/detail-menu/${item.id}`}
-                    className="text-decoration-none text-black"
+                    className="text-decoration-none text-black align-items-center justify-content-center d-flex"
                   >
                     <img
                       src={item.photo_menu}
                       alt="photo-menu"
                       className="img-thumbnail ratio ratio-1x1"
                       style={{
-                        // width: '300px',
-                        height: '340px',
+                        width: '300px',
+                        height: '300px',
                         objectFit: 'cover',
+                        boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)',
                       }}
                     />
                   </Link>
