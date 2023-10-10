@@ -5,13 +5,13 @@ const initialState = {
     isError:false
 }
 
-const update_menuReducer = (state=initialState,action) => {
-    if(action.type === 'UPDATE_MENU_PENDING'){
+const getUserByPayload = (state=initialState,action) => {
+    if(action.type === 'USER_PAYLOAD_PENDING'){
         return{
             ...state,
             isLoading: true,
         }
-    } else if(action.type === 'UPDATE_MENU_SUCCESS'){
+    } else if(action.type === 'USER_PAYLOAD_SUCCESS'){
         return{
             ...state,
             data: action.payload,
@@ -19,7 +19,7 @@ const update_menuReducer = (state=initialState,action) => {
             errorMessage:'',
             isError:false
         }
-    } else if(action.type === 'UPDATE_MENU_FAILED'){
+    } else if(action.type === 'USER_PAYLOAD_FAILED'){
         return{
             ...state,
             data:null,
@@ -32,4 +32,4 @@ const update_menuReducer = (state=initialState,action) => {
     }
 }
 
-export default update_menuReducer
+export default getUserByPayload

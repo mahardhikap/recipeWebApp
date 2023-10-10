@@ -253,7 +253,7 @@ function SearchMenu() {
                       alt="photo-menu"
                       className="img-thumbnail ratio ratio-1x1"
                       style={{
-                        width: '300px',
+                        maxWidth: '300px',
                         height: '300px',
                         objectFit: 'cover',
                         boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)',

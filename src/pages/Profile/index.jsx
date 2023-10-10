@@ -3,73 +3,28 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import NavbarCustom from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserByPayload } from '../../redux/actions/loginUser';
 
 function UserProfile() {
-  const navigate = useNavigate();
   const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { data: userData } = useSelector((state) => state.getUserByPayload);
   const [photo, setPhoto] = useState(null);
   const [inputData, setInputData] = useState({
     username: '',
-    email: '',
-    password: '',
-    photo_url: '',
+    photo: '',
   });
-  let url = import.meta.env.VITE_BASE_URL;
-
-  const getUser = () => {
-    axios
-      .get(`${url}/users/id/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
-      .then((res) => {
-        console.log('ini respon get user by id', res);
-        setInputData({
-          ...inputData,
-          username: res.data.data[0].username,
-          email: res.data.data[0].email,
-          //   password: res.data.data[0].password,
-          photo_url: res.data.data[0].photo,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  useEffect(() => {
-    console.log(id);
-    getUser();
-  }, []);
 
   const postData = (e) => {
     e.preventDefault();
-    let bodyFormData = new FormData();
-    bodyFormData.append('username', inputData.username);
-    bodyFormData.append('email', inputData.email);
-    if (inputData.password) {
-      bodyFormData.append('password', inputData.password);
-    }
-    bodyFormData.append('photo', photo);
-    console.log(bodyFormData);
-
-    axios
-      .put(`${url}/users/${id}`, bodyFormData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((res) => {
-        console.log('ini respon update user', res);
-        localStorage.clear();
-        navigate('/login');
-      })
-      .catch((error) => {
-        console.error('ini adalah error user', error);
-      });
+    let formData = new FormData();
+    formData.append('username', inputData.username);
+    formData.append('photo', photo);
+    console.log(formData);
   };
+
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
     console.log(inputData);
@@ -83,6 +38,19 @@ function UserProfile() {
         photo_url: URL.createObjectURL(e.target.files[0]),
       });
   };
+
+  useEffect(() => {
+    dispatch(getUserByPayload());
+  });
+
+  // useEffect(() => {
+  //   if (userData) {
+  //     setInputData({
+  //       username: userDaa '',
+  //       photo: '',
+  //     });
+  //   }
+  // });
 
   return (
     <>
@@ -126,7 +94,7 @@ function UserProfile() {
               className="w-100 p-3 form-control border-2"
               placeholder="username"
             />
-            <label htmlFor="email" className="mt-3 fw-medium">
+            {/* <label htmlFor="email" className="mt-3 fw-medium">
               Email
             </label>
             <input
@@ -148,7 +116,7 @@ function UserProfile() {
               className="w-100 p-3 form-control border-2"
               placeholder="password"
               required
-            />
+            /> */}
             <button
               type="submit"
               className="p-3 rounded border-0 text-white w-100 mt-5 bg-warning"

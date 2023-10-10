@@ -5,7 +5,7 @@ const initialState = {
     isError:false
 }
 
-const post_menuReducer = (state=initialState,action) => {
+const postMenu = (state=initialState,action) => {
     if(action.type === 'POST_MENU_PENDING'){
         return{
             ...state,
@@ -27,9 +27,17 @@ const post_menuReducer = (state=initialState,action) => {
             isLoading:false,
             isError:true
         }
+    } else if(action.type === 'DETAIL_MENU_RESET'){
+        return{
+            ...state,
+            data:null,
+            errorMessage:'',
+            isLoading:false,
+            isError:false
+        }
     } else {
         return state
     }
 }
 
-export default post_menuReducer
+export default postMenu

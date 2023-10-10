@@ -29,7 +29,7 @@ function Login() {
       Swal.fire(`${errorMessage?.message}`,'','error')
     } else if (data) {
       Swal.fire(`${data?.message}`, '', 'success').then(() => {
-        navigate('/menu');
+        navigate('/mymenu');
       })
     }
   }, [isError, data, errorMessage]);

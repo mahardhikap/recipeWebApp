@@ -27,3 +27,34 @@ export const logoutUser = () => async (dispatch) => {
     console.log('error when logout', err);
   }
 };
+
+export const updateProfile = (data) => async (dispatch) => {
+  try {
+    dispatch({ type: 'UPDATE_PROFILE_PENDING' });
+    const result = await axios.put(`${url}/user`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": 'multipart/form-data'
+        },
+      });
+    dispatch({ payload: result.data.data, type: 'UPDATE_PROFILE_SUCCESS' });
+  } catch (error) {
+    console.log('error update profile', error);
+    dispatch({ payload: error.response.data, type: 'UPDATE_PROFILE_FAILED' });
+  }
+};
+
+export const getUserByPayload = () => async (dispatch) => {
+  try {
+    dispatch({ type: 'USER_PAYLOAD_PENDING' });
+    const result = await axios.delete(`${url}/get-user`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    dispatch({ payload: result.data.data, type: 'USER_PAYLOAD_SUCCESS' });
+  } catch (error) {
+    console.log('error get user by payload', error);
+    dispatch({ payload: error.response.data, type: 'USER_PAYLOAD_FAILED' });
+  }
+};

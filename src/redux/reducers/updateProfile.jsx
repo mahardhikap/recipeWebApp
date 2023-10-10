@@ -5,21 +5,21 @@ const initialState = {
     isError:false
 }
 
-const delete_menuReducer = (state=initialState,action) => {
-    if(action.type === 'DELETE_MENU_PENDING'){
+const updateProfile = (state=initialState,action) => {
+    if(action.type === 'UPDATE_PROFILE_PENDING'){
         return{
             ...state,
             isLoading: true,
         }
-    } else if(action.type === 'DELETE_MENU_SUCCESS'){
+    } else if(action.type === 'UPDATE_PROFILE_SUCCESS'){
         return{
             ...state,
             data: action.payload,
-            isLoading:false,
             errorMessage:'',
+            isLoading:false,
             isError:false
         }
-    } else if(action.type === 'DELETE_MENU_FAILED'){
+    } else if(action.type === 'UPDATE_PROFILE_FAILED'){
         return{
             ...state,
             data:null,
@@ -32,4 +32,4 @@ const delete_menuReducer = (state=initialState,action) => {
     }
 }
 
-export default delete_menuReducer
+export default updateProfile

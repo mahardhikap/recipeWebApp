@@ -6,7 +6,7 @@ import {
   postComment,
   getComment,
   deleteComment,
-  commentStatusReset
+  commentStatusReset,
 } from '../../../redux/actions/comment';
 import NavbarNoLogin from '../../../components/NavbarNoLogin';
 import NavbarCustom from '../../../components/Navbar';
@@ -89,7 +89,7 @@ function DetailMenu() {
     window.scrollTo(0, 0);
   }, [isError]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (postCommentError) {
       Swal.fire({
         icon: 'error',
@@ -98,7 +98,7 @@ function DetailMenu() {
         timer: 1000,
       }).then(() => {
         navigate('/login');
-        dispatch(commentStatusReset())
+        dispatch(commentStatusReset());
       });
     } else if (postCommentData) {
       Swal.fire({
@@ -107,10 +107,10 @@ function DetailMenu() {
         showConfirmButton: false,
         timer: 1000,
       }).then(() => {
-        dispatch(commentStatusReset())
+        dispatch(commentStatusReset());
       });
     }
-  },[postCommentData, postCommentError])
+  }, [postCommentData, postCommentError]);
 
   return (
     <>
@@ -208,13 +208,12 @@ function DetailMenu() {
                     <div>{comment.text}</div>
                     <div>
                       {isCurrentUserComment ? (
-                        <i
-                          className="bi bi-trash-fill"
-                          onClick={() => handleDeleteComment(comment.id)}
-                          style={{ cursor: 'pointer', color: 'red' }}
-                        >
+                        <span onClick={() => handleDeleteComment(comment.id)} style={{ cursor: 'pointer', color: 'red' }} className='px-2 py-1 border-0 bg-danger rounded text-white d-flex justify-content-center align-items-center gap-2'>
+                          <i
+                            className="bi bi-trash-fill"
+                          ></i>
                           Delete
-                        </i>
+                        </span>
                       ) : (
                         ''
                       )}

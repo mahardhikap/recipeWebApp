@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 function NavbarCustom() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const {data} = useSelector(state => state.loginUser)
 
   const logout = () => {
     Swal.fire({
@@ -50,7 +49,7 @@ function NavbarCustom() {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
               <div className="navbar-nav gap-4 mt-4">
-                <Link to={'/menu'} className="text-decoration-none text-black">
+                <Link to={'/mymenu'} className="text-decoration-none text-black">
                   Home
                 </Link>
                 <Link
@@ -75,7 +74,7 @@ function NavbarCustom() {
               <div className="border-start border-warning border-4 ps-2">
                 <div className="d-flex align-items-center gap-3">
                   <div>
-                    <Link to={`/profile/${data?.data?.id}`}>
+                    <Link to={`/profile/${localStorage.getItem('id')}`}>
                       <img
                         className="rounded-circle"
                         style={{ width: '40px' }}
@@ -93,7 +92,7 @@ function NavbarCustom() {
                     </div>
                     <div className="m-0 p-0 fw-bold">
                       <button
-                        className="text-decoration-none text-black p-0 border-0 bg-transparent fw-bold"
+                        className="text-decoration-none px-2 border-0 bg-danger rounded text-white"
                         onClick={()=>logout()}
                       >
                         Logout
