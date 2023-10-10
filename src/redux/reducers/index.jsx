@@ -14,6 +14,10 @@ import getMyLike from "./getMyLike";
 import getCategory from "./getCategory";
 import updateProfile from "./updateProfile";
 import getUserByPayload from "./getUserByPayload";
+import registerUser from "./registerUser";
+import verifyUser from "./verifyUser";
+import sendCodeOTP from "./sendCodeOTP";
+import changePasswordOTP from "./changePasswordOTP";
 
 const rootReducers = combineReducers({
     loginUser,
@@ -30,7 +34,11 @@ const rootReducers = combineReducers({
     getMyLike,
     getCategory,
     updateProfile,
-    getUserByPayload
+    getUserByPayload,
+    registerUser,
+    verifyUser,
+    sendCodeOTP,
+    changePasswordOTP
 })
 
 export default rootReducers

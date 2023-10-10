@@ -32,7 +32,7 @@ function Liked() {
                 <img
                   src={localStorage.getItem('photo')}
                   className="rounded-circle"
-                  style={{ width: '40px' }}
+                  style={{ width: '40px', height:'40px', objectFit:'cover' }}
                   alt=""
                 />
               </div>
@@ -100,7 +100,7 @@ function Liked() {
                             src={item.photo_user}
                             alt="photo-user"
                             className="rounded-circle"
-                            style={{ width: '40px' }}
+                            style={{ width: '40px', height:'40px', objectFit:'cover' }}
                           />
                         </div>
                         <div>

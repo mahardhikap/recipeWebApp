@@ -123,7 +123,7 @@ function DetailMenu() {
                 <img
                   src={detailMenu?.photo_user}
                   alt="photo-profile"
-                  style={{ width: '50px', borderRadius: '75%' }}
+                  style={{ width: '40px', height:'40px', objectFit:'cover', borderRadius:'75%' }}
                 />
               </div>
               <div>
@@ -197,11 +197,11 @@ function DetailMenu() {
                           src={comment.photo}
                           alt="comment-photo-user"
                           className="rounded-circle"
-                          style={{ width: '50px' }}
+                          style={{ width: '40px', height:'40px', objectFit:'cover' }}
                         />
                       </div>
                       <div className="border-end border-4 border-warning pe-3">
-                        <div className="fw-bold">{comment.username}</div>
+                        <div className="fw-bold" style={{width:'90px'}}>{comment.username}</div>
                         {/* <div className="fw-bold">{comment.user_id} - {localStorage.getItem('id')}</div> */}
                       </div>
                     </div>

@@ -33,7 +33,7 @@ function NavbarCustom() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-sm bg-none pt-5">
+      <nav className="navbar navbar-expand-sm bg-none">
         <div className="container w-100">
           <button
             className="navbar-toggler"
@@ -48,7 +48,7 @@ function NavbarCustom() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
-              <div className="navbar-nav gap-4 mt-4">
+              <div className="navbar-nav gap-4">
                 <Link to={'/mymenu'} className="text-decoration-none text-black">
                   Home
                 </Link>
@@ -72,19 +72,19 @@ function NavbarCustom() {
                 </Link> */}
               </div>
               <div className="border-start border-warning border-4 ps-2">
-                <div className="d-flex align-items-center gap-3">
+                <div className="d-flex align-items-center justify-content-center gap-3">
                   <div>
                     <Link to={`/profile/${localStorage.getItem('id')}`}>
                       <img
                         className="rounded-circle"
-                        style={{ width: '40px' }}
+                        style={{ width: '50px', height:'50px', objectFit:'cover' }}
                         src={localStorage.getItem('photo')}
                         alt='photo-profile'
                       />
                     </Link>
                   </div>
                   <div>
-                    <div className="m-0 p-0">
+                    <div className="m-0 p-0 fw-bold" style={{width:'140px'}}>
                       {localStorage.getItem('username')}
                       {/* <span className="badge rounded-pill bg-danger">
                         {localStorage.getItem('roles')}
@@ -92,7 +92,7 @@ function NavbarCustom() {
                     </div>
                     <div className="m-0 p-0 fw-bold">
                       <button
-                        className="text-decoration-none px-2 border-0 bg-danger rounded text-white"
+                        className="text-decoration-none border-0 bg-danger rounded text-white fw-bold"
                         onClick={()=>logout()}
                       >
                         Logout

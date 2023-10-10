@@ -68,6 +68,14 @@ export const updateMenu = (data, id) => async (dispatch) => {
   }
 };
 
+export const updateMenuClean = () => async (dispatch) => {
+  try {
+    dispatch({ type: 'UPDATE_MENU_CLEAN' });
+  } catch (err) {
+    console.log('error when reset update menu', err);
+  }
+};
+
 export const deleteMenu = (id) => async (dispatch) => {
   try {
     dispatch({ type: 'DELETE_MENU_PENDING' });

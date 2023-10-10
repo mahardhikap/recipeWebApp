@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function NavbarNoLogin() {
   return (
     <>
-      <nav className="navbar navbar-expand-sm bg-none pt-5">
+      <nav className="navbar navbar-expand-sm bg-none pt-3">
         <div className="container w-100">
           <button
             className="navbar-toggler"
@@ -18,7 +18,7 @@ function NavbarNoLogin() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
-              <div className="navbar-nav gap-4 mt-4">
+              <div className="navbar-nav gap-4">
                 <Link to={'/home'} className="text-decoration-none text-black">
                   Home
                 </Link>

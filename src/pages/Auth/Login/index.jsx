@@ -17,7 +17,7 @@ function Login() {
 
   const postData = (e) => {
     e.preventDefault();
-    dispatch(loginUser(inputData))
+    dispatch(loginUser(inputData));
   };
 
   const onChange = (e) => {
@@ -26,11 +26,11 @@ function Login() {
 
   useEffect(() => {
     if (isError) {
-      Swal.fire(`${errorMessage?.message}`,'','error')
+      Swal.fire(`${errorMessage?.message}`, '', 'error');
     } else if (data) {
       Swal.fire(`${data?.message}`, '', 'success').then(() => {
         navigate('/mymenu');
-      })
+      });
     }
   }, [isError, data, errorMessage]);
 
@@ -87,6 +87,14 @@ function Login() {
               >
                 Login
               </button>
+              <div className="d-flex justify-content-between my-3">
+                <Link to={'/verify'} className='text-decoration-none text-black'>
+                  <p>Verification account</p>
+                </Link>
+                <Link to={'/send-otp'} className='text-decoration-none text-black'>
+                  <p>Forgot password</p>
+                </Link>
+              </div>
             </form>
             <div className="mt-5 text-center">
               <p>

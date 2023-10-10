@@ -2,16 +2,16 @@ const initialState = {
     data: null,
     errorMessage:'',
     isLoading: false,
-    isError:false
+    isError: false
 }
 
-const updateMenu = (state=initialState,action) => {
-    if(action.type === 'UPDATE_MENU_PENDING'){
+const verifyUser = (state=initialState, action) => {
+    if(action.type === 'VERIFY_PENDING'){
         return{
             ...state,
             isLoading: true,
-        }
-    } else if(action.type === 'UPDATE_MENU_SUCCESS'){
+        } 
+    } else if(action.type === 'VERIFY_SUCCESS'){
         return{
             ...state,
             data: action.payload,
@@ -19,7 +19,7 @@ const updateMenu = (state=initialState,action) => {
             isLoading:false,
             isError:false
         }
-    } else if(action.type === 'UPDATE_MENU_FAILED'){
+    } else if(action.type === 'VERIFY_FAILED') {
         return{
             ...state,
             data:null,
@@ -27,7 +27,7 @@ const updateMenu = (state=initialState,action) => {
             isLoading:false,
             isError:true
         }
-    } else if(action.type === 'UPDATE_MENU_CLEAN'){
+    } else if(action.type === 'VERIFY_CLEAN') {
         return{
             ...state,
             data:null,
@@ -40,4 +40,4 @@ const updateMenu = (state=initialState,action) => {
     }
 }
 
-export default updateMenu
+export default verifyUser

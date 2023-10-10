@@ -5,21 +5,21 @@ const initialState = {
     isError:false
 }
 
-const updateMenu = (state=initialState,action) => {
-    if(action.type === 'UPDATE_MENU_PENDING'){
+const changePasswordOTP = (state=initialState,action) => {
+    if(action.type === 'CHANGE_PASSOTP_PENDING'){
         return{
             ...state,
             isLoading: true,
         }
-    } else if(action.type === 'UPDATE_MENU_SUCCESS'){
+    } else if(action.type === 'CHANGE_PASSOTP_SUCCESS'){
         return{
             ...state,
             data: action.payload,
-            errorMessage:'',
             isLoading:false,
+            errorMessage:'',
             isError:false
         }
-    } else if(action.type === 'UPDATE_MENU_FAILED'){
+    } else if(action.type === 'CHANGE_PASSOTP_FAILED'){
         return{
             ...state,
             data:null,
@@ -27,7 +27,7 @@ const updateMenu = (state=initialState,action) => {
             isLoading:false,
             isError:true
         }
-    } else if(action.type === 'UPDATE_MENU_CLEAN'){
+    } else if(action.type === 'CHANGE_PASSOTP_CLEAN'){
         return{
             ...state,
             data:null,
@@ -40,4 +40,4 @@ const updateMenu = (state=initialState,action) => {
     }
 }
 
-export default updateMenu
+export default changePasswordOTP

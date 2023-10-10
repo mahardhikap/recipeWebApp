@@ -287,7 +287,7 @@ function SearchMenu() {
                   </div>
                   <div className="d-flex align-items-center gap-2 mt-3 mb-5">
                     <div>
-                      <img src={item.photo_user} alt="photo-user" className="rounded-circle" style={{width: '40px'}}/>
+                      <img src={item.photo_user} alt="photo-user" className="rounded-circle" style={{width: '40px', height:'40px', objectFit:'cover'}}/>
                     </div>
                     <div>
                       <h4>{item.username}</h4>

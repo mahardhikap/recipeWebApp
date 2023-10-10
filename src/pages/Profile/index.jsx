@@ -35,8 +35,6 @@ function UserProfile() {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
-  console.log(inputData);
-
   const onChangePhoto = (e) => {
     setPhoto(e.target.files[0]);
     if (e.target.files[0]) {
@@ -103,7 +101,7 @@ function UserProfile() {
                   width: '300px',
                   height: '300px',
                 }}
-                className="d-flex justify-content-center align-items-center rounded-circle border border-2"
+                className="d-flex justify-content-center align-items-center rounded-circle border border-2 btn cursor-pointer"
               ></label>
               <input
                 className="d-none"
@@ -113,7 +111,7 @@ function UserProfile() {
                 id="file"
               />
 
-              <div className="fw-medium">Change Profile Picture</div>
+              <label htmlFor='file' className="fw-medium btn cursor-pointer">Change Profile Picture</label>
             </div>
             <label htmlFor="name" className="mt-3 fw-medium">
               Name

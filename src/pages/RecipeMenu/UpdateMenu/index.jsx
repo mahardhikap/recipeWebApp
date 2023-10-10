@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateMenu, getDetailMenu } from '../../../redux/actions/menu';
+import { updateMenu, getDetailMenu, updateMenuClean } from '../../../redux/actions/menu';
 import NavbarCustom from '../../../components/Navbar';
+import Swal from 'sweetalert2';
 
 function UpdateMenu() {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ function UpdateMenu() {
   const [image, setImage] = useState(null);
   const categories = [{ id: 1, name: 'Appetizer' }, { id: 2, name: 'Main Course' }, { id: 3, name: 'Dessert' }];
   const { data } = useSelector((state) => state.getDetailMenu);
+  const { data:updateDataStatus, isError:updateDataError } = useSelector((state) => state.updateMenu);
   const [inputData, setInputData] = useState({
     title: '',
     ingredients: '',
@@ -68,6 +70,27 @@ function UpdateMenu() {
       });
     }
   }, [data]);
+
+  useEffect(()=>{
+    if (updateDataStatus) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Update menu success!',
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        dispatch(updateMenuClean());
+        navigate('/mymenu');
+      });
+    } else if (updateDataError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Update menu failed!',
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => dispatch(updateMenuClean()));
+    }
+  },[updateDataStatus, updateDataError])
 
   return (
     <>

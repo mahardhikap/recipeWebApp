@@ -14,6 +14,10 @@ import Register from '../pages/Auth/Register';
 import UserProfile from '../pages/Profile';
 import Bookmarked from '../pages/RecipeMenu/Bookmark';
 import Liked from '../pages/RecipeMenu/Like';
+import VerifyRegister from '../pages/Auth/VerifyRegister';
+import DirectVerify from '../pages/Auth/DirectVerify';
+import SendOTP from '../pages/Auth/SendOTP';
+import ChangePasswordOTP from '../pages/Auth/ChangePasswordOTP';
 
 function App() {
   return (
@@ -32,6 +36,10 @@ function App() {
           <Route path="/detail-menu/:id" element={<DetailMenu />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify" element={<VerifyRegister />} />
+          <Route path="/direct/:id" element={<DirectVerify />} />
+          <Route path="/send-otp" element={<SendOTP />} />
+          <Route path="/otp-change-password" element={<ChangePasswordOTP />} />
           <Route path="/profile/:id" element={<AuthChecker><UserProfile /></AuthChecker>} />
         </Routes>
       </BrowserRouter>

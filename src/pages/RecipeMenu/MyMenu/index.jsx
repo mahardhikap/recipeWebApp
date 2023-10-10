@@ -64,7 +64,7 @@ function MyMenu() {
                 <img
                   src={localStorage.getItem('photo')}
                   className="rounded-circle"
-                  style={{ width: '40px' }}
+                  style={{ width: '40px', height:'40px', objectFit:'cover' }}
                   alt=""
                 />
               </div>

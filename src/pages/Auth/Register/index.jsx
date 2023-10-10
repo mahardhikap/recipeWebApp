@@ -1,12 +1,11 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../../redux/actions/loginUser';
 
 function Register() {
-  let url = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [inputData, setInputData] = useState({
     username: '',
     email: '',
@@ -15,32 +14,17 @@ function Register() {
 
   const postData = async (e) => {
     e.preventDefault();
-    let bodyFormData = new FormData();
-    bodyFormData.append('username', inputData.username);
-    bodyFormData.append('email', inputData.email);
-    bodyFormData.append('password', inputData.password);
-    console.log(bodyFormData);
-
-    axios
-      .post(`${url}/users`, bodyFormData)
-      .then((res) => {
-        console.log(res);
-        toast.success(res.data.status)
-        setTimeout(()=>{
-          navigate('/login')
-        }, 2000)
-      })
-      .catch((error) => {
-        console.error('axios error', error);
-        toast.error(error.response.data.error.message)
-      });
+    let formData = new FormData();
+    formData.append('username', inputData.username);
+    formData.append('email', inputData.email);
+    formData.append('password', inputData.password);
+    dispatch(registerUser(formData))
   };
 
+  console.log(inputData)
+
   const onChange = (e) => {
-    e.preventDefault()
-    const { name, value } = e.target;
-    setInputData({ ...inputData, [name]: value });
-    console.log(value);
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -121,7 +105,6 @@ function Register() {
           </div>
         </div>
       </section>
-      <ToastContainer/>
     </>
   );
 }

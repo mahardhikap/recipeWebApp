@@ -2,16 +2,16 @@ const initialState = {
     data: null,
     errorMessage:'',
     isLoading: false,
-    isError:false
+    isError: false
 }
 
-const updateMenu = (state=initialState,action) => {
-    if(action.type === 'UPDATE_MENU_PENDING'){
+const registerUser = (state=initialState, action) => {
+    if(action.type === 'REGISTER_PENDING'){
         return{
             ...state,
             isLoading: true,
-        }
-    } else if(action.type === 'UPDATE_MENU_SUCCESS'){
+        } 
+    } else if(action.type === 'REGISTER_SUCCESS'){
         return{
             ...state,
             data: action.payload,
@@ -19,7 +19,7 @@ const updateMenu = (state=initialState,action) => {
             isLoading:false,
             isError:false
         }
-    } else if(action.type === 'UPDATE_MENU_FAILED'){
+    } else if(action.type === 'REGISTER_FAILED') {
         return{
             ...state,
             data:null,
@@ -27,17 +27,9 @@ const updateMenu = (state=initialState,action) => {
             isLoading:false,
             isError:true
         }
-    } else if(action.type === 'UPDATE_MENU_CLEAN'){
-        return{
-            ...state,
-            data:null,
-            errorMessage:'',
-            isLoading:false,
-            isError:false
-        }
     } else {
         return state
     }
 }
 
-export default updateMenu
+export default registerUser
