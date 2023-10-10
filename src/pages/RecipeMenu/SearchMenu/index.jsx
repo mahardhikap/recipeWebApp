@@ -242,7 +242,7 @@ function SearchMenu() {
         </div>
         {data?.rows?.map((item, index) =>{
           return(
-              <div className="row mt-5 align-items-center" key={index}>
+              <div className="row mt-5 align-items-center gap-3" key={index}>
                 <div className="col-sm-12 col-md-6 col-lg-4">
                   <Link
                     to={`/detail-menu/${item.id}`}
