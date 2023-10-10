@@ -47,7 +47,7 @@ export const updateProfile = (data) => async (dispatch) => {
 export const getUserByPayload = () => async (dispatch) => {
   try {
     dispatch({ type: 'USER_PAYLOAD_PENDING' });
-    const result = await axios.delete(`${url}/get-user`, {
+    const result = await axios.get(`${url}/get-user`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

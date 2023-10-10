@@ -4,13 +4,15 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import NavbarCustom from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserByPayload } from '../../redux/actions/loginUser';
+import { getUserByPayload, updateProfile } from '../../redux/actions/loginUser';
+import Swal from 'sweetalert2';
 
 function UserProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: userData } = useSelector((state) => state.getUserByPayload);
+  const { data: userData, isError: userError } = useSelector((state) => state.getUserByPayload);
+  const {data: resultUpdate} = useSelector(state => state.updateProfile)
   const [photo, setPhoto] = useState(null);
   const [inputData, setInputData] = useState({
     username: '',
@@ -21,36 +23,68 @@ function UserProfile() {
     e.preventDefault();
     let formData = new FormData();
     formData.append('username', inputData.username);
-    formData.append('photo', photo);
-    console.log(formData);
+    if (photo) {
+      formData.append('photo', photo);
+    } else if (inputData.photo) {
+      formData.append('photo', inputData.photo);
+    }
+    dispatch(updateProfile(formData))
   };
 
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
-    console.log(inputData);
   };
+
+  console.log(inputData);
 
   const onChangePhoto = (e) => {
     setPhoto(e.target.files[0]);
-    e.target.files[0] &&
+    if (e.target.files[0]) {
       setInputData({
         ...inputData,
-        photo_url: URL.createObjectURL(e.target.files[0]),
+        photo: URL.createObjectURL(e.target.files[0]),
       });
+    } else if (userData && userData.photo) {
+      setInputData({
+        ...inputData,
+        photo: userData.photo,
+      });
+    }
   };
 
   useEffect(() => {
     dispatch(getUserByPayload());
-  });
+  }, []);
 
-  // useEffect(() => {
-  //   if (userData) {
-  //     setInputData({
-  //       username: userDaa '',
-  //       photo: '',
-  //     });
-  //   }
-  // });
+  useEffect(() => {
+    if (userData) {
+      setInputData({
+        username: userData?.username || '',
+        photo: userData?.photo || '',
+      });
+    }
+  }, [userData]);
+
+  useEffect(()=>{
+    if(resultUpdate){
+      Swal.fire(
+        'Profile updated!',
+        '',
+        'success'
+      ).then(()=>{
+        localStorage.setItem('photo', resultUpdate?.photo);
+        localStorage.setItem('token', resultUpdate?.token);
+        localStorage.setItem('username', resultUpdate?.username);
+        window.location.reload()
+      })
+    } else if (userError) {
+      Swal.fire(
+        'Update profile failed!',
+        '',
+        'error'
+      )
+    }
+  },[resultUpdate, userError])
 
   return (
     <>
@@ -62,7 +96,7 @@ function UserProfile() {
               <label
                 htmlFor="file"
                 style={{
-                  backgroundImage: `url(${inputData.photo_url})`,
+                  backgroundImage: `url(${inputData.photo})`,
                   backgroundPosition: 'center',
                   backgroundSize: 'cover',
                   backgroundRepeat: 'no-repeat',
@@ -70,9 +104,7 @@ function UserProfile() {
                   height: '300px',
                 }}
                 className="d-flex justify-content-center align-items-center rounded-circle border border-2"
-              >
-                Add Photo
-              </label>
+              ></label>
               <input
                 className="d-none"
                 type="file"
