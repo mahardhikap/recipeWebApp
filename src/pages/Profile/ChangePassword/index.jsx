@@ -1,50 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePasswordOTP, cleanChangePasswordOTP } from '../../../redux/actions/loginUser';
+import { logoutUser, updateProfile } from '../../../redux/actions/loginUser';
+import NavbarCustom from '../../../components/Navbar';
 import Swal from 'sweetalert2';
 
 function ChangePassProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, isError, errorMessage } = useSelector(
-    (state) => state.changePasswordOTP
+  const { data, isError } = useSelector(
+    (state) => state.updateProfile
   );
   const [inputData, setInputData] = useState({
     password: '',
-    email: '',
-    validate:'',
   });
 
   const postData = (e) => {
     e.preventDefault();
-    dispatch(changePasswordOTP(inputData));
+    dispatch(updateProfile(inputData));
   };
 
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
+  console.log(inputData)
+
   useEffect(() => {
     if (isError) {
-      Swal.fire(`${errorMessage?.message}`, '', 'error').then(()=>dispatch(cleanChangePasswordOTP()))
+      Swal.fire('Update password failed!', '', 'error')
     } else if (data) {
-      Swal.fire(`${data?.message}`, '', 'success').then(() => {
-        dispatch(cleanChangePasswordOTP())
+      Swal.fire('Update password success!', '', 'success').then(() => {
+        dispatch(logoutUser())
         navigate('/login');
+        window.location.reload()
       });
     }
-  }, [isError, data, errorMessage]);
+  }, [isError, data]);
 
   return (
     <>
+    <NavbarCustom/>
       <section className="container">
         <div className="w-100 my-5">
           <div className="col-sm-12 col-md-6 mx-auto">
             <div className="mb-5 text-center">
-              <h2 className="mb-5 fw-bolder text-warning">Recipe</h2>
               <h1 className="text-warning">Change Password</h1>
-              <p>Input your credentials data to change your password's account</p>
+              <h5>After change password re-login is required</h5>
             </div>
             <hr />
             <form onSubmit={postData} className="">
@@ -60,36 +62,13 @@ function ChangePassProfile() {
                 placeholder="Enter new password"
                 className="p-3 rounded w-100 mt-3 form-control"
               />
-              <label htmlFor="email" className="mt-3">
-                Email
-              </label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                onChange={onChange}
-                value={inputData.email}
-                placeholder="Enter email address"
-                className="p-3 rounded w-100 mt-3 form-control"
-              />
-              <label htmlFor="validate" className="mt-3">
-                Code OTP
-              </label>
-              <input
-                type="text"
-                id="validate"
-                name="validate"
-                onChange={onChange}
-                value={inputData.validate}
-                placeholder="Enter your code OTP"
-                className="p-3 rounded w-100 mt-3 form-control"
-              />
               <button
                 type="submit"
                 className="p-3 border-0 text-white rounded mt-5 w-100 bg-warning fw-medium"
               >
                 Change Password
               </button>
+              <div className='mt-3 fw-medium'>Back to edit profile?<Link to={`/profile/${localStorage.getItem('id')}`} className='text-decoration-none text-warning'> Click here</Link> </div>
             </form>
           </div>
         </div>

@@ -18,6 +18,7 @@ import VerifyRegister from '../pages/Auth/VerifyRegister';
 import DirectVerify from '../pages/Auth/DirectVerify';
 import SendOTP from '../pages/Auth/SendOTP';
 import ChangePasswordOTP from '../pages/Auth/ChangePasswordOTP';
+import ChangePassProfile from '../pages/Profile/ChangePassword';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/send-otp" element={<SendOTP />} />
           <Route path="/otp-change-password" element={<ChangePasswordOTP />} />
           <Route path="/profile/:id" element={<AuthChecker><UserProfile /></AuthChecker>} />
+          <Route path="/profile-password" element={<AuthChecker><ChangePassProfile /></AuthChecker>} />
         </Routes>
       </BrowserRouter>
     </>

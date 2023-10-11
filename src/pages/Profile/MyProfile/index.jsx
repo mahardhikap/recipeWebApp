@@ -155,12 +155,11 @@ function UserProfile() {
             </button>
             <p className="mt-3 fw-medium">
               Change Password?{' '}
-              <a
-                href="./change-password.html"
+              <Link to={'/profile-password'}
                 className="text-warning text-decoration-none"
               >
                 Click Here
-              </a>
+              </Link>
             </p>
           </form>
         </div>
