@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NavbarNoLogin from '../../../components/NavbarNoLogin';
 import NavbarCustom from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { getSearchSort } from '../../../redux/actions/menu';
 import { useDispatch, useSelector } from 'react-redux';
+import { postLike, getMyLike, cleanLike } from '../../../redux/actions/myLike';
+import { postBookmark, getMyBookmark, cleanBookmark } from '../../../redux/actions/myBookmark';
 import Swal from 'sweetalert2';
 
 function SearchMenu() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {data, isError, errorMessage} = useSelector(state => state.getSearchSort)
+  const {data:myLike} = useSelector(state=>state.getMyLike)
+  const {data:myBookmark} = useSelector(state=>state.getMyBookmark)
+  const {isError:errorLike} = useSelector(state=>state.postLike)
+  const {isError:errorBookmark} = useSelector(state=>state.postBookmark)
   const [sortby, setSortby] = useState('title');
   const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
@@ -27,6 +34,8 @@ function SearchMenu() {
 
   const getData = () => {
     dispatch(getSearchSort(searchby, search, sortby, sort, page, limit))
+    dispatch(getMyLike())
+    dispatch(getMyBookmark())
   };
 
   const navbarDisplay = () => {
@@ -36,6 +45,19 @@ function SearchMenu() {
       return <NavbarCustom/>
     }
   }
+
+  const handleLike = (idRecipe) => {
+    dispatch(postLike(idRecipe)).then(() => {
+      dispatch(getMyLike());
+      dispatch(getSearchSort(searchby, search, sortby, sort, page, limit));
+    });
+  };
+  const handleBookmark = (idRecipe) => {
+    dispatch(postBookmark(idRecipe)).then(() => {
+      dispatch(getMyBookmark());
+      dispatch(getSearchSort(searchby, search, sortby, sort, page, limit));
+    });
+  };
 
   const onChangeSearchBy = (e) => {
     setSearchby(e.target.value);
@@ -130,6 +152,32 @@ function SearchMenu() {
   useEffect(()=>{
     getData()
   },[page, limit])
+
+  useEffect(()=>{
+    if(errorLike){
+      Swal.fire(
+        'You need to login before like recipe!',
+        '',
+        'error'
+      ).then(()=>{
+        navigate('/login');
+        dispatch(cleanLike())
+      })
+    }
+  },[errorLike])
+
+  useEffect(()=>{
+    if(errorBookmark){
+      Swal.fire(
+        'You need to login before bookmark recipe!',
+        '',
+        'error'
+      ).then(()=>{
+        navigate('/login');
+        dispatch(cleanBookmark())
+      })
+    }
+  },[errorBookmark])
 
   return (
     <>
@@ -262,26 +310,25 @@ function SearchMenu() {
                   </Link>
                 </div>
                 <div className="col-sm-12 col-md-6 col-lg-4">
-                  <h2>
-                    <Link
-                      to={`/detail-menu/${item.id}`}
-                      className="text-decoration-none text-black"
-                    >
-                      {item.title}
-                    </Link>
-                  </h2>
-                  <p className="badge bg-secondary fs-5">{item.category}</p>
+                <Link to={`/detail-menu/${item.id}`} className="text-decoration-none text-black">
+                    <h2>
+                        {item.title}
+                    </h2>
+                    <p className="badge bg-secondary fs-5">{item.category}</p>
+                </Link>
                   <div className="w-100">
                     <div className="bg-warning rounded p-1 text-center d-flex justify-content-evenly fw-bold">
-                      <div className='d-flex justify-content-center align-items-center text-white'>
-                        <i className="bi bi-hand-thumbs-up-fill fs-4 btn text-white"></i>
+                      <div className='d-flex justify-content-center align-items-center' onClick={()=>handleLike(item.id)}>
+                        {myLike?.some(liked=> liked.recipe_id === item.id) ? (<i className="bi bi-hand-thumbs-up-fill fs-4 btn text-black"></i>) : (<i className="bi bi-hand-thumbs-up-fill fs-4 btn text-white"></i>)}
                         {item.like_count}
                       </div>
+                      <Link to={`/detail-menu/${item.id}`} className="text-decoration-none text-black">
                       <div>
                         <i className="bi bi-chat-left-text-fill fs-4 btn text-white"></i>
                       </div>
-                      <div>
-                        <i className="bi bi-bookmark-fill fs-4 btn text-white"></i>
+                      </Link>
+                      <div onClick={()=>handleBookmark(item.id)}>
+                        {myBookmark?.some(bookmarked=> bookmarked.recipe_id === item.id) ? (<i className="bi bi-bookmark-fill fs-4 btn text-black"></i>):(<i className="bi bi-bookmark-fill fs-4 btn text-white"></i>)}
                       </div>
                     </div>
                   </div>

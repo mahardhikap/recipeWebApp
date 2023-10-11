@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../../../components/Footer';
 import NavbarCustom from '../../../components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyLike } from '../../../redux/actions/myLike';
+import { postLike, getMyLike } from '../../../redux/actions/myLike';
 
 function Liked() {
   const navigate = useNavigate();
@@ -16,6 +16,12 @@ function Liked() {
     year: 'numeric',
     timeZone: 'Asia/Jakarta',
   }).format(new Date());
+
+  const handleLike = (idRecipe) => {
+    dispatch(postLike(idRecipe)).then(() => {
+      dispatch(getMyLike());
+    });
+  };
 
   useEffect(() => {
     dispatch(getMyLike());
@@ -73,6 +79,7 @@ function Liked() {
                       className="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center"
                       style={{ width: '350px' }}
                     >
+                      <Link to={`/detail-menu/${item.recipe_id}`}>
                       <img
                         src={item.photo_menu}
                         className="img-thumbnail ratio ratio-1x1"
@@ -83,14 +90,17 @@ function Liked() {
                           boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)',
                         }}
                       />
+                      </Link>
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-6">
+                    <Link to={`/detail-menu/${item.recipe_id}`} className='text-decoration-none text-black'>
                       <h2>{item.title}</h2>
                       <p className="badge bg-secondary fs-5">{item.category}</p>
+                      </Link>
                       <div className="w-25">
                         <div className="bg-warning rounded p-1 text-center d-flex justify-content-evenly fw-bold">
-                          <div className="d-flex justify-content-center align-items-center text-white">
-                            <i className="bi bi-hand-thumbs-up-fill fs-4 btn text-white"></i>
+                          <div className="d-flex justify-content-center align-items-center" onClick={()=>handleLike(item.recipe_id)}>
+                            <i className="bi bi-hand-thumbs-up-fill fs-4 btn text-black"></i>
                           </div>
                         </div>
                       </div>

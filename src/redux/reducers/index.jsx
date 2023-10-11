@@ -18,6 +18,8 @@ import registerUser from "./registerUser";
 import verifyUser from "./verifyUser";
 import sendCodeOTP from "./sendCodeOTP";
 import changePasswordOTP from "./changePasswordOTP";
+import postLike from "./postLike";
+import postBookmark from "./postBookmark";
 
 const rootReducers = combineReducers({
     loginUser,
@@ -38,7 +40,9 @@ const rootReducers = combineReducers({
     registerUser,
     verifyUser,
     sendCodeOTP,
-    changePasswordOTP
+    changePasswordOTP,
+    postLike,
+    postBookmark
 })
 
 export default rootReducers

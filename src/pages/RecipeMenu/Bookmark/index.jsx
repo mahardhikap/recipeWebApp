@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../../../components/Footer';
 import NavbarCustom from '../../../components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyBookmark } from '../../../redux/actions/myBookmark';
+import { getMyBookmark, postBookmark } from '../../../redux/actions/myBookmark';
 
 function Bookmarked() {
   const navigate = useNavigate();
@@ -16,6 +16,12 @@ function Bookmarked() {
     year: 'numeric',
     timeZone: 'Asia/Jakarta',
   }).format(new Date());
+
+  const handleBookmark = (idRecipe) => {
+    dispatch(postBookmark(idRecipe)).then(() => {
+      dispatch(getMyBookmark());
+    });
+  };
 
   useEffect(() => {
     dispatch(getMyBookmark());
@@ -74,6 +80,7 @@ function Bookmarked() {
                       className="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center"
                       style={{ width: '350px' }}
                     >
+                      <Link to={`/detail-menu/${item.recipe_id}`}>
                       <img
                         src={item.photo_menu}
                         className="img-thumbnail ratio ratio-1x1"
@@ -84,14 +91,17 @@ function Bookmarked() {
                           boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)',
                         }}
                       />
+                      </Link>
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-6">
+                    <Link to={`/detail-menu/${item.recipe_id}`} className='text-decoration-none text-black'>
                       <h2>{item.title}</h2>
                       <p className="badge bg-secondary fs-5">{item.category}</p>
+                      </Link>
                       <div className="w-25">
                         <div className="bg-warning rounded p-1 text-center fw-bold">
-                          <div>
-                            <i className="bi bi-bookmark-fill fs-4 btn text-white"></i>
+                          <div onClick={()=>handleBookmark(item.recipe_id)}>
+                            <i className="bi bi-bookmark-fill fs-4 btn text-black"></i>
                           </div>
                         </div>
                       </div>

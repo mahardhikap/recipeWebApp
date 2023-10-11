@@ -5,13 +5,13 @@ const initialState = {
     isError:false
 }
 
-const getMyLike = (state=initialState,action) => {
-    if(action.type === 'GET_MYLIKE_PENDING'){
+const postBookmark = (state=initialState,action) => {
+    if(action.type === 'POST_BOOKMARK_PENDING'){
         return{
             ...state,
             isLoading: true,
         }
-    } else if(action.type === 'GET_MYLIKE_SUCCESS'){
+    } else if(action.type === 'POST_BOOKMARK_SUCCESS'){
         return{
             ...state,
             data: action.payload,
@@ -19,7 +19,7 @@ const getMyLike = (state=initialState,action) => {
             errorMessage:'',
             isError:false
         }
-    } else if(action.type === 'GET_MYLIKE_FAILED'){
+    } else if(action.type === 'POST_BOOKMARK_FAILED'){
         return{
             ...state,
             data:null,
@@ -27,7 +27,7 @@ const getMyLike = (state=initialState,action) => {
             isLoading:false,
             isError:true
         }
-    } else if(action.type === 'GET_MYLIKE_CLEAN'){
+    } else if(action.type === 'POST_BOOKMARK_CLEAN'){
         return{
             ...state,
             data:null,
@@ -40,4 +40,4 @@ const getMyLike = (state=initialState,action) => {
     }
 }
 
-export default getMyLike
+export default postBookmark

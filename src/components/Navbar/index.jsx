@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { logoutUser } from '../../redux/actions/loginUser';
+import { getLikeClean } from '../../redux/actions/myLike';
+import { getBookmarkClean } from '../../redux/actions/myBookmark';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 
@@ -18,6 +20,8 @@ function NavbarCustom() {
       cancelButtonText: 'No',}).then((result)=>{
         if(result.isConfirmed){
           dispatch(logoutUser())
+          dispatch(getLikeClean())
+          dispatch(getBookmarkClean())
           Swal.fire(
             'Logout success!',
             '',

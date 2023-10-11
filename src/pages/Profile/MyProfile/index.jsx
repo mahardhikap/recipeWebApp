@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import NavbarCustom from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import NavbarCustom from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserByPayload, updateProfile } from '../../redux/actions/loginUser';
+import { getUserByPayload, updateProfile } from '../../../redux/actions/loginUser';
 import Swal from 'sweetalert2';
 
 function UserProfile() {

@@ -11,7 +11,7 @@ import DetailMenu from '../pages/RecipeMenu/DetailMenu';
 import Login from '../pages/Auth/Login'
 import AuthChecker from '../components/AuthChecker'
 import Register from '../pages/Auth/Register';
-import UserProfile from '../pages/Profile';
+import UserProfile from '../pages/Profile/MyProfile';
 import Bookmarked from '../pages/RecipeMenu/Bookmark';
 import Liked from '../pages/RecipeMenu/Like';
 import VerifyRegister from '../pages/Auth/VerifyRegister';
