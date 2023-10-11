@@ -1,6 +1,14 @@
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 function NavbarNoLogin() {
+  const location = useLocation();
+  const [activeMenu, setActiveMenu] = useState('');
+
+  useEffect(() => {
+    setActiveMenu(location.pathname);
+  }, [location.pathname]);
+
   return (
     <>
       <nav className="navbar navbar-expand-sm bg-none pt-3">
@@ -18,21 +26,21 @@ function NavbarNoLogin() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
-              <div className="navbar-nav gap-4">
-                <Link to={'/home'} className="text-decoration-none text-black">
+              <div id='customborder' className="navbar-nav gap-4">
+                <Link to={'/home'} style={{color:'#2E266F'}} className={`fw-bold text-decoration-none ${activeMenu === '/home' ? 'text-decoration-underline' : ''}`}>
                   Home
                 </Link>
-                <Link to={'/register'} className="text-decoration-none text-black">
+                <Link to={'/register'} style={{color:'#2E266F'}} className={`fw-bold text-decoration-none ${activeMenu === '/register' ? 'text-decoration-underline' : ''}`}>
                   Register
                 </Link>
-                <Link to={'/search-menu'} className="text-decoration-none text-black">
+                <Link to={'/search-menu'} style={{color:'#2E266F'}} className={`fw-bold text-decoration-none ${activeMenu === '/search-menu' ? 'text-decoration-underline' : ''}`}>
                   Search Menu
                 </Link>
               </div>
               <div>
-                  <div className='mt-4'>
-                    <Link to={'/login'} className='text-decoration-none text-black'>Login</Link>
-                  </div>
+                <div className='mt-4'>
+                  <Link to={'/login'} style={{color:'#2E266F'}} className='text-decoration-none fw-bold'>Login</Link>
+                </div>
               </div>
             </div>
           </div>

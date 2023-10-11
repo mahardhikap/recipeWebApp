@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { logoutUser } from '../../redux/actions/loginUser';
@@ -10,6 +10,13 @@ import Swal from 'sweetalert2';
 function NavbarCustom() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
+
+  const location = useLocation();
+  const [activeMenu, setActiveMenu] = useState('');
+
+  useEffect(() => {
+    setActiveMenu(location.pathname);
+  }, [location.pathname]);
 
   const logout = () => {
     Swal.fire({
@@ -53,18 +60,24 @@ function NavbarCustom() {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="d-flex justify-content-between align-items-center w-100">
               <div className="navbar-nav gap-4">
-                <Link to={'/mymenu'} className="text-decoration-none text-black">
+                <Link 
+                to={'/mymenu'} 
+                style={{color:'#2E266F'}}
+                className={`text-decoration-none fw-bold  ${activeMenu === '/mymenu' ? 'text-decoration-underline' : ''}`}
+                >
                   Home
                 </Link>
                 <Link
                   to={'/input-menu'}
-                  className="text-decoration-none text-black"
+                  style={{color:'#2E266F'}}
+                  className={`text-decoration-none fw-bold  ${activeMenu === '/input-menu' ? 'text-decoration-underline' : ''}`}
                 >
                   Add Menu
                 </Link>
                 <Link
                   to={'/search-menu'}
-                  className="text-decoration-none text-black"
+                  style={{color:'#2E266F'}}
+                  className={`text-decoration-none fw-bold  ${activeMenu === '/search-menu' ? 'text-decoration-underline' : ''}`}
                 >
                   Search Menu
                 </Link>
