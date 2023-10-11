@@ -13,7 +13,7 @@ function VerifyRegister() {
     e.preventDefault();
     dispatch(verifyUser(verificationCode));
   };
-//   console.log(verificationCode);
+  
   useEffect(() => {
     if (data) {
       Swal.fire('Verify success!', '', 'success').then(()=> {

@@ -24,8 +24,6 @@ function ChangePassProfile() {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
-  console.log(inputData)
-
   useEffect(() => {
     if (isError) {
       Swal.fire('Update password failed!', '', 'error')

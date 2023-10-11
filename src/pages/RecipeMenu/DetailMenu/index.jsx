@@ -75,7 +75,6 @@ function DetailMenu() {
   const onChangeComment = (e) => {
     setInputComment({ ...inputComment, [e.target.name]: e.target.value });
   };
-  console.log('isi comment', inputComment);
 
   useEffect(() => {
     if (isError) {

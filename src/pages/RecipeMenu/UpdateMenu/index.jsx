@@ -28,10 +28,8 @@ function UpdateMenu() {
     formData.append('category_id', inputData.category_id);
   
     if (image) {
-      console.log('kode image')
       formData.append('photo', image);
     } else if (inputData.photo) {
-      console.log('kode ini dijalankan', inputData.photo);
       formData.append('photo', inputData.photo);
     }
     dispatch(updateMenu(formData, id))

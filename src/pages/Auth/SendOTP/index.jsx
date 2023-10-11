@@ -15,7 +15,7 @@ function SendOTP() {
     e.preventDefault();
     dispatch(sendCodeOTP(email));
   };
-  console.log(email);
+  
   useEffect(() => {
     if (data) {
       Swal.fire(`${data?.message}`, '', 'success').then(() => {

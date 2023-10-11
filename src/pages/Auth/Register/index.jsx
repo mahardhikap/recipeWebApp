@@ -21,8 +21,6 @@ function Register() {
     dispatch(registerUser(formData))
   };
 
-  console.log(inputData)
-
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };

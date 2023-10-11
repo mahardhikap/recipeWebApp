@@ -32,8 +32,6 @@ function InputMenu() {
     dispatch(postMenu(bodyFormData))
   };
 
-  // console.log(inputData)
-
   const onChange = (e) => {
     const { name, value } = e.target;
     setInputData({ ...inputData, [name]: value });
