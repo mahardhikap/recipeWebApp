@@ -100,17 +100,17 @@ password: 123456
 ```
 
 ## ScreenShoot Project
-| Login Screen | Register Screen | Activate Screen | Forgot Screen |
+| Home Page | Register Page | Login Page | Search Page |
 | :---: | :---: | :---: | :---: |
-|![Login Screen](https://i.ibb.co/4RFFMpp/Screenshot-2023-10-05-08-29-58-736-com-recipe.jpg)|![Register Screen](https://i.ibb.co/VYLHBG4/newregister.jpg)|![Activate Screen](https://i.ibb.co/2YqZbxz/Screenshot-2023-10-05-08-30-11-028-com-recipe.jpg)|![Forgot Screen](https://i.ibb.co/JxxTmwH/Screenshot-2023-10-05-08-30-14-533-com-recipe.jpg)|
+|![Home Page](https://i.ibb.co/LZFWLNV/homepage.png)|![Register Page](https://i.ibb.co/J7K27vD/register.png)|![Login Page](https://i.ibb.co/8jqYxYk/login.png)|![Search Page](https://i.ibb.co/7yydkWn/search.png)|
 
-| Splash Screen | Home Screen | Search Screen | My Menu Screen |
+| My Recipe Page | Bookmark Page | Like Page | Add Recipe Page |
 | :---: | :---: | :---: | :---: |
-|![Splash Screen](https://i.ibb.co/VVwY2Wq/Screenshot-2023-10-05-08-29-36-212-com-recipe.jpg)|![Home Screen](https://i.ibb.co/tPs8gvc/1696471230121.jpg)|![Search Screen](https://i.ibb.co/0sZPdbx/1696471229941.jpg)|![My Menu Screen](https://i.ibb.co/q5Qhmk7/Screenshot-2023-10-05-10-27-25-538-com-recipe.jpg)|
+|![My Recipe Page](https://i.ibb.co/6mfgVRK/myrecipe.png)|![Bookmark Page](https://i.ibb.co/C9WXsbn/mybookmark.png)|![Like Page](https://i.ibb.co/rFzBLbS/mylike.png)|![Add Recipe Page](https://i.ibb.co/z7LfxS2/addmenu.png)|
 
-| Input Menu Screen | Detail Menu Screen | Profile Screen | Update Profile Screen |
+| Detail Menu Page | Update Profile Page | Change Password Page | Verification Page |
 | :---: | :---: | :---: | :---: |
-|![Input Menu Screen](https://i.ibb.co/yPhN2Jh/1696471229974.jpg)|![Detail Menu Screen](https://i.ibb.co/8YN4bnn/1696471229957.jpg)|![Profile Screen](https://i.ibb.co/J3wjXJX/1696471230084.jpg)|![Update Profile Screen](https://i.ibb.co/CMBdrCx/Screenshot-2023-10-05-10-33-50-289-com-recipe.jpg)|
+|![Detail Menu Page](https://i.ibb.co/cJrRmD4/detailmenu.png)|![Update Profile Page](https://i.ibb.co/MRPjVXM/editprofile.png)|![Change Password Page](https://i.ibb.co/MpXMbjT/changepasswordprofile.png)|![Verification Page](https://i.ibb.co/8DWdNRH/verifaccount.png)|
 
 ## Related Project
 You can visit my github where I'm using this API for the server:
