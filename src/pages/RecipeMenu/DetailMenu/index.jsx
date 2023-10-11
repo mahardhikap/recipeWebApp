@@ -91,12 +91,11 @@ function DetailMenu() {
 
   useEffect(() => {
     if (postCommentError) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Login first!',
-        showConfirmButton: false,
-        timer: 1000,
-      }).then(() => {
+      Swal.fire(
+        'You need to login before comment recipe!',
+        '',
+        'error'
+      ).then(() => {
         navigate('/login');
         dispatch(commentStatusReset());
       });
