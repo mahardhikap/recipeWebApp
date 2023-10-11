@@ -1,29 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../../../redux/actions/loginUser';
+import { registerUser, cleanRegisterUser } from '../../../redux/actions/loginUser';
+import Swal from 'sweetalert2';
 
 function Register() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const {data, isError, errorMessage} = useSelector(state => state.registerUser)
   const [inputData, setInputData] = useState({
     username: '',
     email: '',
     password: '',
   });
 
-  const postData = async (e) => {
+  const postData = (e) => {
     e.preventDefault();
-    let formData = new FormData();
-    formData.append('username', inputData.username);
-    formData.append('email', inputData.email);
-    formData.append('password', inputData.password);
-    dispatch(registerUser(formData))
+    dispatch(registerUser(inputData));
   };
 
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (isError) {
+      Swal.fire(`${errorMessage?.message}`, '', 'error').then(()=>dispatch(cleanRegisterUser()))
+    } else if (data) {
+      Swal.fire(`${data?.message}`, '', 'success').then(() => {
+        dispatch(cleanRegisterUser())
+        navigate('/login');
+      });
+    }
+  }, [isError, data, errorMessage]);
 
   return (
     <>
@@ -37,10 +46,10 @@ function Register() {
             </div>
             <hr />
             <form onSubmit={postData} className="w-100">
-              <label htmlFor="name">Username</label>
+              <label htmlFor="username">Username</label>
               <input
                 type="text"
-                id="name"
+                id="username"
                 name="username"
                 placeholder="Name"
                 className="p-3 w-100 rounded mt-3 form-control"
@@ -51,7 +60,7 @@ function Register() {
                 Email
               </label>
               <input
-                type="text"
+                type="email"
                 id="email"
                 name="email"
                 placeholder="Enter email address"
@@ -63,7 +72,7 @@ function Register() {
                 Password
               </label>
               <input
-                type="text"
+                type="password"
                 id="password"
                 name="password"
                 placeholder="Password"
@@ -77,6 +86,7 @@ function Register() {
                   type="checkbox"
                   value=""
                   id="flexCheckDefault"
+                  defaultChecked
                 />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   I agree to terms & conditions

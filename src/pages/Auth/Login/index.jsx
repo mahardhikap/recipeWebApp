@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../../redux/actions/loginUser';
+import { loginUser, logoutUser } from '../../../redux/actions/loginUser';
 import Swal from 'sweetalert2';
 
 function Login() {
@@ -26,7 +26,7 @@ function Login() {
 
   useEffect(() => {
     if (isError) {
-      Swal.fire(`${errorMessage?.message}`, '', 'error');
+      Swal.fire(`${errorMessage?.message}`, '', 'error').then(()=>dispatch(logoutUser()))
     } else if (data) {
       Swal.fire(`${data?.message}`, '', 'success').then(() => {
         navigate('/mymenu');
@@ -50,7 +50,7 @@ function Login() {
                 Email
               </label>
               <input
-                type="text"
+                type="email"
                 id="email"
                 name="email"
                 onChange={onChange}
@@ -62,7 +62,7 @@ function Login() {
                 Password
               </label>
               <input
-                type="text"
+                type="password"
                 id="password"
                 name="password"
                 onChange={onChange}
@@ -76,6 +76,7 @@ function Login() {
                   type="checkbox"
                   value=""
                   id="flexCheckDefault"
+                  defaultChecked
                 />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   I agree to terms & conditions

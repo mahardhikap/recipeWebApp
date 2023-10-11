@@ -27,6 +27,14 @@ const registerUser = (state=initialState, action) => {
             isLoading:false,
             isError:true
         }
+    } else if(action.type === 'REGISTER_CLEAN') {
+        return{
+            ...state,
+            data:null,
+            errorMessage:'',
+            isLoading:false,
+            isError:false
+        }
     } else {
         return state
     }

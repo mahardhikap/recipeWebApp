@@ -52,7 +52,7 @@ function ChangePasswordOTP() {
                 New Password
               </label>
               <input
-                type="text"
+                type="password"
                 id="password"
                 name="password"
                 onChange={onChange}
@@ -64,7 +64,7 @@ function ChangePasswordOTP() {
                 Email
               </label>
               <input
-                type="text"
+                type="email"
                 id="email"
                 name="email"
                 onChange={onChange}

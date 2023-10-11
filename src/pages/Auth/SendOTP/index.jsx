@@ -41,7 +41,7 @@ function SendOTP() {
             <hr />
             <form onSubmit={handleSendOTP}>
               <input
-                type="text"
+                type="email"
                 id="sendOTP"
                 name="sendOTP"
                 onChange={(e) => setEmail(e.target.value)}

@@ -186,7 +186,7 @@ function SearchMenu() {
       </div>
       
       <section className="container mt-5">
-        <h1 className="text-purple">Discover Recipe & Delicious Food</h1>
+        <h1 className="fw-bold" style={{color:'#2E266F'}}>Discover Recipe & Delicious Food</h1>
         <div>
           <form className="row gap-3" onSubmit={handleSubmit}>
             <div className="col-sm-12 col-md-6 col-lg-6">

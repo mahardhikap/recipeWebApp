@@ -23,7 +23,7 @@ function VerifyRegister() {
     } else if (isError) {
       Swal.fire('Verify failed!', '', 'error').then(()=> dispatch(cleanVerify()));
     }
-  }, []);
+  }, [data, isError]);
 
   return (
     <>

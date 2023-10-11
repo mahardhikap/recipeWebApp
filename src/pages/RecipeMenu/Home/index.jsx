@@ -24,7 +24,7 @@ function Home() {
       <section className="container w-100 position-relative">
         <div className="row mt-5 yellow-big-square">
           <div className="col-sm-12 col-md-6 col-lg-6 order-2 order-md-1 d-flex flex-column justify-content-center my-3">
-            <h1 className="fs-1 text-purple">
+            <h1 className="fs-1 fw-bold" style={{color:'#2E266F'}}>
               Discover Recipe & Delicious Food
             </h1>
             <div className="position-relative">

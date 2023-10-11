@@ -21,6 +21,8 @@ export const logoutUser = () => async (dispatch) => {
   try {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
+    localStorage.removeItem('username')
+    localStorage.removeItem('photo')
     // localStorage.removeItem('roles');
     dispatch({ type: 'LOGOUT_SUCCESS' });
   } catch (err) {
@@ -62,11 +64,23 @@ export const getUserByPayload = () => async (dispatch) => {
 export const registerUser = (data) => async (dispatch) => {
   try {
     dispatch({ type: 'REGISTER_PENDING' });
-    const result = await axios.post(`${url}/register`, data);
+    const result = await axios.post(`${url}/register`, data, {
+      headers:{
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
     dispatch({ payload: result.data, type: 'REGISTER_SUCCESS' });
   } catch (error) {
     console.log('error when register', error);
     dispatch({ payload: error.response.data, type: 'REGISTER_FAILED' });
+  }
+};
+
+export const cleanRegisterUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: 'REGISTER_CLEAN' });
+  } catch (err) {
+    console.log('error when clean register', err);
   }
 };
 
