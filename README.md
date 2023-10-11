@@ -12,7 +12,6 @@
 ## Table of Contents
 
 * [About Project](#about-project)
-* [Requirement](#requirement)
 * [Built With](#built-with)
 * [Installation](#installation)
 * [Demo](#demo)
@@ -39,12 +38,6 @@ Key Features:
 Mama Recipe is more than just a website; it's a community of food lovers, a treasure trove of recipes, and your go-to source for all things cooking. Join us today and embark on a culinary journey like no other.
 
 Get ready to turn your kitchen into a gastronomic haven with Mama Recipe! Visit our website now and start sharing your love for food with the world.
-
-## Requirement
-Before you install this project on your Mobile Phone. You need:
-
-- **Mobile Phone with OS Android 10 or Later**, I'm using **Redmi 10, Android 13** when this docs is uploaded. You can upgrade your android version for better.
-- **Stable Internet Connectivity**, This application runs online, so internet connectivity is required.
 
 ## Built with
     
