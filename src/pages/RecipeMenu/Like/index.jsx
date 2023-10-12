@@ -32,7 +32,7 @@ function Liked() {
       <NavbarCustom />
       <div className="container">
         <section className="container col-md-12 col-lg-9">
-          <div className="d-flex align-items-center justify-content-between my-5 flex-wrap">
+          <div className="d-flex align-items-center justify-content-between my-5 flex-wrap gap-3">
             <div className="d-flex align-items-center gap-3 border-start border-warning border-4 ps-2">
               <div>
                 <img
@@ -76,15 +76,15 @@ function Liked() {
                 <div key={index}>
                   <div className="my-5 row align-items-center gap-3">
                     <div
-                      className="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center"
-                      style={{ width: '350px' }}
+                      className="col-sm-12 col-md-5 col-lg-5 d-flex justify-content-center align-items-center"
+                      // style={{ width: '350px' }}
                     >
                       <Link to={`/detail-menu/${item.recipe_id}`}>
                       <img
                         src={item.photo_menu}
                         className="img-thumbnail ratio ratio-1x1"
                         style={{
-                          maxWidth: '300px',
+                          width: '300px',
                           height: '300px',
                           objectFit: 'cover',
                           boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)',
