@@ -99,7 +99,7 @@ function MyMenu() {
           <div className="detail-profile-menu border-bottom border-warning border-5">
             <ul className="list-unstyled d-flex gap-4 fs-3 fw-bold flex-wrap">
               <li>
-                <Link to={'/mymenu'} className="text-decoration-none">
+                <Link to={'/mymenu'} style={{color:'#EFC81A'}} className="text-decoration-none">
                   Recipes
                 </Link>
               </li>
@@ -188,7 +188,10 @@ function MyMenu() {
               );
             })
           ) : (
-            <div className="py-3">Data not found!</div>
+            <div style={{color:'#EFC81A'}} className='d-flex justify-content-center align-items-center flex-column my-5'>
+              <img src='/recipe.svg'/>
+              <p className='fw-bold fs-3 text-center mt-5'>You haven't posted anything yet!</p>
+            </div>
           )}
         </section>
         <div className="my-5 text-center fw-bold">

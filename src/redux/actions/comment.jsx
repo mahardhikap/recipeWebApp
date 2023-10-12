@@ -1,8 +1,5 @@
 import axios from "axios";
 let url = import.meta.env.VITE_BASE_URL
-// let headers = {
-//     Authorization : `Bearer ${localStorage.getItem("token")}`
-// }
 
 export const postComment = (id, text) => async (dispatch) => {
     try {
@@ -13,7 +10,6 @@ export const postComment = (id, text) => async (dispatch) => {
                 "Content-Type" : "application/x-www-form-urlencoded"
             }
         })
-        console.log('ini yang dipost', text)
         dispatch({payload:result.data.data, type:"POST_COMMENT_SUCCESS"})
     } catch (error) {
         console.log('error post comment', error)

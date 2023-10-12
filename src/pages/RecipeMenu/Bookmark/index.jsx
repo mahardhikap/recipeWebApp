@@ -59,7 +59,7 @@ function Bookmarked() {
                 </Link>
               </li>
               <li>
-                <Link to={'/bookmarked'} className="text-decoration-none">
+                <Link to={'/bookmarked'} style={{color:'#EFC81A'}} className="text-decoration-none">
                   Bookmarked
                 </Link>
               </li>
@@ -124,7 +124,10 @@ function Bookmarked() {
               );
             })
           ) : (
-            <div className="py-3">Data not found!</div>
+            <div style={{color:'#EFC81A'}} className='d-flex justify-content-center align-items-center flex-column my-5'>
+              <img src='/recipe.svg'/>
+              <p className='fw-bold fs-3 text-center mt-5'>You haven't bookmarked anything yet!</p>
+            </div>
           )}
         </section>
       </div>

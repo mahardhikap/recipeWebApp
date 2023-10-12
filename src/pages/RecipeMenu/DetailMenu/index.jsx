@@ -194,19 +194,19 @@ function DetailMenu() {
                         <img
                           src={comment.photo}
                           alt="comment-photo-user"
-                          className="rounded-circle"
-                          style={{ width: '40px', height:'40px', objectFit:'cover' }}
+                          className={`rounded-circle ${comment.roles === "admin" ? "border border-2 border-warning" : ""}`}
+                          style={{ width: '35px', height:'35px', objectFit:'cover' }}
                         />
                       </div>
-                      <div className="border-end border-4 border-warning pe-3">
-                        <div className="fw-bold" style={{width:'90px'}}>{comment.username}</div>
-                        {/* <div className="fw-bold">{comment.user_id} - {localStorage.getItem('id')}</div> */}
+                      <div>
+                        <div className={`fw-bold ${comment.roles === "admin" ? "text-warning" : "text-black"}`} style={{width:'90px', fontSize:'13px'}}>{comment.username}</div>
                       </div>
                     </div>
-                    <div>{comment.text}</div>
+                    <div className='d-flex justify-content-between align-items-center w-100 border-start border-4 border-warning ps-2 bg-body-tertiary'>
+                    <div style={{fontSize:'13px'}}>{comment.text}</div>
                     <div>
                       {isCurrentUserComment ? (
-                        <span onClick={() => handleDeleteComment(comment.id)} style={{ cursor: 'pointer', color: 'red' }} className='px-2 py-1 border-0 bg-danger rounded text-white d-flex justify-content-center align-items-center gap-2'>
+                        <span onClick={() => handleDeleteComment(comment.id)} style={{ cursor: 'pointer', color: 'red', fontSize:'13px' }} className='px-2 py-1 border-0 bg-danger rounded text-white d-flex justify-content-center align-items-center gap-2'>
                           <i
                             className="bi bi-trash-fill"
                           ></i>
@@ -216,12 +216,13 @@ function DetailMenu() {
                         ''
                       )}
                     </div>
+                    </div>
                   </div>
                 );
               })
             ) : (
               <div className="py-3">
-                <p className="fw-bold">No comment here!</p>
+                <p style={{color:'#EFC81A'}} className="fw-bold text-center pt-3">There are no comments here, be the first to comment!</p>
               </div>
             )}
           </div>

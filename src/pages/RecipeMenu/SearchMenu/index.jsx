@@ -288,7 +288,7 @@ function SearchMenu() {
             Dessert
           </button>
         </div>
-        {data?.rows?.map((item, index) =>{
+        {data ? data?.rows?.map((item, index) =>{
           return(
               <div className="row mt-5 align-items-center gap-3" key={index}>
                 <div className="col-sm-12 col-md-6 col-lg-4">
@@ -343,7 +343,12 @@ function SearchMenu() {
                 </div>
               </div>
           )
-        })}
+        }) : (
+          <div style={{color:'#EFC81A'}} className='d-flex justify-content-center align-items-center flex-column my-5'>
+            <img src='/recipe.svg'/>
+            <p className='fw-bold fs-3 text-center mt-5'>You haven't posted anything yet!</p>
+          </div>
+        )}
       </section>
       <div className="my-5 text-center fw-bold">
         <div>
