@@ -115,7 +115,7 @@ function DetailMenu() {
       <div>{navbarDisplay()}</div>
       <section className="container w-100">
         <div className="col-sm-12 col-md-9 col-lg-9 mx-auto">
-          <div className="d-flex align-items-center justify-content-between my-5 flex-wrap">
+          <div className="d-flex align-items-center justify-content-between my-5 flex-wrap gap-3">
             <div className="d-flex align-items-center gap-3 border-start border-warning border-4 ps-2">
               <div>
                 <img
