@@ -106,7 +106,7 @@ password: 123456
 |![Detail Menu Page](https://i.ibb.co/cJrRmD4/detailmenu.png)|![Update Profile Page](https://i.ibb.co/MRPjVXM/editprofile.png)|![Change Password Page](https://i.ibb.co/MpXMbjT/changepasswordprofile.png)|![Verification Page](https://i.ibb.co/8DWdNRH/verifaccount.png)|
 
 ## Related Project
-You can visit my github where I'm using this API for the server:
+You can visit my github link related to the project:
 - **[Recipe Mobile App](https://github.com/mahardhikap/RecipeMobileApp)**
 - **[Recipe API](https://github.com/mahardhikap/recipeApiV2)**
 
