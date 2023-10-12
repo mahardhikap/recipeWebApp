@@ -202,7 +202,7 @@ function DetailMenu() {
                         <div className={`fw-bold ${comment.roles === "admin" ? "text-warning" : "text-black"}`} style={{width:'90px', fontSize:'13px'}}>{comment.username}</div>
                       </div>
                     </div>
-                    <div className='d-flex justify-content-between align-items-center w-100 border-start border-4 border-warning ps-2 bg-body-tertiary'>
+                    <div className='d-flex justify-content-between align-items-center w-100 border-start border-4 border-warning ps-2'>
                     <div style={{fontSize:'13px'}}>{comment.text}</div>
                     <div>
                       {isCurrentUserComment ? (
