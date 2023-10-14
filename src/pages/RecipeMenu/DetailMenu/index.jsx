@@ -50,6 +50,7 @@ function DetailMenu() {
   const handlePostComment = () => {
     dispatch(postComment(id, inputComment)).then(() => {
       dispatch(getComment(id));
+      setInputComment({text:''})
     });
   };
 
