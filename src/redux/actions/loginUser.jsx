@@ -46,6 +46,14 @@ export const updateProfile = (data) => async (dispatch) => {
   }
 };
 
+export const cleanUpdateProfile = () => async (dispatch) => {
+  try {
+    dispatch({ type: 'UPDATE_PROFILE_CLEAN' });
+  } catch (err) {
+    console.log('error when clean update profile', err);
+  }
+};
+
 export const getUserByPayload = () => async (dispatch) => {
   try {
     dispatch({ type: 'USER_PAYLOAD_PENDING' });

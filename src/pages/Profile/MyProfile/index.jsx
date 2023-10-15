@@ -4,7 +4,7 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import NavbarCustom from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserByPayload, updateProfile } from '../../../redux/actions/loginUser';
+import { getUserByPayload, updateProfile, cleanUpdateProfile } from '../../../redux/actions/loginUser';
 import Swal from 'sweetalert2';
 
 function UserProfile() {
@@ -12,7 +12,7 @@ function UserProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data: userData, isError: userError } = useSelector((state) => state.getUserByPayload);
-  const {data: resultUpdate} = useSelector(state => state.updateProfile)
+  const {data: resultUpdate, isError: updateError} = useSelector(state => state.updateProfile)
   const [photo, setPhoto] = useState(null);
   const [inputData, setInputData] = useState({
     username: '',
@@ -75,14 +75,14 @@ function UserProfile() {
         localStorage.setItem('username', resultUpdate?.username);
         window.location.reload()
       })
-    } else if (userError) {
+    } else if (updateError) {
       Swal.fire(
-        'Update profile failed!',
+        'Update profile failed, check image size no more than 5 MB and must PNG/JPG!',
         '',
         'error'
-      )
+      ).then(()=>dispatch(cleanUpdateProfile()))
     }
-  },[resultUpdate, userError])
+  },[resultUpdate, updateError])
 
   return (
     <>
