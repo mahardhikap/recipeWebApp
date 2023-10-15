@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategory, postMenu } from '../../../redux/actions/menu';
+import { postMenu } from '../../../redux/actions/menu';
 import NavbarCustom from '../../../components/Navbar';
 import Swal from 'sweetalert2';
 import { getMyMenu } from '../../../redux/actions/myMenu';
 import { detailMenuReset } from '../../../redux/actions/menu';
+import { ThreeCircles } from 'react-loader-spinner';
 // let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkLnl6QllkRDZQUlpKVHRwdHVRZHVOdTlYS3Z4eVNGZ0dxak9VbTlTVng3ejdRY3RuLnM3aU8iLCJwaG90byI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2R4YW8wNmFwci9pbWFnZS91cGxvYWQvdjE2OTE1MDM5MDQvcmVjaXBlL29wd2R2ZGxub3RpbzBndHU3dzFxLmpwZyIsInJvbGVzIjoiYWRtaW4iLCJpbWdfaWQiOiJyZWNpcGUvb3B3ZHZkbG5vdGlvMGd0dTd3MXEiLCJpYXQiOjE2OTE1NTQ5MDd9.Z-FNpHBr61PK7ixlcwULOV1vv1FyU6Fm4YPBgFiEhw8`;
 
 function InputMenu() {
@@ -23,7 +24,7 @@ function InputMenu() {
     { id: 2, name: 'Main Course' },
     { id: 3, name: 'Dessert' },
   ];
-  const { data, isError } = useSelector((state) => state.postMenu);
+  const { data, isError, isLoading } = useSelector((state) => state.postMenu);
 
   const postData = async (e) => {
     e.preventDefault();
@@ -67,7 +68,7 @@ function InputMenu() {
         'Post menu failed, check size image not more than 5 MB and format should PNG/JPG!',
         '',
         'error'
-      ).then(()=> dispatch(detailMenuReset()))
+      ).then(() => dispatch(detailMenuReset()));
     }
   }, [data, isError]);
 
@@ -127,12 +128,29 @@ function InputMenu() {
                 </option>
               ))}
             </select>
-            <button
-              type="submit"
-              className="p-3 bg-warning w-100 rounded border-0 text-white my-5"
-            >
-              Submit Menu
-            </button>
+            {isLoading ? (
+              <div className="d-flex justify-content-center align-items-center my-3">
+                <ThreeCircles
+                  height="50"
+                  width="50"
+                  color="#EFC81A"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="three-circles-rotating"
+                  outerCircleColor=""
+                  innerCircleColor=""
+                  middleCircleColor=""
+                />
+              </div>
+            ) : (
+              <button
+                type="submit"
+                className="p-3 bg-warning w-100 rounded border-0 text-white my-5"
+              >
+                Submit Menu
+              </button>
+            )}
           </form>
         </div>
       </div>

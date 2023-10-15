@@ -4,15 +4,26 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import NavbarCustom from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserByPayload, updateProfile, cleanUpdateProfile } from '../../../redux/actions/loginUser';
+import {
+  getUserByPayload,
+  updateProfile,
+  cleanUpdateProfile,
+} from '../../../redux/actions/loginUser';
 import Swal from 'sweetalert2';
+import { ThreeCircles } from 'react-loader-spinner';
 
 function UserProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: userData, isError: userError } = useSelector((state) => state.getUserByPayload);
-  const {data: resultUpdate, isError: updateError} = useSelector(state => state.updateProfile)
+  const { data: userData, isError: userError } = useSelector(
+    (state) => state.getUserByPayload
+  );
+  const {
+    data: resultUpdate,
+    isError: updateError,
+    isLoading: updateLoading,
+  } = useSelector((state) => state.updateProfile);
   const [photo, setPhoto] = useState(null);
   const [inputData, setInputData] = useState({
     username: '',
@@ -28,7 +39,7 @@ function UserProfile() {
     } else if (inputData.photo) {
       formData.append('photo', inputData.photo);
     }
-    dispatch(updateProfile(formData))
+    dispatch(updateProfile(formData));
   };
 
   const onChange = (e) => {
@@ -63,26 +74,22 @@ function UserProfile() {
     }
   }, [userData]);
 
-  useEffect(()=>{
-    if(resultUpdate){
-      Swal.fire(
-        'Profile updated!',
-        '',
-        'success'
-      ).then(()=>{
+  useEffect(() => {
+    if (resultUpdate) {
+      Swal.fire('Profile updated!', '', 'success').then(() => {
         localStorage.setItem('photo', resultUpdate?.photo);
         localStorage.setItem('token', resultUpdate?.token);
         localStorage.setItem('username', resultUpdate?.username);
-        window.location.reload()
-      })
+        window.location.reload();
+      });
     } else if (updateError) {
       Swal.fire(
         'Update profile failed, check image size no more than 5 MB and must PNG/JPG!',
         '',
         'error'
-      ).then(()=>dispatch(cleanUpdateProfile()))
+      ).then(() => dispatch(cleanUpdateProfile()));
     }
-  },[resultUpdate, updateError])
+  }, [resultUpdate, updateError]);
 
   return (
     <>
@@ -111,7 +118,9 @@ function UserProfile() {
                 id="file"
               />
 
-              <label htmlFor='file' className="fw-medium btn cursor-pointer">Change Profile Picture</label>
+              <label htmlFor="file" className="fw-medium btn cursor-pointer">
+                Change Profile Picture
+              </label>
             </div>
             <label htmlFor="name" className="mt-3 fw-medium">
               Name
@@ -147,64 +156,39 @@ function UserProfile() {
               placeholder="password"
               required
             /> */}
-            <button
-              type="submit"
-              className="p-3 rounded border-0 text-white w-100 mt-5 bg-warning"
-            >
-              Update Profile
-            </button>
+            {updateLoading ? (
+              <div className="d-flex justify-content-center align-items-center my-3">
+                <ThreeCircles
+                  height="50"
+                  width="50"
+                  color="#EFC81A"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="three-circles-rotating"
+                  outerCircleColor=""
+                  innerCircleColor=""
+                  middleCircleColor=""
+                />
+              </div>
+            ) : (
+              <button
+                type="submit"
+                className="p-3 rounded border-0 text-white w-100 mt-5 bg-warning"
+              >
+                Update Profile
+              </button>
+            )}
             <p className="mt-3 fw-medium">
               Change Password?{' '}
-              <Link to={'/profile-password'}
+              <Link
+                to={'/profile-password'}
                 className="text-warning text-decoration-none"
               >
                 Click Here
               </Link>
             </p>
           </form>
-        </div>
-      </section>
-      <section id="call-modal">
-        <div
-          className="modal fade"
-          id="logoutModal"
-          tabIndex={-1}
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title text-warning" id="exampleModalLabel">
-                  You want to logout?
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                />
-              </div>
-              {/* <div class="modal-body">
-            <p>Ini adalah konten dari modal.</p>
-          </div> */}
-              <div className="modal-footer border-0">
-                <button
-                  type="button"
-                  className="btn w-100 bg-warning text-white border-0"
-                >
-                  Yes
-                </button>
-                <button
-                  type="button"
-                  className="btn bg-secondary-subtle w-100 text-white border-0"
-                  data-bs-dismiss="modal"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
       <Footer />

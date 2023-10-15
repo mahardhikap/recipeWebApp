@@ -1,18 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateMenu, getDetailMenu, updateMenuClean } from '../../../redux/actions/menu';
+import {
+  updateMenu,
+  getDetailMenu,
+  updateMenuClean,
+} from '../../../redux/actions/menu';
 import NavbarCustom from '../../../components/Navbar';
 import Swal from 'sweetalert2';
+import { ThreeCircles } from 'react-loader-spinner';
 
 function UpdateMenu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const [image, setImage] = useState(null);
-  const categories = [{ id: 1, name: 'Appetizer' }, { id: 2, name: 'Main Course' }, { id: 3, name: 'Dessert' }];
+  const categories = [
+    { id: 1, name: 'Appetizer' },
+    { id: 2, name: 'Main Course' },
+    { id: 3, name: 'Dessert' },
+  ];
   const { data } = useSelector((state) => state.getDetailMenu);
-  const { data:updateDataStatus, isError:updateDataError } = useSelector((state) => state.updateMenu);
+  const {
+    data: updateDataStatus,
+    isError: updateDataError,
+    isLoading: updateLoading,
+  } = useSelector((state) => state.updateMenu);
   const [inputData, setInputData] = useState({
     title: '',
     ingredients: '',
@@ -26,14 +39,14 @@ function UpdateMenu() {
     formData.append('title', inputData.title);
     formData.append('ingredients', inputData.ingredients);
     formData.append('category_id', inputData.category_id);
-  
+
     if (image) {
       formData.append('photo', image);
     } else if (inputData.photo) {
       formData.append('photo', inputData.photo);
     }
-    dispatch(updateMenu(formData, id))
-  }; 
+    dispatch(updateMenu(formData, id));
+  };
 
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
@@ -69,7 +82,7 @@ function UpdateMenu() {
     }
   }, [data]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (updateDataStatus) {
       Swal.fire({
         icon: 'success',
@@ -88,7 +101,7 @@ function UpdateMenu() {
         timer: 1500,
       }).then(() => dispatch(updateMenuClean()));
     }
-  },[updateDataStatus, updateDataError])
+  }, [updateDataStatus, updateDataError]);
 
   return (
     <>
@@ -146,12 +159,29 @@ function UpdateMenu() {
                 </option>
               ))}
             </select>
-            <button
-              type="submit"
-              className="p-3 bg-warning w-100 rounded border-0 text-white my-5"
-            >
-              Update Menu
-            </button>
+            {updateLoading ? (
+              <div className="d-flex justify-content-center align-items-center my-3">
+                <ThreeCircles
+                  height="50"
+                  width="50"
+                  color="#EFC81A"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="three-circles-rotating"
+                  outerCircleColor=""
+                  innerCircleColor=""
+                  middleCircleColor=""
+                />
+              </div>
+            ) : (
+              <button
+                type="submit"
+                className="p-3 bg-warning w-100 rounded border-0 text-white my-5"
+              >
+                Update Menu
+              </button>
+            )}
           </form>
         </div>
       </div>
